@@ -284,8 +284,8 @@ bool FCCountFlag = false;
 
 //EEPROM
 unsigned long previousMillis = 0;
-const unsigned long interval = 1UL*1UL*60UL*1000UL;   // Change the LED every 60 second
-
+const unsigned long interval = 1UL*60UL*60UL*1000UL;   // Change  every 60 minute
+int a;
 
 
 void setup() {
@@ -340,17 +340,17 @@ lcd.print("KRICHI=");
 
 
 void loop(){
-
+  
 
 unsigned long currentMillis = millis();
-if (currentMillis - previousMillis >= interval) {
-    previousMillis += interval;
-    EEPROM.update(5,color1Cnt);
-    int a = EEPROM.read(5);
-    color1Cnt=a;
-    }
-
-
+if (currentMillis - previousMillis >= interval) 
+ {
+  previousMillis += interval;
+  EEPROM.update(3,Color1Cnt);
+  a=EEPROM.read(3);
+  lcd.setCursor(3,0);
+  lcd.print(a);
+ }
 
 
 
@@ -432,6 +432,8 @@ if (digitalRead(fullCopDetection) == false )
    
 if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   { 
+    lcd.setCursor(2,2);
+    lcd.print("FB SENSOR ERROR");
     Serial.println("Full bobbin error occured");
     errorFC = true;
   }
