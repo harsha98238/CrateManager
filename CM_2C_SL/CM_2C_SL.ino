@@ -284,8 +284,8 @@ bool FCCountFlag = false;
 
 //EEPROM
 unsigned long previousMillis = 0;
-const unsigned long interval = 1UL*60UL*60UL*1000UL;   // Change  every 60 minute
-int a;
+const unsigned long interval = 1UL*30UL*60UL*1000UL;   // Change  every 60 minute
+int EEPROMcnt;
 
 
 void setup() {
@@ -328,7 +328,7 @@ lcd.setCursor(0,0);
 lcd.print("C1=");
 lcd.setCursor(8,0);
 lcd.print("C2=");
-lcd.setCursor(3,1);
+lcd.setCursor(0,1);
 lcd.print("KRICHI=");
 //lcd.setCursor(7,1);
 //lcd.print("FC=");
@@ -346,10 +346,10 @@ unsigned long currentMillis = millis();
 if (currentMillis - previousMillis >= interval) 
  {
   previousMillis += interval;
-  EEPROM.update(3,Color1Cnt);
-  a=EEPROM.read(3);
+  EEPROM.update(3,color1Cnt);
+  EEPROMcnt=EEPROM.read(3);
   lcd.setCursor(3,0);
-  lcd.print(a);
+  lcd.print(EEPROMcnt);
  }
 
 
@@ -387,7 +387,7 @@ if (digitalRead(beltDetection) == false and toggle1 == false )
   
 if ( (millis() - beltonDetection > (timeblock * 50)) or (millis() - beltoffDetection > (timeblock * 50)))
   {
-    lcd.setCursor(2,2);
+    lcd.setCursor(0,2);
     lcd.print("BELT ERROR");
     Serial.println("Vertical belt error occured");
     errorB = true;
@@ -432,7 +432,7 @@ if (digitalRead(fullCopDetection) == false )
    
 if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   { 
-    lcd.setCursor(2,2);
+    lcd.setCursor(0,2);
     lcd.print("FB SENSOR ERROR");
     Serial.println("Full bobbin error occured");
     errorFC = true;
@@ -539,7 +539,7 @@ if (digitalRead(obj1) == false )
    
 if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true) )
   { 
-    lcd.setCursor(3,2);
+    lcd.setCursor(0,2);
     lcd.print("OBJ1 ERROR");
     Serial.println("Object 1 sensor error occured");
     error = true;
@@ -568,7 +568,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   
   if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
     { 
-      lcd.setCursor(3,2);
+      lcd.setCursor(0,2);
       lcd.print("COLOR1 ERROR");
       Serial.println("color 1 sensor error occured");
       error = true;
@@ -594,7 +594,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
     
   if ((millis() - yarnerrtimer > (yarnerrtimerondelay * 50) and yarnerrflag1 == true) )
   { 
-    lcd.setCursor(3,2);
+    lcd.setCursor(0,2);
     lcd.print("YARN ERROR");
     Serial.println("Yarn sensor error occured");
     error = true;
@@ -1054,7 +1054,7 @@ if (digitalRead(obj2) == false)
   
 if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == true) )
   { 
-    lcd.setCursor(3,2);
+    lcd.setCursor(0,2);
     lcd.print("OBJ2 ERROR");
     Serial.println("Object2 error occured");
     errors3 = true;
@@ -1084,7 +1084,7 @@ if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == tr
   
   if ((millis() - colorerrtimer2 > (colorerrtimerondelay2 * 50) and colorerrflag12 == true) )
     { 
-      lcd.setCursor(3,2);
+      lcd.setCursor(0,2);
       lcd.print("CLR2 ERROR");
       //Serial.println("Color 2 error occured");
       errors3 = true;
@@ -1234,7 +1234,7 @@ if (C2CountFlag1 == true and C2CountFlag2 == false)
   color2Cntflag++;
   Serial.print("color 2 count=");
   Serial.println(color2Cnt);
-  lcd.setCursor(10,0);
+  lcd.setCursor(11,0);
   lcd.print(color2Cnt);
   
 }
@@ -1485,8 +1485,8 @@ if (digitalRead(pas) == false and ((error == true)or(errors3 == true)))
     objerrflag1 = false;
     objerrflag2 = false;
     objerrflag12 = false;
-    lcd.setCursor(3,2);
-    lcd.print("          ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     Serial.println("Object error reseted");    
   }
 
@@ -1504,8 +1504,8 @@ if (digitalRead(pas) == false and ((error == true)or(errors3 == true) or (errorF
     colorerrflag = false;
     colorerrflag12 = false;
     colorerrflag2 = false;
-    lcd.setCursor(3,2);
-    lcd.print("          ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     Serial.println("Color error reseted");
     }
 //yarn error reset
@@ -1519,8 +1519,8 @@ if (digitalRead(pas) == false and ((error == true)or(errors3 == true) or (errorF
     errors3flag =false;
     yarnerrflag1 = false;
     yarnerrflag = false;
-    lcd.setCursor(3,2);
-    lcd.print("          ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     Serial.println("Yarn error reseted");
   }
 
@@ -1539,8 +1539,8 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
     objerrflag1 = false;
     objerrflag2 = false;
     objerrflag12 = false;
-    lcd.setCursor(3,2);
-    lcd.print("          ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     Serial.println("belt error reseted");    
   }
   
@@ -1559,8 +1559,8 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
     objerrflag1 = false;
     objerrflag2 = false;
     objerrflag12 = false;
-    lcd.setCursor(3,2);
-    lcd.print("          ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     Serial.println("FC error reseted");    
   }
   
@@ -1575,7 +1575,7 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
 if(krichiCntFlag  ==  true)
 {
 a=  krichi1Cnt + krichi2Cnt;
-lcd.setCursor(3,1);
+lcd.setCursor(7,1);
 lcd.print(a);
 krichiCntFlag=false;
 }
