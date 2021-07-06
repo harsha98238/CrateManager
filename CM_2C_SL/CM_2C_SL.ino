@@ -239,8 +239,8 @@ unsigned long colorerrtimerondelay2=100;
 
 
 //colorcount reset
-unsigned long c1Cntreset = 5;
-unsigned long c2Cntreset = 5;
+unsigned long c1Cntreset = 4;
+unsigned long c2Cntreset = 4;
 bool krichiCntFlag = false;
 unsigned long  a=0;
 
@@ -284,8 +284,8 @@ bool FCCountFlag = false;
 
 //EEPROM
 unsigned long previousMillis = 0;
-const unsigned long interval = 1UL*30UL*60UL*1000UL;   // Change  every 30 minute
-int EEPROMcnt;
+const unsigned long interval = 1UL*1UL*60UL*1000UL;   // Change  every 1 minute
+int EEPROMcnt = 0;
 
 
 void setup() {
@@ -333,7 +333,8 @@ lcd.print("KRICHI=");
 lcd.setCursor(0,2);
 lcd.print("ERROR=");
 
-
+//EEPROM
+color1Cnt=EEPROM.read(3);
  
 }
 
@@ -347,11 +348,11 @@ if (currentMillis - previousMillis >= interval)
  {
   previousMillis += interval;
   EEPROM.update(3,color1Cnt);
-  EEPROMcnt=EEPROM.read(3);
-  lcd.setCursor(3,0);
-  lcd.print(EEPROMcnt);
+//  EEPROMcnt=EEPROM.read(3);
+//  color1Cnt=EEPROMcnt;
+//  lcd.setCursor(3,0);
+//  lcd.print(EEPROMcnt);
  }
-
 
 
 
@@ -762,7 +763,9 @@ else{
 if (C1CountFlag1 == true and C1CountFlag2 == false)
 {
   C1CountFlag2 = true;
+  //color1Cnt = EEPROMcnt;
   color1Cnt++;
+  
   color1Cntflag++;
   Serial.print("color 1 count=");
   Serial.println(color1Cnt);
@@ -1492,6 +1495,12 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
     lcd.print("                ");
 //    Serial.println("belt error reseted");    
   }
+
+//EEPROM reset
+if (digitalRead(pas) == false and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false)))  
+{
+EEPROM.update(3,0);
+}
 
 ////reset object error
 //if (digitalRead(pas) == false and ((error == true)or(errors3 == true)))
