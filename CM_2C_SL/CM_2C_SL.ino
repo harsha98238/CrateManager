@@ -1,23 +1,10 @@
-
-
-
-
-//#include "esp_system.h"
-#include <WiFi.h>
-//#include <PubSubClient.h>f
 #include <EEPROM.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 4);
 
-#if CONFIG_FREERTOS_UNICORE
-#define ARDUINO_RUNNING_CORE 0
-#else
-#define ARDUINO_RUNNING_CORE 1
-#endif
-
 //sensor input variables
-//const int button         = 0;         //gpio to use to trigger delay
+//gpio to use to trigger delay
 const int beltDetection    = 32;
 const int fullCopDetection = 33;
 const int yarn1            = 34;
@@ -43,9 +30,7 @@ const int binLock1      = 11;
 const int binLock2      = 12;
 const int binUp1        = 14; //bin down 1
 const int binUp2        = 15;  //bin down 2
-//const int alarmLightred = 36;
 const int alarmLightyellow = 16;
-//const int alarmLightgreen = 39;
 
 //ccb
 bool loaderState = false;
@@ -288,7 +273,7 @@ bool FCCountFlag = false;
 
 //EEPROM
 unsigned long previousMillis = 0;
-const unsigned long interval = 1UL*60UL*600UL*1000UL;   // Change  every 60 minute
+const unsigned long interval = 1UL*15UL*60UL*1000UL;   // Change  every 30 minute
 
 //new copstorage
 bool copstorage1loopflag = false;
@@ -297,6 +282,25 @@ bool copstorage2loopflag = false;
 //tray empty
 bool Tray1EmptyFlag = false;
 bool Tray2EmptyFlag = false;
+
+
+//2 ERROR
+bool  BeltError = false;
+bool  FullCopError  = false;
+bool  Tray1Error  = false;
+bool  Tray2Error  = false;
+
+
+//errorstray
+bool Tray1LightError=false;
+bool Tray2LightError=false;
+bool Trayerrorflag=false;
+bool Trayerroroccured=false;
+bool Trayerroroccured1=false;
+bool Trayerroroccuredoff=false;
+unsigned long Trayerrorontmr=0;
+unsigned long Trayerrorofftmr=0;
+
 
 void setup() {
   
@@ -340,8 +344,8 @@ lcd.setCursor(8,0);
 lcd.print("C2=");
 lcd.setCursor(0,1);
 lcd.print("KRICHI=");
-lcd.setCursor(0,2);
-lcd.print("ERROR=");
+//lcd.setCursor(0,2);
+//lcd.print("ERROR=");
 
 //EEPROM
 //copStorage1Count = EEPROM.read(2);
@@ -393,10 +397,6 @@ unsigned long currentMillis = millis();
 if (currentMillis - previousMillis >= interval) 
  {
   previousMillis += interval;
-//  EEPROM.update(0,color1Cnt);
-//  EEPROM.update(1,krichiCnt);
-//  EEPROM.update(2,copStorage1Count);
-
 
 int a1=color1Cnt/255;
 int b1=(color1Cnt-(a1*255));
@@ -451,8 +451,9 @@ if (digitalRead(beltDetection) == false and toggle1 == false )
   
 if ( (millis() - beltonDetection > (timeblock * 50)) or (millis() - beltoffDetection > (timeblock * 50)))
   {
-    lcd.setCursor(12,3);
-    lcd.print("BELT");
+    lcd.setCursor(8,3);
+    lcd.print("VC ERROR");
+    BeltError = true;
     Serial.println("Vertical belt error occured");
     errorB = true;
   }
@@ -497,9 +498,11 @@ if (digitalRead(fullCopDetection) == false )
 if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   { 
     lcd.setCursor(0,3);
-    lcd.print("FCOP");
+    lcd.print("FULLCOP    ERROR");
+    FullCopError  = true;
     Serial.println("Full bobbin error occured");
     errorFC = true;
+    errorB = true;
   }
 
 
@@ -603,8 +606,8 @@ if (digitalRead(obj1) == false )
    
 if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true) )
   { 
-    lcd.setCursor(6,3);
-    lcd.print("O1");
+    lcd.setCursor(13,2);
+    lcd.print("Ob");
     Serial.println("Object 1 sensor error occured");
     error = true;
    
@@ -632,8 +635,8 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   
   if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
     { 
-      lcd.setCursor(6,2);
-      lcd.print("C1");
+      lcd.setCursor(12,2);
+      lcd.print("C");
       Serial.println("color 1 sensor error occured");
       error = true;
       
@@ -658,8 +661,8 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
     
   if ((millis() - yarnerrtimer > (yarnerrtimerondelay * 50) and yarnerrflag1 == true) )
   { 
-    lcd.setCursor(12,2);
-    lcd.print("YARN");
+    lcd.setCursor(15,2);
+    lcd.print("Y");
     Serial.println("Yarn sensor error occured");
     error = true;
    
@@ -944,15 +947,21 @@ if (copStorage1Count >= 4 and copstorage1Shutterflag1 == false)
 if (digitalRead(crate1) == true and tray1check == false)
   {
     Tray1EmptyFlag = true;
+    Tray1Error = true;
+    Tray1LightError = true;
     crate1alert = millis();
     tray1check = true;
     tray1checkflag = true;
-    Serial.println("no tray");
+    lcd.setCursor(0,2);
+    lcd.print("TRAY1  EMPTY");
+    Serial.println("TRAY1  EMPTY");
   }
 
   if (digitalRead(crate1) == false )
   {
     Tray1EmptyFlag = false;
+    Tray1Error = false;
+    Tray1LightError = false;
     tray1check = false;
     tray1checkflag = false;
   }
@@ -965,6 +974,8 @@ if (digitalRead(crate1) == true and crate1alertcheck == true)
 {
   crate1error = true;
   Tray1EmptyFlag = true;
+  Tray1Error = true;
+  Tray1LightError = true;
   //error = true;
   digitalWrite(binLock1,HIGH);
   Serial.println("binlock high");
@@ -1003,6 +1014,8 @@ if (binup1inerrorok1 == true and millis() - binup1inerrortime > 4000)
       (digitalRead(crate1) == false)
       {
        Tray1EmptyFlag = false;
+       Tray1Error = false;
+       Tray1LightError = false;
        tray1check = false;
        tray1checkflag = false;
     }
@@ -1141,8 +1154,8 @@ if (digitalRead(obj2) == false)
   
 if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == true) )
   { 
-    lcd.setCursor(8,3);
-    lcd.print("O2");
+    lcd.setCursor(13,2);
+    lcd.print("Ob");
     Serial.println("Object2 error occured");
     errors3 = true;
     
@@ -1171,8 +1184,8 @@ if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == tr
   
   if ((millis() - colorerrtimer2 > (colorerrtimerondelay2 * 50) and colorerrflag12 == true) )
     { 
-      lcd.setCursor(8,2);
-      lcd.print("C2");
+      lcd.setCursor(12,2);
+      lcd.print("C");
       //Serial.println("Color 2 error occured");
       errors3 = true;
      
@@ -1426,15 +1439,21 @@ if (copStorage2Count >= 4 and copstorage2Shutterflag1 == false)
 if (digitalRead(crate2) == false and tray2check == false)
   {
     Tray2EmptyFlag = true;
+    Tray2Error = true;
+    Tray2LightError = true;
     crate2alert = millis();
     tray2check = true;
     tray2checkflag = true;
+    lcd.setCursor(0,2);
+    lcd.print("TRAY2  EMPTY");
     Serial.println("no tray2");
   }
 
   if (digitalRead(crate2) == true )
   {
     Tray2EmptyFlag = false;
+    Tray2Error = false;
+    Tray2LightError = false;
     tray2check = false;
     tray2checkflag = false;
   }
@@ -1446,6 +1465,8 @@ if (millis() - crate2alert > crate2alertondelay*50 and tray2checkflag == true)
 if (digitalRead(crate2) == false and crate2alertcheck == true)
 {
   Tray2EmptyFlag = true;
+  Tray2Error = true;
+  Tray2LightError = true;
   crate2error = true;
   //errors3 = true;
   digitalWrite(binLock2,HIGH);
@@ -1484,6 +1505,8 @@ if (binup2inerrorok1 == true and millis() - binup2inerrortime > 4000)
     if(digitalRead(crate2) == true)
       {
        Tray2EmptyFlag = false;
+       Tray2Error = false;
+       Tray2LightError = false;
        tray2check = false;
        tray2checkflag = false;
     }
@@ -1573,8 +1596,15 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
 /*error reset*/
 /*error reset*/
 // VC error resetting
-if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true)))
+if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray1LightError == true)))
   { 
+    
+    BeltError = false;
+    FullCopError = false;
+    Tray1Error  = false;
+    Tray2Error  = false;
+    Tray1LightError = false;
+    Tray2LightError = false;
     error = false;
     errors3 = false;
     errorB = false;
@@ -1586,15 +1616,15 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
     objerrflag1 = false;
     objerrflag2 = false;
     objerrflag12 = false;
-    lcd.setCursor(6,2);
-    lcd.print("           ");
+    lcd.setCursor(0,2);
+    lcd.print("                ");
     lcd.setCursor(0,3);
     lcd.print("                ");
 //    Serial.println("belt error reseted");    
   }
 
 //EEPROM reset
-if (digitalRead(pas) == false and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false)))  
+if (digitalRead(pas) == false and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false) or (Tray1LightError == true) or (Tray1LightError == true)))  
 {
 EEPROM.update(0,0);
 EEPROM.update(1,0);
@@ -1715,6 +1745,50 @@ lcd.setCursor(7,1);
 lcd.print(krichiCnt);
 krichiCntFlag=false;
 }
+
+//2 ERROR LCD PRINT
+if((BeltError  ==  true) and  (FullCopError == true))
+{
+  lcd.setCursor(0,3);
+  lcd.print("FULLCOP&VC ERROR");
+}
+
+if((Tray1Error  ==  true) and  (Tray2Error == true))
+{
+  lcd.setCursor(0,2);
+  lcd.print("TRAY1&2EMPTY");
+}
+
+/*Tray  error */
+if ((Tray1LightError == true or Tray2LightError == true) and Trayerrorflag == false)
+  {
+    
+    Trayerroroccured = true;
+    Trayerrorflag = true;
+  }
+ 
+  
+if ((Tray1LightError == true or Tray2LightError == true) and Trayerroroccured == true)
+  {
+    Trayerrorontmr = millis();
+    Trayerroroccured = false;
+    Trayerroroccured1 = true;
+    
+  }
+
+if (millis() - Trayerrorontmr > 100 and Trayerroroccured1 == true)
+  {
+    digitalWrite(alarmLightyellow,HIGH);
+    Trayerrorofftmr = millis();
+    Trayerroroccuredoff = true;
+    Trayerroroccured1 = false;
+  }
+if (millis() - Trayerrorofftmr > 100 and Trayerroroccuredoff == true)
+  {
+    digitalWrite(alarmLightyellow,LOW);
+    Trayerroroccuredoff = false;
+    Trayerrorflag = false;
+  }
 
 
 
