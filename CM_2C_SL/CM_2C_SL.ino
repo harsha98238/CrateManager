@@ -2,6 +2,22 @@
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 16, 4);
+#include <Keypad.h>
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //four columns
+//define the symbols on the buttons of the keypads
+char hexaKeys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+byte rowPins[ROWS] = {2, 4, 6, 8}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {10, 12, 14, 16}; //connect to the column pinouts of the keypad
+ 
+//initialize an instance of class NewKeypad
+Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+
 
 //sensor input variables
 //gpio to use to trigger delay
@@ -291,7 +307,7 @@ bool  Tray1Error  = false;
 bool  Tray2Error  = false;
 
 
-//errorstray
+//errors  tray
 bool Tray1LightError=false;
 bool Tray2LightError=false;
 bool Trayerrorflag=false;
@@ -301,6 +317,9 @@ bool Trayerroroccuredoff=false;
 unsigned long Trayerrorontmr=0;
 unsigned long Trayerrorofftmr=0;
 
+
+//keypad
+bool ResetSwitch = false;
 
 void setup() {
   
@@ -1596,9 +1615,9 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
 /*error reset*/
 /*error reset*/
 // VC error resetting
-if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray1LightError == true)))
+if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray1LightError == true)))
   { 
-    
+    ResetSwitch = false;
     BeltError = false;
     FullCopError = false;
     Tray1Error  = false;
@@ -1624,7 +1643,7 @@ if (digitalRead(pas) == false and ((error == true) or (errorB == true) or (error
   }
 
 //EEPROM reset
-if (digitalRead(pas) == false and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false) or (Tray1LightError == true) or (Tray1LightError == true)))  
+if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false) or (Tray1LightError == true) or (Tray1LightError == true)))  
 {
 EEPROM.update(0,0);
 EEPROM.update(1,0);
@@ -1634,6 +1653,7 @@ EEPROM.update(4,0);
 EEPROM.update(5,0);
 EEPROM.update(6,0);
 EEPROM.update(7,0);
+ResetSwitch = false;
 }
 
 ////reset object error
@@ -1789,6 +1809,18 @@ if (millis() - Trayerrorofftmr > 100 and Trayerroroccuredoff == true)
     Trayerroroccuredoff = false;
     Trayerrorflag = false;
   }
+
+//keypad
+char customKey = customKeypad.getKey();
+if (customKey=='A')
+{
+    ResetSwitch = true;
+    Serial.println(customKey);
+  }
+else
+{
+  ResetSwitch = false;
+}
 
 
 
