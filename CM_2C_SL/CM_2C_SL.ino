@@ -12,8 +12,8 @@ char hexaKeys[ROWS][COLS] = {
   {'7','8','9','C'},
   {'*','0','#','D'}
 };
-byte rowPins[ROWS] = {2, 4, 6, 8}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {10, 12, 14, 16}; //connect to the column pinouts of the keypad
+byte rowPins[ROWS] = {41, 42, 43, 44}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {45, 46, 47, 48}; //connect to the column pinouts of the keypad
  
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
@@ -30,7 +30,7 @@ const int color2           = 37;
 const int obj2             = 38;
 const int crate1           = 39;
 const int crate2           = 40;
-const int pas              = 41;
+//const int pas              = 41;
 
 //output variable
 const int vcMotor       = 2;
@@ -244,8 +244,8 @@ unsigned long colorerrtimerondelay2=100;
 
 
 //colorcount reset
-unsigned long c1Cntreset = 4;
-//unsigned long c2Cntreset = 4;
+unsigned long c1Cntreset = 40;
+//unsigned long c2Cntreset = 40;
 bool krichiCntFlag = false;
 unsigned long  krichiCnt;
 
@@ -289,7 +289,7 @@ bool FCCountFlag = false;
 
 //EEPROM
 unsigned long previousMillis = 0;
-const unsigned long interval = 1UL*15UL*60UL*1000UL;   // Change  every 30 minute
+const unsigned long interval = 1UL*60UL*60UL*1000UL;   // Change  every 30 minute
 
 //new copstorage
 bool copstorage1loopflag = false;
@@ -321,6 +321,13 @@ unsigned long Trayerrorofftmr=0;
 //keypad
 bool ResetSwitch = false;
 
+//SCROLL TEST
+unsigned long previousLCDMillis = 0; 
+const long LCDinterval = 500; 
+
+
+
+
 void setup() {
   
   Serial.begin(9600);//bits per second
@@ -337,7 +344,7 @@ void setup() {
   pinMode(yarn1, INPUT);
   pinMode(crate1, INPUT);
   pinMode(crate2, INPUT);
-  pinMode(pas, INPUT);
+//pinMode(pas, INPUT);
 
   pinMode(ccb,OUTPUT);
   pinMode(vcMotor,OUTPUT);
@@ -966,13 +973,12 @@ if (copStorage1Count >= 4 and copstorage1Shutterflag1 == false)
 if (digitalRead(crate1) == true and tray1check == false)
   {
     Tray1EmptyFlag = true;
-    Tray1Error = true;
-    Tray1LightError = true;
+//    Tray1Error = true;
+//    Tray1LightError = true;
     crate1alert = millis();
     tray1check = true;
     tray1checkflag = true;
-    lcd.setCursor(0,2);
-    lcd.print("TRAY1  EMPTY");
+   
     Serial.println("TRAY1  EMPTY");
   }
 
@@ -987,6 +993,8 @@ if (digitalRead(crate1) == true and tray1check == false)
 if (millis() - crate1alert > crate1alertondelay*50 and tray1checkflag == true)//50
 {
   crate1alertcheck = true;
+  lcd.setCursor(0,2);
+  lcd.print("TRAY1  EMPTY");
   Serial.println("tray alert");
 }
 if (digitalRead(crate1) == true and crate1alertcheck == true)
@@ -1455,20 +1463,19 @@ if (copStorage2Count >= 4 and copstorage2Shutterflag1 == false)
 
    /**************************************************crate 2 error check********************************************/
 
-if (digitalRead(crate2) == false and tray2check == false)
+if (digitalRead(crate2) == true and tray2check == false)
   {
     Tray2EmptyFlag = true;
-    Tray2Error = true;
-    Tray2LightError = true;
+//    Tray2Error = true;
+//    Tray2LightError = true;
     crate2alert = millis();
     tray2check = true;
     tray2checkflag = true;
-    lcd.setCursor(0,2);
-    lcd.print("TRAY2  EMPTY");
+    
     Serial.println("no tray2");
   }
 
-  if (digitalRead(crate2) == true )
+  if (digitalRead(crate2) == false )
   {
     Tray2EmptyFlag = false;
     Tray2Error = false;
@@ -1479,9 +1486,11 @@ if (digitalRead(crate2) == false and tray2check == false)
 if (millis() - crate2alert > crate2alertondelay*50 and tray2checkflag == true)
 {
   crate2alertcheck = true;
+  lcd.setCursor(0,2);
+  lcd.print("TRAY2  EMPTY");
   Serial.println("tray2 alert");
 }
-if (digitalRead(crate2) == false and crate2alertcheck == true)
+if (digitalRead(crate2) == true and crate2alertcheck == true)
 {
   Tray2EmptyFlag = true;
   Tray2Error = true;
@@ -1492,7 +1501,7 @@ if (digitalRead(crate2) == false and crate2alertcheck == true)
   Serial.println("binlock 2 high");
 }
 
-if (crate2error == true and digitalRead(crate2) == true) 
+if (crate2error == true and digitalRead(crate2) == false) 
 {
   digitalWrite(binUp2,HIGH);
   binup2inerrortime = millis();
@@ -1521,7 +1530,7 @@ if (binup2inerrorok1 == true and millis() - binup2inerrortime > 4000)
       
     binup2inerrorok2 = false;
     //Serial.println("binlock 2low"); 
-    if(digitalRead(crate2) == true)
+    if(digitalRead(crate2) == false)
       {
        Tray2EmptyFlag = false;
        Tray2Error = false;
@@ -1536,7 +1545,7 @@ if (binup2inerrorok1 == true and millis() - binup2inerrortime > 4000)
 
 /*************************************************Crate2Ejection********************************************/
 
-if( copStorage2Count >= 4 and crate2error == false and digitalRead(crate2) == true /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/)
+if( copStorage2Count >= 4 and crate2error == false and digitalRead(crate2) == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/)
 {
   copStorage2Countflag = copStorage2Count;
 }
@@ -1569,7 +1578,7 @@ if( millis() - timer2CrateEjection2 > (crate2RemoveOndelay * 50) and flag3CrateE
 
 /*****************************************************Crate2Replacement************************************************************/
 if( flag3CrateEjection2 == true and millis() - timer2CrateEjection2 > 1700 and crate2ProcessFlag == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/){
-  if( digitalRead(crate2) == true){
+  if( digitalRead(crate2) == false){
   //  errors3 = true;
    // errorCode="crateBlock";
     crate2ProcessFlag =true;
@@ -1599,7 +1608,7 @@ if(millis() - timer1binUp2 > 2000 and flag1binUp2 == true){
   
 }
 if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
- if( digitalRead(crate2) == false){
+ if( digitalRead(crate2) == true){
  //   errorCode="NoCrate";
   }
 
@@ -1615,7 +1624,7 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
 /*error reset*/
 /*error reset*/
 // VC error resetting
-if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray1LightError == true)))
+if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true)))
   { 
     ResetSwitch = false;
     BeltError = false;
@@ -1643,7 +1652,7 @@ if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == true) or (er
   }
 
 //EEPROM reset
-if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false) or (Tray1LightError == true) or (Tray1LightError == true)))  
+if (/*digitalRead(pas) == false*/ResetSwitch == true and ((error == false) or (errorB == false) or (errors3 = false) or (errorFC == false) or (Tray1LightError == false) or (Tray2LightError == false)))  
 {
 EEPROM.update(0,0);
 EEPROM.update(1,0);
@@ -1767,6 +1776,28 @@ krichiCntFlag=false;
 }
 
 //2 ERROR LCD PRINT
+
+
+
+
+
+//
+//if((BeltError  ==  true) and  (FullCopError == true))
+//{
+//lcd.setCursor(15,3); // set the cursor to column 0, line 3
+//for ( int positionCounter1 = 0; positionCounter1 < 19; positionCounter1++)
+//{
+//  unsigned long currentLCDMillis = millis();
+//  if (currentLCDMillis - previousLCDMillis >= LCDinterval) {
+//      previousLCDMillis = currentLCDMillis;
+//      lcd.scrollDisplayLeft();  //Scrolls the contents of the display one space to the left.
+//      lcd.print("FULL COP & VC ERROR");  // Print 12 character array
+//    
+//}
+//}
+//}
+
+//
 if((BeltError  ==  true) and  (FullCopError == true))
 {
   lcd.setCursor(0,3);
@@ -1822,6 +1853,19 @@ else
   ResetSwitch = false;
 }
 
+//eeprom reset logic 2
+
+if (customKey=='B')
+{
+EEPROM.update(0,0);
+EEPROM.update(1,0);
+EEPROM.update(2,0);
+EEPROM.update(3,0);
+EEPROM.update(4,0);
+EEPROM.update(5,0);
+EEPROM.update(6,0);
+EEPROM.update(7,0);
+  }
 
 
 
