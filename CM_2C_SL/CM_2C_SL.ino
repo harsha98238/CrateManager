@@ -1253,7 +1253,8 @@ if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == tr
     color2identified = false;
   }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
+ // if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
+  if (Object2flag1 == true and digitalRead(obj2) == false  and yarn2flag == false)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
