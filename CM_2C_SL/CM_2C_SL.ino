@@ -55,6 +55,7 @@ unsigned long timerccb = 0;
 /*shutter1*/
 //1 yarn
 unsigned long yarn2simulatorPreviousPulse = 0;
+
 //to adjust yarn2 pulse delay
 int yarn2pulsedelay = 16;
 bool yarn2simulatorflag = false;
@@ -65,6 +66,8 @@ int yarn2indexcurrent = 0;
 int yarn2simTrainarray[100] ;
 unsigned long timeryarn1 = 0;
 bool yarn1detected = false;
+
+
 //color1
 bool color1flag = false;
 bool s2on = false;
@@ -331,18 +334,51 @@ unsigned long Trayerrorofftmr=0;
 
 //keypad
 bool ResetSwitch = false;
+bool ErrorCycle = false; 
 
-//SCROLL TEST
-unsigned long previousLCDMillis = 0; 
-const long LCDinterval = 500; 
+
+/*init*/
+unsigned long InitCopStorageTimer = 0;
+const int InitCopStorageOnDelay = 20 ;
+bool InitCopStorageFlag = false;
+
+
+unsigned long InitCopStorageTimer2 = 0;
+const int InitCopStorageOffDelay = 20 ;
+bool  InitCopStorageFlag2 = false;
+
+
+unsigned long InitCrateEjectionTimer1 = 0;
+bool InitCrateEjectionFlag1 = false;
+
+bool InitCrateReplacementFlag = false;
+
+unsigned long InitCrateEjectionTimer2 = 0;
+const int InitCrateRemoveOnDelay = 40 ;
+bool  InitCrateEjectionFlag2 = false;
+
+bool InitCrateProcessFlag = false;
+bool InitCrateComplete = false;
+bool InitBinUpFlag1 = false;
+unsigned long InitTimer1BinUp1 = 0;
+
+//new
+bool Initializationflag = true;
 
 
 
 void setup() {
   
   Serial.begin(9600);//bits per second
+
+  Serial.println("setup started");
   // initialize the LCD
   lcd.init(); 
+
+  
+  Serial.println("setup completed");
+//  while(1);
+  
   // Turn on the blacklight and print a message.
   lcd.backlight();
   pinMode(beltDetection, INPUT);
@@ -426,12 +462,117 @@ lcd.print(krichiCnt);
 //multiple error
 timer = millis();
 
+//Serial.println("setup completed");
+
 }
 
 
 
 void loop(){ 
 
+//Serial.println("in loop");
+/*int*/
+
+  if (/*millis() - InitCopStorageTimer > InitCopStorageOnDelay*50 and*/ Initializationflag = true and InitCopStorageFlag == false )
+{
+  digitalWrite(copStorage1,HIGH); 
+  digitalWrite(copStorage2,HIGH);
+  InitCopStorageFlag = true;
+   
+  InitCopStorageTimer2 = millis();
+  InitCopStorageFlag2 = true;
+
+  Serial.println("cop storage  high at setup");
+}
+  if( millis() - InitCopStorageTimer2 > InitCopStorageOffDelay*50 and InitCopStorageFlag2 ==  true)
+{
+  digitalWrite(copStorage1,LOW);
+  digitalWrite(copStorage2,LOW);
+  InitCopStorageFlag2 = false;
+  
+  InitCrateEjectionTimer1 = millis();  
+  InitCrateEjectionFlag1 = true;
+
+  Serial.println("cop storage  low at setup");
+}
+
+
+
+
+/*************************************************CrateEjection********************************************/
+
+
+
+  if  (millis() - InitCrateEjectionTimer1 > 2000 and InitCrateEjectionFlag1 == true)
+{
+  digitalWrite(crateEjector1,HIGH);
+  digitalWrite(crateEjector2,HIGH);
+  InitCrateEjectionFlag1 = false;
+    
+  InitCrateEjectionTimer2 = millis();
+  InitCrateEjectionFlag2 = true;
+
+  Serial.println("crate eject high at setup");
+
+}
+
+  if( millis() - InitCrateEjectionTimer2 > (InitCrateRemoveOnDelay * 50) and InitCrateEjectionFlag2 == true)
+{
+  digitalWrite(crateEjector1,LOW);
+  digitalWrite(crateEjector2,LOW);
+  InitCrateEjectionFlag2 = false;
+
+
+  InitCrateReplacementFlag = true;
+
+  InitCrateComplete = true;
+}
+
+/*****************************************************CrateReplacement************************************************************/
+  if( InitCrateReplacementFlag == true and millis() - InitCrateEjectionTimer2 > 1700 and InitCrateProcessFlag == false)
+{
+  if( digitalRead(crate1) == false)
+  {
+    InitCrateProcessFlag =true;
+  }
+}
+
+  if( InitCrateComplete == true  and InitCrateProcessFlag == false and InitBinUpFlag1 ==false)
+{
+  digitalWrite(binUp1,HIGH);
+  digitalWrite(binUp2,HIGH);
+  InitTimer1BinUp1 = millis();
+  InitBinUpFlag1 = true;
+}
+
+  if(millis() - InitTimer1BinUp1 > 1000  and InitBinUpFlag1 == true)
+{
+   digitalWrite(binLock1,HIGH);
+   digitalWrite(binLock2,HIGH);
+
+}
+
+  if(millis() - InitTimer1BinUp1 > 2400 and InitBinUpFlag1 == true)
+{
+  digitalWrite(binLock1,LOW);
+  digitalWrite(binLock2,LOW);
+ 
+}
+  if(millis() - InitTimer1BinUp1 > 2000 and InitBinUpFlag1 == true)
+{
+  digitalWrite(binUp1,LOW);
+  digitalWrite(binUp2,LOW);  
+}
+  if(millis() - InitTimer1BinUp1 > 4000 and InitBinUpFlag1 == true)
+{
+  InitCrateReplacementFlag = false;
+  InitCrateComplete =false;
+  InitCrateProcessFlag =false;
+  InitBinUpFlag1 = false;
+  Initializationflag = false;
+  
+
+}
 
 unsigned long currentMillis = millis();
 if (currentMillis - previousMillis >= interval) 
@@ -464,19 +605,23 @@ EEPROM.update(7,w1);
 
 
 //multiple error
+if (ErrorCycle == true)
+{
   if((millis()-timer) > timerInterval)
   {
     printErrorStatus = printError();
     timer = millis();
     if(printErrorStatus == true){
-      timerInterval = 1000;
+     timerInterval = 1000;
     }
-    else{
+    else
+    {
+      ErrorCycle = false;
       timerInterval = 0;
     }
     
   }
-
+}
 
   
     //Cop Collecting Box
@@ -525,7 +670,7 @@ if (errorB == true and errorflag == false)
   
 if (errorB == true and errorBoccured == true)
   {
-    digitalWrite(alarmLightyellow,HIGH);
+    //digitalWrite(alarmLightyellow,HIGH);
     //errorBontmr = millis();
     errorBoccured = false;
     //errorBoccured1 = true;
@@ -631,14 +776,14 @@ if (error == true and erroroccured == true)
 
 if (millis() - errorontmr > 1000 and erroroccured1 == true)
   {
-    digitalWrite(alarmLightyellow,HIGH);
+    //digitalWrite(alarmLightyellow,HIGH);
     errorofftmr = millis();
     erroroccuredoff = true;
     erroroccured1 = false;
   }
 if (millis() - errorofftmr > 1000 and erroroccuredoff == true)
   {
-    digitalWrite(alarmLightyellow,LOW);
+    //digitalWrite(alarmLightyellow,LOW);
     erroroccuredoff = false;
   errorflag = false;
   }
@@ -944,7 +1089,7 @@ if((color1Cnt>0) and ((color1Cnt %  c1Cntreset) ==  0 ) and flag1CopStorage1 == 
   
 }
 
-if (millis() - timer1CopStorage1 > copStorage1Ondelay*50  and copstorage1highflag == true)//50
+if (millis() - timer1CopStorage1 > copStorage1Ondelay*50  and copstorage1highflag == true  and Initializationflag == false)//50
 {
   digitalWrite(copStorage1,HIGH); 
   
@@ -954,7 +1099,7 @@ if (millis() - timer1CopStorage1 > copStorage1Ondelay*50  and copstorage1highfla
   copstorage1highflag = false;
   copstorage1lowflag = true;
 }
-if( millis() - timer2CopStorage1 > copStorage1Offdelay*50 and copstorage1lowflag==true) //50
+if( millis() - timer2CopStorage1 > copStorage1Offdelay*50 and copstorage1lowflag==true   and Initializationflag == false) //50
 {
      digitalWrite(copStorage1,LOW);
      copstorage1Shutterflag1 = false;
@@ -1002,7 +1147,7 @@ if (copStorage1Count >= 4 and copstorage1Shutterflag1 == false)
 
    /**************************************************crate error check********************************************/
 
-if (digitalRead(crate1) == true and tray1check == false)
+if (digitalRead(crate1) == true and tray1check == false  and Initializationflag == false)
   {
     Tray1EmptyFlag = true;
 //    Tray1Error = true;
@@ -1086,7 +1231,7 @@ if (binup1inerrorok1 == true and millis() - binup1inerrortime > 4000)
 
 /*************************************************CrateEjection********************************************/
 
-if( copStorage1Count >= 4 and crate1error == false and digitalRead(crate1) == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/)
+if( copStorage1Count >= 4 and crate1error == false and digitalRead(crate1) == false   and Initializationflag == false)
 {
   copStorage1Countflag = copStorage1Count;
 }
@@ -1117,7 +1262,7 @@ if( millis() - timer2CrateEjection1 > (crate1RemoveOndelay * 50) and flag3CrateE
   }
 
 /*****************************************************CrateReplacement************************************************************/
-if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 1700 and crate1ProcessFlag == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/){
+if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 1700 and crate1ProcessFlag == false   and Initializationflag == false){
   if( digitalRead(crate1) == false){
   //  error = true;
    // errorCode="crateBlock";
@@ -1183,14 +1328,14 @@ if (errors3 == true and errors3occured == true)
 
 if (millis() - errors3ontmr > 1000 and errors3occured1 == true)
   {
-    digitalWrite(alarmLightyellow,HIGH);
+    //digitalWrite(alarmLightyellow,HIGH);
     errors3offtmr = millis();
     errors3occuredoff = true;
     errors3occured1 = false;
   }
 if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
   {
-    digitalWrite(alarmLightyellow,LOW);
+    //digitalWrite(alarmLightyellow,LOW);
     errors3occuredoff = false;
   errorflag = false;
 
@@ -1285,8 +1430,8 @@ if ((millis() - objerrtimer2 > (objerrtimerondelay2 * 50) and objerrflag12 == tr
     color2identified = false;
   }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
-//  if (Object2flag1 == true and digitalRead(obj2) == false  and yarn2flag == false)
+ if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
+//if (Object2flag1 == true and digitalRead(obj2) == false  and yarn2flag == false)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -1627,14 +1772,21 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
 /*shutter2 end*/
 
 /*error reset*/
-// VC error resetting
+//  error resetting
 if (ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true)))
   { 
     ResetSwitch = false;
     BeltError = false;
-    FullCopError = false;
+    FullCopError  = false;
     Tray1Error  = false;
     Tray2Error  = false;
+
+    Color1ErrorOccuredFlag = false;
+    Object1ErrorOccuredFlag = false;
+    YarnErrorOccuredFlag = false;
+    Color2ErrorOccuredFlag = false;
+    Object2ErrorOccuredFlag = false;
+
     
     Tray1LightError = false;
     Tray2LightError = false;
@@ -1689,14 +1841,14 @@ if ((Tray1LightError == true or Tray2LightError == true) and Trayerroroccured ==
 
 if (millis() - Trayerrorontmr > 100 and Trayerroroccured1 == true)
   {
-    digitalWrite(alarmLightyellow,HIGH);
+    //digitalWrite(alarmLightyellow,HIGH);
     Trayerrorofftmr = millis();
     Trayerroroccuredoff = true;
     Trayerroroccured1 = false;
   }
 if (millis() - Trayerrorofftmr > 100 and Trayerroroccuredoff == true)
   {
-    digitalWrite(alarmLightyellow,LOW);
+    //digitalWrite(alarmLightyellow,LOW);
     Trayerroroccuredoff = false;
     Trayerrorflag = false;
   }
@@ -1709,10 +1861,12 @@ char customKey = customKeypad.getKey();
 if (customKey=='D')
 {
     ResetSwitch = true;
+    ErrorCycle = false;
     Serial.println(customKey);
   }
 else
 {
+  ErrorCycle = true;
   ResetSwitch = false;
 }
 
@@ -1756,6 +1910,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("BELT    ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1769,7 +1924,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
   }
   else
   {
@@ -1783,6 +1939,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("FULLCOP ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
      return true;
   }
   else
@@ -1796,7 +1953,8 @@ bool printError( )
  {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
   }
   else
   {
@@ -1810,7 +1968,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("TRAY1   ERROR");
-      return true;
+     digitalWrite(alarmLightyellow,HIGH);
+     return true;
   }
   else
   {
@@ -1824,7 +1983,8 @@ bool printError( )
    
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
   }
   else
   {
@@ -1839,6 +1999,7 @@ bool printError( )
    
     lcd.setCursor(0,3);
     lcd.print("TRAY2   ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1853,7 +2014,8 @@ bool printError( )
    
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
   }
   else
   {
@@ -1867,6 +2029,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("COLOR1  ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1880,7 +2043,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
   }
   else
   {
@@ -1893,6 +2057,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("OBJECT1 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1906,7 +2071,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
   }
   else
   {
@@ -1919,6 +2085,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("YARN    ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1932,7 +2099,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
   }
   else
   {
@@ -1945,7 +2113,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("COLOR2  ERROR");
-    return true;
+   digitalWrite(alarmLightyellow,HIGH);
+     return true;
   }
   else
   {
@@ -1958,7 +2127,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
   }
   else
   {
@@ -1973,6 +2143,7 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("OBJECT2 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
   else
@@ -1986,7 +2157,8 @@ bool printError( )
   {
     lcd.setCursor(0,3);
     lcd.print("                ");
-     return true;
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
   }
   else
   {
@@ -2002,6 +2174,7 @@ bool printError( )
   default:
   lcd.setCursor(0,3);
   lcd.print("                ");
+  digitalWrite(alarmLightyellow,LOW);
   return false;
   
  }
