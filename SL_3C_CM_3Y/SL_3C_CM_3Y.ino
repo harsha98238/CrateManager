@@ -1596,13 +1596,13 @@ if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == tr
 
   if(digitalRead(obj2) == true  and Object2flag1 == false)
   {
-    Object2Detected = true;//only used inside loop
+    Object2Detected = true;//only used inside loo
     Object2flag1 = true;
     Shutter3OnReady = false;
     Serial.println("Object2 identified");
     yarn2flag = false;
     color2flag = false;
-    color2identified = false;
+  //  color2identified = false;
   }
 //TO TRIGGER SHUTTER3 for color2COP
   if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
