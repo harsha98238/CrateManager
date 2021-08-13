@@ -275,7 +275,6 @@ unsigned long yarn2errtimerondelay=100;
 
 //colorcount reset
 unsigned long c1Cntreset = 40;
-//unsigned long c2Cntreset = 40;
 bool krichiCntFlag = false;
 unsigned long  krichiCnt;
 
@@ -2556,6 +2555,7 @@ if (ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = t
     lcd.print("                    ");
     lcd.setCursor(0,3);
     lcd.print("                    ");
+    Serial.println("Error reset at loop");
 }
 
 /*error reset ends*/
@@ -2748,7 +2748,7 @@ bool printError()
   if(BeltError == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("BELT    ERROR");
+    lcd.print("BELT ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -2806,7 +2806,7 @@ bool printError()
   if(Tray1Error == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("TRAY1   ERROR");
+    lcd.print("TRAY1 ERROR");
     digitalWrite(alarmLightyellow,HIGH);
       return true;
   }
@@ -2837,7 +2837,7 @@ bool printError()
   {
    
     lcd.setCursor(0,3);
-    lcd.print("TRAY2   ERROR");
+    lcd.print("TRAY2 ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -2867,7 +2867,7 @@ bool printError()
   if(Color1ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("COLOR1  ERROR");
+    lcd.print("COLOR1 ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -2923,7 +2923,7 @@ bool printError()
   if(YarnErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("YARN    ERROR");
+    lcd.print("YARN1  ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -2951,7 +2951,7 @@ bool printError()
   if(Color2ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("COLOR2  ERROR");
+    lcd.print("COLOR2 ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -3016,7 +3016,7 @@ case 18:
   {
    
     lcd.setCursor(0,3);
-    lcd.print("TRAY3   ERROR");
+    lcd.print("TRAY3 ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -3137,7 +3137,7 @@ case 18:
   if(Yarn3ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
-    lcd.print("YARN3 ERROR");
+    lcd.print("YARN3  ERROR");
     digitalWrite(alarmLightyellow,HIGH);
     return true;
   }
@@ -3196,12 +3196,12 @@ if (customKey=='D')
     ErrorCycle = false;
     Serial.println("Error Reset");
   }
-if((ResetSwitch == true) or (ErrorCycle == false))
-{
-  Serial.print("error cleared");
-  ErrorCycle = true;
-  ResetSwitch = false;
-}
+//if((ResetSwitch == true) or (ErrorCycle == false))
+//{
+//  Serial.print("error cleared");
+//  ErrorCycle = true;
+//  ResetSwitch = false;
+//}
 
 if (customKey=='B' /*and (InsideMenuFlag == true)*/)
 {
@@ -3337,7 +3337,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   BobbinMixupflag = true;
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("bobbin mix on");
+  lcd.print("BOBBIN MIX ON");
   InsideMenuFlag = false;
   InsideOption2Flag = false;
 }
@@ -3347,7 +3347,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   BobbinMixupflag = false;
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("bobbin mix off");
+  lcd.print("BOBBIN MIX OFF");
   InsideMenuFlag = false;
   InsideOption2Flag = false;
 }
