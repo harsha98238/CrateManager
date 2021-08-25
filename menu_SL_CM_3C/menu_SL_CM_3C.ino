@@ -526,16 +526,17 @@ int RecoverdKrichi3Count  = 0;
 /*shutter 3 declaration*/
 
 /*menu*/
+bool InsideClearFlag = false;
 bool InsideMenuFlag = false;
 bool InsideOption1Flag = false;
 bool InsideOption2Flag = false;
 bool InsideOption3Flag = false;
-bool Flag140 = false;
-bool Flag160 = true;
-bool Flag180 = false;
-bool Flag200 = false;
-bool BobbinMixupflag = false;
-bool ColorSensorOption = false;
+bool Flag140 ;
+bool Flag160 ;
+bool Flag180 ;
+bool Flag200 ;
+bool BobbinMixupflag ;
+bool ColorSensorOption ;
 
 char customKey;
 bool KeyPressFlag = false;
@@ -558,6 +559,11 @@ int Color2indexpresent = 0;
 int Color2simTrainarray[100] ;
 bool Color2detected = false;
 int Color2PresentOutput = 0;
+
+/*to store previous values */
+int PreviousBinSize;
+int PreviousBobbinMix;
+int PreviousSensorOption;
 
 void setup() {
   
@@ -677,6 +683,50 @@ void setup() {
   //multiple error
   timer = millis();
 
+/*previous menu value**/
+
+PreviousBinSize       = EEPROM.read(18);  
+PreviousBobbinMix     = EEPROM.read(19);  
+PreviousSensorOption  = EEPROM.read(20);  
+
+if (PreviousBinSize == 0)
+{
+  Flag140 = true;
+  }
+if (PreviousBinSize == 1)
+{
+  Flag160 = true;
+  }
+if (PreviousBinSize == 2)
+{
+  Flag180 = true;
+  }
+if (PreviousBinSize == 3)
+{
+  Flag200 = true;
+  }
+
+
+if (PreviousBobbinMix == 0)
+{
+  BobbinMixupflag = false;
+  }
+if (PreviousBobbinMix == 1)
+{
+  BobbinMixupflag = true;
+  }
+
+
+if (PreviousSensorOption == 0)
+{
+  ColorSensorOption = false;
+  }
+if (PreviousSensorOption == 1)
+{
+  ColorSensorOption = true;
+  }
+  
+
 }
 
 
@@ -791,7 +841,6 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   
 
 }
-
 
 
 /*bin size*/
@@ -3214,12 +3263,23 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   InsideOption2Flag = false;
   InsideOption3Flag = false;
   
-  
+  InsideClearFlag = false;
 
   }
+if ((InsideClearFlag == false) and (customKey=='C')and (InsideMenuFlag == false)  and (InsideOption1Flag == false) and  (InsideOption2Flag == false)and (InsideOption3Flag == false) )
+{
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("CLEAR COUNT?");
+  lcd.setCursor(0,1);
+  lcd.print("PRESS 1 TO CLEAR");
+  lcd.setCursor(0,2);
+  lcd.print("PRESS B TO EXIT");
+  InsideClearFlag = true;
+  CountDisplayFlag = false;
+}
 
-
-if (customKey=='C')
+if( (InsideClearFlag == true) and (customKey=='1') )
 {
   color1Cnt = 0;
   color2Cnt = 0; 
@@ -3244,36 +3304,17 @@ if (customKey=='C')
   EEPROM.update(15,0);
   EEPROM.update(16,0);
   EEPROM.update(17,0);
-  
+
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("TB1=");
-  lcd.setCursor(10,0);
-  lcd.print("TB2=");
-  lcd.setCursor(0,1);
-  lcd.print("TB3=");
-  lcd.setCursor(10,1);
-  lcd.print("RB1=");
+  lcd.print("COUNT CLEARED");
+  lcd.setCursor(0,2);
+  lcd.print("PRESS B TO EXIT");
+  InsideClearFlag = false;
   
-  lcd.setCursor(4,0);
-  lcd.print(color1Cnt);
-  lcd.setCursor(14,0);
-  lcd.print(color2Cnt);
-  lcd.setCursor(4,1);
-  lcd.print(color3Cnt);
-  lcd.setCursor(14,1);
-  lcd.print(krichiCnt);
+}
 
-  
-  InsideMenuFlag = false;
-  CountDisplayFlag = true;
-  InsideOption1Flag = false;
-  InsideOption2Flag = false;
-  InsideOption3Flag = false;
-  
-  
 
-  }
 
 if ((InsideMenuFlag == false) and (customKey=='A'))
 {
@@ -3342,6 +3383,7 @@ if( (InsideOption1Flag == true) and (customKey=='1'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption1Flag = false;
+  EEPROM.update(18,0);
 }
 
       if( (InsideOption1Flag == true) and (customKey=='2'))
@@ -3357,6 +3399,7 @@ if( (InsideOption1Flag == true) and (customKey=='1'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption1Flag = false;
+  EEPROM.update(18,1);
 }
   
 
@@ -3373,6 +3416,8 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption1Flag = false;
+  EEPROM.update(18,2);
+
 }
 
       if( (InsideOption1Flag == true) and (customKey=='4'))
@@ -3388,6 +3433,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption1Flag = false;
+  EEPROM.update(18,3);
 }
   
 
@@ -3402,6 +3448,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption2Flag = false;
+  EEPROM.update(19,1);
 }
 
       if( (InsideOption2Flag == true) and (customKey=='2'))
@@ -3414,6 +3461,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption2Flag = false;
+  EEPROM.update(19,0);
 }
 
 
@@ -3427,6 +3475,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption3Flag = false;
+  EEPROM.update(20,1);
 }
  if( (InsideOption3Flag == true) and (customKey=='2'))
 {
@@ -3438,6 +3487,7 @@ if( (InsideOption1Flag == true) and (customKey=='3'))
   lcd.print("PRESS B TO EXIT");
   InsideMenuFlag = false;
   InsideOption3Flag = false;
+  EEPROM.update(20,0);
 }
 
 
