@@ -31,7 +31,7 @@ if (digitalRead(ObjectSensor1) == false and ObjectSensor1Flag1 == false)
     ObjectSensor1Timer1 = millis();
     ObjectSensor1Flag2 = true;
     ObjectSensor1Flag1 = true;
-    Serial.println("inside true flag");
+    //Serial.println("inside 1st true flag");
   }
 
 if (digitalRead(ObjectSensor1) == true )
@@ -43,7 +43,7 @@ if (digitalRead(ObjectSensor1) == true )
 if ((millis() - ObjectSensor1Timer1 > (2000) and ObjectSensor1Flag2 == true) )
   { 
     ObjectSensor1ErrorOccuredFlag = true;
-    Serial.println("Object 1 sensor error occured");
+    //Serial.println("Object 1 sensor error occured");
   }
 
 
@@ -53,7 +53,7 @@ if (digitalRead(ObjectSensor2) == false and ObjectSensor2Flag1 == false)
     ObjectSensor2Timer1 = millis();
     ObjectSensor2Flag2 = true;
     ObjectSensor2Flag1 = true;
-    Serial.println("inside 2nd true flag");
+    //Serial.println("inside 2nd true flag");
   }
 if (digitalRead(ObjectSensor2) == true )
   {
@@ -73,7 +73,7 @@ if ((millis() - ObjectSensor2Timer1 > (2000) and ObjectSensor2Flag2 == true) )
 if ((ObjectSensor1ErrorOccuredFlag == true) and (ObjectSensor2ErrorOccuredFlag == true))
 {
   digitalWrite(Motor,LOW);
-  Serial.println("motor off");
+ Serial.println("motor off");
 }
 if ((ObjectSensor1ErrorOccuredFlag == false) and (ObjectSensor2ErrorOccuredFlag == false))
 {

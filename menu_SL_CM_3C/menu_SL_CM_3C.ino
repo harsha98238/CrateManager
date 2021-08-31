@@ -1135,7 +1135,7 @@ if (millis() - errorofftmr > 1000 and erroroccuredoff == true)
   }
 
 //object 1 error
-if (digitalRead(obj1) == true and objerrflag == false)
+if (digitalRead(obj1) == false and objerrflag == false)
   {
     objerrtimer = millis();
     objerrflag1 = true;
@@ -1143,7 +1143,7 @@ if (digitalRead(obj1) == true and objerrflag == false)
     
   }
 
-if (digitalRead(obj1) == false )
+if (digitalRead(obj1) == true )
   {
     objerrflag = false;
     objerrflag1 = false;
@@ -1256,7 +1256,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   s2on = true;
 }   
 /****************************Object 1 identification********************************/
-  if(digitalRead(obj1) == true  and Object1flag1 == false)
+  if(digitalRead(obj1) == false  and Object1flag1 == false)
   {
     Object1Detected = true;//only used inside loop
     Object1flag1 = true;
@@ -1271,7 +1271,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   }
   }
 //TO TRIGGER SHUTTER2 for color1COP
-  if (Object1flag1 == true and digitalRead(obj1) == false and color1identified == true and yarn1flag == false)
+  if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == false)
       {
       Shutter2Onflag1 = true;
       Object1DetectTmr = millis();
@@ -1286,7 +1286,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
       }
   
   //Passing Shutter2 - cop must be 2nd or 3rd color    
-     if (Object1flag1 == true and digitalRead(obj1) == false and color1identified == false and yarn1flag == false) 
+     if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == false and yarn1flag == false) 
 
      {
       Object1DetectTmr = millis();
@@ -1300,7 +1300,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
       Serial.println("Color2 empty Check");
     }
  //To find Yarn at Object1 sensor and use the information for shutter3 and shutter4     
-if(Object1flag1 == true and digitalRead(obj1) == false and yarn1flag == true)
+if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
     {
       Shutter2Onflag1 = false;
 //      krichi1 =  true;
@@ -1317,7 +1317,7 @@ if(Object1flag1 == true and digitalRead(obj1) == false and yarn1flag == true)
       Serial.println("Color2 yarn Check");
     }
 //Color 1 COP with Yarn (color 1 kirchi)
-    if   (Object1flag1 == true and digitalRead(obj1) == false and color1identified == true and yarn1flag == true)
+    if   (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == true)
     {
       Shutter2Onflag1 = false;
       Object1DetectTmr = millis();
@@ -1638,14 +1638,14 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
   }
 
 //Object2 Sensor Error
-if (digitalRead(obj2) == true and obj2errflag == false)
+if (digitalRead(obj2) == false and obj2errflag == false)
   {
     obj2errtimer = millis();
     obj2errflag2 = true;
     obj2errflag = true;  
   }
 
-if (digitalRead(obj2) == false)
+if (digitalRead(obj2) == true)
   {
     obj2errflag = false;
     obj2errflag2 = false;
@@ -1709,7 +1709,7 @@ if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == tr
 /*s3error ends*/
 // ****************************Yarn 2 identification********************************//
 
-if((yarn2PresentOutput >= 1 and yarn2flag == false and digitalRead(obj2) == true ) or (digitalRead(yarn2) == false and yarn2flag == false))
+if((yarn2PresentOutput >= 1 and yarn2flag == false and digitalRead(obj2) == false ) or (digitalRead(yarn2) == false and yarn2flag == false))
 {
     timeryarn2 = millis();
     yarn2flag = true;
@@ -1763,7 +1763,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
       Color2simulatorPreviousPulse = millis();
       Color2simulatorflag = false;
       }
-if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) == true ) 
+if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) == false ) 
 {
     color2identified = true;
     Serial.println("Color2 came");
@@ -1773,7 +1773,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
 
 // ****************************Object 2 identification********************************//
 
-  if(digitalRead(obj2) == true  and Object2flag1 == false)
+  if(digitalRead(obj2) == false  and Object2flag1 == false)
   {
     Object2Detected = true;//only used inside loo
     Object2flag1 = true;
@@ -1789,7 +1789,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
     
   }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false)
+  if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == false)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -1805,7 +1805,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
       }
   
   //Passing Shutter3 - cop must be 3rd color    
-     if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == false and yarn2flag == false) 
+     if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == false and yarn2flag == false) 
 
      {
       Object2DetectTmr = millis();
@@ -1821,7 +1821,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
       Serial.println("Color3 empty Check");
     }
  //To find Yarn at Object2 sensor and use the information for shutter4     
-if(Object2flag1 == true and digitalRead(obj2) == false and yarn2flag == true)
+if(Object2flag1 == true and digitalRead(obj2) == true and yarn2flag == true)
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -1842,7 +1842,7 @@ if(Object2flag1 == true and digitalRead(obj2) == false and yarn2flag == true)
       Serial.println("Color3 yarn Check");
     }
 //Color 2 COP with Yarn (color 2 kirchi)
-    if   (Object2flag1 == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == true)
+    if   (Object2flag1 == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == true)
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2157,14 +2157,14 @@ if (millis() - errors4offtmr > 200 and errors4occuredoff == true)
   }
 
 //Object3 Sensor Error
-if (digitalRead(obj3) == true and obj3errflag == false)
+if (digitalRead(obj3) == false and obj3errflag == false)
   {
     obj3errtimer = millis();
     obj3errflag2 = true;
     obj3errflag = true;  
   }
 
-if (digitalRead(obj3) == false)
+if (digitalRead(obj3) == true)
   {
     obj3errflag = false;
     obj3errflag2 = false;
@@ -2249,7 +2249,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
 
 // ****************************Object 3 identification********************************//
 
-  if(digitalRead(obj3) == true  and Object3flag1 == false)
+  if(digitalRead(obj3) == false  and Object3flag1 == false)
   {
     Object3Detected = true;//only used inside loop
     Object3flag1 = true;
@@ -2262,7 +2262,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
 //TO TRIGGER SHUTTER4 for color3COP
 
   
-  if (Object3flag1 == true and digitalRead(obj3) == false and color3identified == true and yarn3flag == false and BobbinMixupflag == false)
+  if (Object3flag1 == true and digitalRead(obj3) == true and color3identified == true and yarn3flag == false and BobbinMixupflag == false)
 {
       Shutter4Onflag1 = true;
       Object3DetectTmr = millis();
@@ -2275,7 +2275,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       Object3flag1 = false;
       Serial.println("color3 eject");
       }
-  if (Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == false and BobbinMixupflag == true)
+  if (Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == false and BobbinMixupflag == true)
       
       {
       Shutter4Onflag1 = true;
@@ -2291,7 +2291,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       }
   
   //Passing Shutter4 -    
-     if (Object3flag1 == true and digitalRead(obj3) == false and color3identified == false and yarn3flag == false) 
+     if (Object3flag1 == true and digitalRead(obj3) == true and color3identified == false and yarn3flag == false) 
 
      {
       Shutter4Onflag1 = false;
@@ -2306,8 +2306,8 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       Serial.println("Color4 empty Check");
     }
  //To find Yarn at Object3 sensor and use the information      
-//if(Object3flag1 == true and digitalRead(obj3) == false and color3identified == false and yarn3flag == true)
-if(Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == true)
+//if(Object3flag1 == true and digitalRead(obj3) == true and color3identified == false and yarn3flag == true)
+if(Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == true)
     {
       Shutter4Onflag1 = false;
 //       krichi3 =  true;
@@ -2325,7 +2325,7 @@ if(Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == true)
       Serial.println("Color3 yarn Check");
     }
 //Color 3 COP with Yarn (color 3 kirchi)
-    if   (Object3flag1 == true and digitalRead(obj3) == false and color3identified == true and yarn3flag == true  )
+    if   (Object3flag1 == true and digitalRead(obj3) == true and color3identified == true and yarn3flag == true  )
     {
       Shutter4Onflag1 = false;   
       Object3DetectTmr = millis();
