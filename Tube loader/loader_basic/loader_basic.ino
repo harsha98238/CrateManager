@@ -1,7 +1,7 @@
 /*Input Output pin declaration*/
-const int ObjectSensor1 = 2;
-const int ObjectSensor2 = 3;
-const int Motor = 4;
+const int ObjectSensor1 = 32;
+const int ObjectSensor2 = 33;
+const int Motor = 2;
 
 /*assigning flags and timers*/
 unsigned long ObjectSensor1Timer1 = 0;
@@ -43,7 +43,7 @@ if (digitalRead(ObjectSensor1) == true )
 if ((millis() - ObjectSensor1Timer1 > (2000) and ObjectSensor1Flag2 == true) )
   { 
     ObjectSensor1ErrorOccuredFlag = true;
-    //Serial.println("Object 1 sensor error occured");
+    Serial.println("Object 1 sensor error occured");
   }
 
 
@@ -64,7 +64,7 @@ if (digitalRead(ObjectSensor2) == true )
 if ((millis() - ObjectSensor2Timer1 > (2000) and ObjectSensor2Flag2 == true) )
   { 
     ObjectSensor2ErrorOccuredFlag = true;
-    //Serial.println("Object 2 sensor error occured");
+    Serial.println("Object 2 sensor error occured");
   }
 
 
