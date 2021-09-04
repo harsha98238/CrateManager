@@ -1303,9 +1303,19 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
 if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
     {
       Shutter2Onflag1 = false;
-//      krichi1 =  true;
-//      Serial.println("Color1 krichi");
-//      
+      
+      krichi1 =  true;
+      Serial.println("Color1 krichi");
+      
+      if (krichi1==true)
+      {
+      Krichi1Cnt++;
+      Serial.print("krichi 1=");
+      Serial.println(Krichi1Cnt);
+      krichiCntFlag=true;
+      krichi1==false;
+      }   
+      
       Object1DetectTmr = millis();
       yarn1flag = false;
       yarn1detected = false;
@@ -1331,14 +1341,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
       
  
 }
-//     if (krichi1==true)
-//      {
-//      Krichi1Cnt++;
-//      Serial.print("krichi 1=");
-//      Serial.println(Krichi1Cnt);
-//      krichiCntFlag=true;
-//      krichi1==false;
-//      }   
+
 //Shutter2 ON flag
     if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false   )
         {
