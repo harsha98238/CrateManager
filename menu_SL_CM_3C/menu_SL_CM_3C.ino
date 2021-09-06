@@ -89,7 +89,7 @@ bool color1flag = false;
 bool s2on = false;
 bool color1identified = false;
 //object1
-bool Object1flag1 = false;
+//bool Object1flag1 = false;
 bool Object1Detected = false;
 unsigned long Object1DetectTmr = 0;
 bool Shutter2OnReady = false;
@@ -565,6 +565,22 @@ int PreviousBinSize;
 int PreviousBobbinMix;
 int PreviousSensorOption;
 
+
+
+/*object 2 simulator*/
+
+ unsigned long Object2simulatorPreviousPulse = 0;
+
+//to adjust Object2 pulse delay
+int Object2pulsedelay = 16;
+bool Object2simulatorflag = false;
+bool Object1flag1 =  false;
+int Object2index = 0;
+int Object2indexpresent = 0;
+int Object2simTrainarray[100] ;
+bool Object1detected = false;
+int Object2PresentOutput = 0;
+ 
 void setup() {
   
   Serial.begin(9600);//bits per second
@@ -1256,20 +1272,65 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   s2on = true;
 }   
 /****************************Object 1 identification********************************/
-  if(digitalRead(obj1) == false  and Object1flag1 == false)
-  {
+ if(digitalRead(obj1) == false and Object1flag1 == false  )
+    {
     Object1Detected = true;//only used inside loop
     Object1flag1 = true;
     Shutter2OnReady = false;
     Serial.println("Object1 identified");
-   // yarn1flag = false;
     color1flag = false;
     color1identified = false;
-  if (ColorSensorOption == true)
-  { 
+    if (ColorSensorOption == true)
+    { 
     Color2flag = false;
-  }
-  }
+    }
+    Object2simulatorflag = true;
+   }
+if( (millis() - Object2simulatorPreviousPulse) >50 )
+    {
+      if( Object2simulatorflag == true)
+      {
+       Object2simTrainarray[Object2index] = 1;
+      }
+      if( Object2simulatorflag == false)
+      {
+       Object2simTrainarray[Object2index] = 0;
+      }
+      
+      Object2indexpresent = Object2index - Object2pulsedelay;
+      if (Object2indexpresent < 0)
+      {
+        Object2indexpresent = Object2indexpresent + 100 ;
+      }
+
+      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] ;
+      if (Object2indexpresent < 99 and Object2indexpresent > 0 )
+      {
+      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] +
+                            Object2simTrainarray[Object2indexpresent - 1] +
+                            Object2simTrainarray[Object2indexpresent + 1];
+      }
+      Object2index = (Object2index+1) % 100 ;
+      Object2simulatorPreviousPulse = millis();
+      Object2simulatorflag = false;
+      }
+
+
+
+//  if(digitalRead(obj1) == false  and Object1flag1 == false)
+//  {
+//    Object1Detected = true;//only used inside loop
+//    Object1flag1 = true;
+//    Shutter2OnReady = false;
+//    Serial.println("Object1 identified");
+//   // yarn1flag = false;
+//    color1flag = false;
+//    color1identified = false;
+//  if (ColorSensorOption == true)
+//  { 
+//    Color2flag = false;
+//  }
+//  }
 //TO TRIGGER SHUTTER2 for color1COP
   if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == false)
       {
@@ -1776,8 +1837,9 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
 
 // ****************************Object 2 identification********************************//
 
-  if(digitalRead(obj2) == false  and Object2flag1 == false)
-  {
+/*object simulator @ S3*/
+if((Object2PresentOutput >= 1 and Object2flag1 == false) or (digitalRead(obj2) == false and Object2flag1 == false))
+{
     Object2Detected = true;//only used inside loo
     Object2flag1 = true;
     Shutter3OnReady = false;
@@ -1789,8 +1851,23 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
     Color2flag = false;
     color2identified = false;
     }
-    
-  }
+}
+
+//  if(digitalRead(obj2) == false  and Object2flag1 == false)
+//  {
+//    Object2Detected = true;//only used inside loo
+//    Object2flag1 = true;
+//    Shutter3OnReady = false;
+//    Serial.println("Object2 identified");
+//    //yarn2flag = false;
+//    
+//    if (ColorSensorOption == false)
+//    {
+//    Color2flag = false;
+//    color2identified = false;
+//    }
+//    
+//  }
 //TO TRIGGER SHUTTER3 for color2COP
   if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == false)
       {
