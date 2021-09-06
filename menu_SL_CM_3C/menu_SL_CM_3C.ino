@@ -568,9 +568,7 @@ int PreviousSensorOption;
 
 
 /*object 2 simulator*/
-
- unsigned long Object2simulatorPreviousPulse = 0;
-
+unsigned long Object2simulatorPreviousPulse = 0;
 //to adjust Object2 pulse delay
 int Object2pulsedelay = 16;
 bool Object2simulatorflag = false;
@@ -2914,124 +2912,7 @@ bool printError()
 
   break;
 
-  case 4:
-  if(Tray1Error == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("TRAY1 ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-      return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 5:
-  if(Tray1Error == true)
-  {
-   
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-   return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-
-  case 6:
-  if(Tray2Error == true)
-  {
-   
-    lcd.setCursor(0,3);
-    lcd.print("TRAY2 ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 7:
-  if(Tray2Error == true)
-  {
-   
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-   return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-
- case 8:
-  if(Color1ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("COLOR1 ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 9:
-  if(Color1ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-     digitalWrite(alarmLightyellow,LOW);
-  return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-   case 10:
-  if(Object1ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("OBJECT1 ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 11:
-  if(Object1ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-     digitalWrite(alarmLightyellow,LOW);
-  return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-   case 12:
+   case 4:
   if(YarnErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3045,7 +2926,7 @@ bool printError()
     }
 
   break;
-  case 13:
+  case 5:
   if(YarnErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3059,7 +2940,92 @@ bool printError()
     }
 
   break;
-   case 14:
+ case 6:
+  if(Color1ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("COLOR1 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 7:
+  if(Color1ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+   case 8:
+  if(Object1ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("OBJECT1 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 9:
+  if(Object1ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+     digitalWrite(alarmLightyellow,LOW);
+  return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+ case 10:
+  if(Yarn2ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("YARN2  ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 11:
+  if(Yarn2ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  
+   case 12:
   if(Color2ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3073,7 +3039,7 @@ bool printError()
     }
 
   break;
-  case 15:
+  case 13:
   if(Color2ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3089,7 +3055,7 @@ bool printError()
   break;
   
 
-   case 16:
+   case 14:
   if(Object2ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3103,7 +3069,7 @@ bool printError()
     }
 
   break;
-  case 17:
+  case 15:
   if(Object2ErrorOccuredFlag == true)
   {
     lcd.setCursor(0,3);
@@ -3119,11 +3085,160 @@ bool printError()
   break;
    
 
+  case 16:
+  if(Tray1Error == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("TRAY1 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+      return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 17:
+  if(Tray1Error == true)
+  {
+   
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+
+  case 18:
+  if(Tray2Error == true)
+  {
+   
+    lcd.setCursor(0,3);
+    lcd.print("TRAY2 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 19:
+  if(Tray2Error == true)
+  {
+   
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+
+   case 20:
+  if(Yarn3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("YARN3  ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 21:
+  if(Yarn3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+     return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+   
 
 
 
+  case 22:
+  if(Color3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("COLOR3  ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
 
-case 18:
+  break;
+  case 23:
+  if(Color3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  
+
+   case 24:
+  if(Object3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("OBJECT3 ERROR");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 25:
+  if(Object3ErrorOccuredFlag == true)
+  {
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+     return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+
+
+case 26:
   if(Tray3Error == true)
   {
    
@@ -3138,7 +3253,7 @@ case 18:
     }
 
   break;
-  case 19:
+  case 27:
   if(Tray3Error == true)
   {
    
@@ -3153,127 +3268,6 @@ case 18:
     }
 
   break;
-
-  case 20:
-  if(Color3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("COLOR3  ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 21:
-  if(Color3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-   return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  
-
-   case 22:
-  if(Object3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("OBJECT3 ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 23:
-  if(Object3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-     return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-   
-
-
-  case 24:
-  if(Yarn2ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("YARN2  ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 25:
-  if(Yarn2ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-   return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  
-
-   case 26:
-  if(Yarn3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("YARN3  ERROR");
-    digitalWrite(alarmLightyellow,HIGH);
-    return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-  case 27:
-  if(Yarn3ErrorOccuredFlag == true)
-  {
-    lcd.setCursor(0,3);
-    lcd.print("                ");
-    digitalWrite(alarmLightyellow,LOW);
-     return true;
-  }
-  else
-  {
-   return false; 
-    }
-
-  break;
-   
 
 
 
