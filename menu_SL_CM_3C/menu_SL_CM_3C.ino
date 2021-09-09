@@ -311,7 +311,8 @@ short s1OnDelay=1;
 short s1OffDelay=4;
 //unsigned long FCCnt = 0;
 //change from unsigned long
-bool FCCountFlag = false;
+bool FullCopCountFlag = false;
+unsigned long FullCopCount;
 
 
 //EEPROM
@@ -512,6 +513,9 @@ int Krichi2ReadValue3  = 0;
 int Krichi3ReadValue1  = 0;
 int Krichi3ReadValue2  = 0;
 int Krichi3ReadValue3  = 0;
+int FullCopReadValue1  = 0;
+int FullCopReadValue2  = 0;
+int FullCopReadValue3  = 0;
 
 int RecoverdColor1Count  = 0;
 int RecoverdColor2Count  = 0;
@@ -519,7 +523,7 @@ int RecoverdColor3Count  = 0;
 int RecoverdKrichi1Count  = 0;
 int RecoverdKrichi2Count  = 0;
 int RecoverdKrichi3Count  = 0;
-
+int RecoverdFullCopCount = 0;
 
 
 
@@ -693,6 +697,16 @@ void setup() {
   krichiCnt  =  Krichi1Cnt + Krichi2Cnt + Krichi3Cnt;
   lcd.setCursor(14,1);
   lcd.print(krichiCnt);
+
+  FullCopReadValue1=EEPROM.read(21);  //Color1UpdatedValue1
+  FullCopReadValue2=EEPROM.read(22);  //Color1UpdatedValue2
+  FullCopReadValue3=EEPROM.read(23);  //Color1UpdatedValue3
+  RecoverdFullCopCount=((FullCopReadValue3)+(FullCopReadValue2*255)+(FullCopReadValue1*(255*255)));
+  FullCopCount = RecoverdFullCopCount;
+  lcd.setCursor(4,2);
+  lcd.print(FullCopCount);
+
+
 
   //multiple error
   timer = millis();
@@ -987,7 +1001,18 @@ if ((currentMillis - previousMillis)  >=  interval)
   EEPROM.update(16,Krichi3UpdatedValue2);
   EEPROM.update(17,Krichi3UpdatedValue3);
 
+  int FullCopUpdatedValue1  = (FullCopCount/(255*255));
+  int b7  = FullCopUpdatedValue1*255*255;
 
+  int c7  = FullCopCount-b7;
+  int d7 = c7/255;
+
+  int FullCopUpdatedValue2 = d7 * 255;
+  int FullCopUpdatedValue3 = c7 - FullCopUpdatedValue2;
+
+  EEPROM.update(21,FullCopUpdatedValue1);
+  EEPROM.update(22,FullCopUpdatedValue2);
+  EEPROM.update(23,FullCopUpdatedValue3);
 
 }
 
@@ -1108,9 +1133,15 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   }
   if ((millis() - timefc > s1OnDelay*50) and (millis() - timefc < (s1OnDelay+s1OffDelay)*50) )
   { 
-    Serial.println("S1high");
+  Serial.println("S1high");
   digitalWrite(s1,HIGH);
-}
+  FullCopCountFlag = true;
+  if(FullCopCountFlag == true)
+  {
+    FullCopCount++;
+    FullCopCountFlag = false;
+    }
+  }
   else
   {
   digitalWrite(s1,LOW);
