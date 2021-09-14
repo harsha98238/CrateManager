@@ -3421,6 +3421,7 @@ if( (InsideClearFlag == true) and (customKey=='1') )
   color2Cnt = 0; 
   color3Cnt = 0;
   krichiCnt = 0;
+  FullCopCount = 0;
   
   EEPROM.update(0,0);
   EEPROM.update(1,0);
@@ -3440,6 +3441,9 @@ if( (InsideClearFlag == true) and (customKey=='1') )
   EEPROM.update(15,0);
   EEPROM.update(16,0);
   EEPROM.update(17,0);
+  EEPROM.update(21,0);
+  EEPROM.update(22,0);
+  EEPROM.update(23,0);
 
   lcd.clear();
   lcd.setCursor(0,0);
