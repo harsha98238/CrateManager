@@ -641,9 +641,9 @@ void setup() {
   lcd.setCursor(10,0);
   lcd.print("TB2=");
   lcd.setCursor(0,1);
-  lcd.print("TB3=");
-  lcd.setCursor(10,1);
   lcd.print("RB1=");
+  lcd.setCursor(10,1);
+  lcd.print("RB2=");
 
   delay(50);
 
@@ -668,8 +668,8 @@ void setup() {
   Color3ReadValue3=EEPROM.read(8);  //Color3UpdatedValue3
   RecoverdColor3Count=((Color3ReadValue3)+(Color3ReadValue2*255)+(Color3ReadValue1*(255*255)));
   color3Cnt = RecoverdColor3Count;
-  lcd.setCursor(4,1);
-  lcd.print(color3Cnt);
+//  lcd.setCursor(4,1);
+//  lcd.print(color3Cnt);
 
 
   Krichi1ReadValue1=EEPROM.read(9);  //Krichi1UpdatedValue1
@@ -703,7 +703,7 @@ void setup() {
   FullCopReadValue3=EEPROM.read(23);  //Color1UpdatedValue3
   RecoverdFullCopCount=((FullCopReadValue3)+(FullCopReadValue2*255)+(FullCopReadValue1*(255*255)));
   FullCopCount = RecoverdFullCopCount;
-  lcd.setCursor(4,2);
+  lcd.setCursor(4,1);
   lcd.print(FullCopCount);
 
 
@@ -720,17 +720,30 @@ PreviousSensorOption  = EEPROM.read(20);
 if (PreviousBinSize == 0)
 {
   Flag140 = true;
+  Flag160 = false;
+  Flag180 = false;
+  Flag200 = false;
+  
   }
 if (PreviousBinSize == 1)
 {
+  Flag140 = false;
   Flag160 = true;
+  Flag180 = false;
+  Flag200 = false;
   }
 if (PreviousBinSize == 2)
 {
+  Flag140 = false;
+  Flag160 = false;
   Flag180 = true;
+  Flag200 = false;
   }
 if (PreviousBinSize == 3)
 {
+  Flag140 = false;
+  Flag160 = false;
+  Flag180 = false;
   Flag200 = true;
   }
 
@@ -1141,6 +1154,11 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
     FullCopCount++;
     FullCopCountFlag = false;
     }
+      if(CountDisplayFlag == true)
+{
+  lcd.setCursor(4,1);
+  lcd.print(FullCopCount);
+} 
   }
   else
   {
@@ -2491,8 +2509,8 @@ if (C3CountFlag1 == true and C3CountFlag2 == false)
   Serial.println(color3Cnt);
   if(CountDisplayFlag == true)
 {
-  lcd.setCursor(4,1);
-  lcd.print(color3Cnt);
+//  lcd.setCursor(4,1);
+//  lcd.print(color3Cnt);
 } 
 }
 
@@ -2790,7 +2808,7 @@ if (customKey != '\0' )
 
 
 //eeprom reset logic 
-if (color1Cnt >= 100000) 
+if (color1Cnt >= 99999) 
 {
 color1Cnt = 0;
 if(CountDisplayFlag == true)
@@ -2802,7 +2820,7 @@ EEPROM.update(0,0);
 EEPROM.update(1,0);
 EEPROM.update(2,0);
 }
-if (color2Cnt >= 100000) 
+if (color2Cnt >= 99999) 
 {
 color2Cnt = 0;
 if(CountDisplayFlag == true)
@@ -2814,19 +2832,19 @@ EEPROM.update(3,0);
 EEPROM.update(4,0);
 EEPROM.update(5,0);
 }
-if (color3Cnt >= 100000) 
+if (color3Cnt >= 99999) 
 {
 color3Cnt = 0;
 if(CountDisplayFlag == true)
 { 
-lcd.setCursor(4,1);
-lcd.print(color3Cnt);
+//lcd.setCursor(4,1);
+//lcd.print(color3Cnt);
 }
 EEPROM.update(6,0);
 EEPROM.update(7,0);
 EEPROM.update(8,0);
 }
-if (Krichi1Cnt >= 100000) 
+if (Krichi1Cnt >= 99999) 
 {
 Krichi1Cnt = 0;
 KrichiCountZeroUpdateFlag = true;
@@ -2834,7 +2852,7 @@ EEPROM.update(9,0);
 EEPROM.update(10,0);
 EEPROM.update(11,0);
 }
-if (Krichi2Cnt >= 100000) 
+if (Krichi2Cnt >= 99999) 
 {
 Krichi2Cnt = 0;
 KrichiCountZeroUpdateFlag = true;
@@ -2842,7 +2860,7 @@ EEPROM.update(12,0);
 EEPROM.update(13,0);
 EEPROM.update(14,0);
 }
-if (Krichi3Cnt >= 100000) 
+if (Krichi3Cnt >= 99999) 
 {
 Krichi3Cnt = 0;
 KrichiCountZeroUpdateFlag = true;
@@ -2854,7 +2872,7 @@ EEPROM.update(17,0);
 if(KrichiCountZeroUpdateFlag == true)
 {
 
-if((Krichi1Cnt >= 100000) or (Krichi2Cnt >= 100000) or (Krichi3Cnt >= 100000))
+if((Krichi1Cnt >= 99999) or (Krichi2Cnt >= 99999) or (Krichi3Cnt >= 99999))
 {
 krichiCnt  =  Krichi1Cnt + Krichi2Cnt + Krichi3Cnt;
 if(CountDisplayFlag == true)
@@ -2868,6 +2886,19 @@ KrichiCountZeroUpdateFlag = false;
 
 }
 
+
+if (FullCopCount >= 99999) 
+{
+FullCopCount = 0;
+if(CountDisplayFlag == true)
+{ 
+//lcd.setCursor(4,1);
+//lcd.print(color3Cnt);
+}
+EEPROM.update(21,0);
+EEPROM.update(22,0);
+EEPROM.update(23,0);
+}
 
 }
 
@@ -3348,16 +3379,16 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.setCursor(10,0);
   lcd.print("TB2=");
   lcd.setCursor(0,1);
-  lcd.print("TB3=");
-  lcd.setCursor(10,1);
   lcd.print("RB1=");
+  lcd.setCursor(10,1);
+  lcd.print("RB2=");
   
   lcd.setCursor(4,0);
   lcd.print(color1Cnt);
   lcd.setCursor(14,0);
   lcd.print(color2Cnt);
   lcd.setCursor(4,1);
-  lcd.print(color3Cnt);
+  lcd.print(FullCopCount);
   lcd.setCursor(14,1);
   lcd.print(krichiCnt);
 
