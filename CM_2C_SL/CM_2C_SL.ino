@@ -1149,7 +1149,10 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   Serial.println("S1high");
   digitalWrite(s1,HIGH);
   FullCopCountFlag = true;
-  if(FullCopCountFlag == true)
+  }
+  else
+  {
+    if(FullCopCountFlag == true)
   {
     FullCopCount++;
     FullCopCountFlag = false;
@@ -1159,9 +1162,7 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   lcd.setCursor(4,1);
   lcd.print(FullCopCount);
 } 
-  }
-  else
-  {
+
   digitalWrite(s1,LOW);
   }
 
@@ -1464,7 +1465,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
      }
 
 // ****************************Color 1 Ejection********************************//
-if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 /*and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false  */)//was*50
+if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false  */)//was*50
   
   {
   digitalWrite(s2,HIGH);
