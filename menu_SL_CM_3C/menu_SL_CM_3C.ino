@@ -1674,7 +1674,8 @@ if( millis() - timer2CrateEjection1 > (crate1RemoveOndelay * 50) and flag3CrateE
   }
 
 /*****************************************************CrateReplacement************************************************************/
-if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 1700 and crate1ProcessFlag == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/){
+if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 3000 and crate1ProcessFlag == false)
+{
   if( digitalRead(crate1) == false){
     crate1ProcessFlag =true;
   }
@@ -2204,7 +2205,8 @@ if( millis() - timer2CrateEjection2 > (crate2RemoveOndelay * 50) and flag3CrateE
 
 
 /*****************************************************Crate2Replacement************************************************************/
-if( flag3CrateEjection2 == true and millis() - timer2CrateEjection2 > 1700 and crate2ProcessFlag == false ){
+if( flag3CrateEjection2 == true and millis() - timer2CrateEjection2 > 3000 and crate2ProcessFlag == false )
+{
   if( digitalRead(crate2) == false)
   {
     crate2ProcessFlag =true;
@@ -2681,7 +2683,8 @@ if( millis() - timer2CrateEjection3 > (crate3RemoveOndelay * 50) and flag3CrateE
 
 
 /*****************************************************crate3Replacement************************************************************/
-if( flag3CrateEjection3 == true and millis() - timer2CrateEjection3 > 1700 and crate3ProcessFlag == false ){
+if( flag3CrateEjection3 == true and millis() - timer2CrateEjection3 > 3000 and crate3ProcessFlag == false )
+{
   if( digitalRead(crate3) == false)
   {
     crate3ProcessFlag =true;
