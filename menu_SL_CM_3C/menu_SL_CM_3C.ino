@@ -1648,7 +1648,7 @@ if( copStorage1Count >= numCopStorage1 and crate1error == false /*and digitalRea
 {
   copStorage1Countflag = copStorage1Count;
 }
-{
+
   if( copStorage1Countflag == numCopStorage1 and flag1CrateEjection1 ==false){
   timer1CrateEjection1 = millis();
   flag1CrateEjection1 = true;
@@ -1711,7 +1711,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
   
 
 }
-}
+
 /*shutter2 end*/
 
 /*shutter3 start*/
@@ -2177,7 +2177,7 @@ if( copStorage2Count >= numCopStorage2 and crate2error == false /*and digitalRea
 {
   copStorage2Countflag = copStorage2Count;
 }
-{
+
   if( copStorage2Countflag == numCopStorage2 and flag1CrateEjection2 ==false){
   timer1CrateEjection2 = millis();
   flag1CrateEjection2 = true;
@@ -2244,7 +2244,7 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
   
 
 }
-}
+
 
 /*shutter2 end*/
 
@@ -2654,7 +2654,7 @@ if( CopStorage3Count >= numCopStorage3 and crate3error == false /*and digitalRea
 {
   CopStorage3Countflag = CopStorage3Count;
 }
-{
+
   if( CopStorage3Countflag == numCopStorage3 and flag1CrateEjection3 ==false){
   timer1CrateEjection3 = millis();
   flag1CrateEjection3 = true;
@@ -2718,7 +2718,7 @@ if(millis() - timer1binUp3 > 4000 and flag1binUp3 == true){
   crate3ProcessFlag =false;
   flag1binUp3 = false;
 }
-}
+
 /*shutter4 end*/
 
 /*error reset*/
