@@ -1644,7 +1644,7 @@ if (binup1inerrorok1 == true and millis() - binup1inerrortime > 4000)
 
 /*************************************************CrateEjection********************************************/
 
-if( copStorage1Count >= numCopStorage1 and crate1error == false and digitalRead(crate1) == false /*and Tray1EmptyFlag == false and Tray2EmptyFlag == false*/)
+if( copStorage1Count >= numCopStorage1 and crate1error == false /*and digitalRead(crate1) == false*/)
 {
   copStorage1Countflag = copStorage1Count;
 }
@@ -2173,7 +2173,7 @@ if (binup2inerrorok1 == true and millis() - binup2inerrortime > 4000)
     }
   }
 /*************************************************Crate2Ejection********************************************/
-if( copStorage2Count >= numCopStorage2 and crate2error == false and digitalRead(crate2) == false )
+if( copStorage2Count >= numCopStorage2 and crate2error == false /*and digitalRead(crate2) == false */)
 {
   copStorage2Countflag = copStorage2Count;
 }
@@ -2650,7 +2650,7 @@ if (binUp3inerrorok1 == true and millis() - binUp3inerrortime > 4000)
   }
 /*************************************************crate3Ejection********************************************/
 
-if( CopStorage3Count >= numCopStorage3 and crate3error == false and digitalRead(crate3) == false )
+if( CopStorage3Count >= numCopStorage3 and crate3error == false /*and digitalRead(crate3) == false */)
 {
   CopStorage3Countflag = CopStorage3Count;
 }
