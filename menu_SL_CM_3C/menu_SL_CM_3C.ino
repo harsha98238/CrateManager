@@ -1678,10 +1678,11 @@ if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 3000 and c
 {
   if( digitalRead(crate1) == false){
     crate1ProcessFlag =true;
+    Crate1RepeatFlag = true;
   }
 }
 
-if( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==false){
+if(( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==false) or (Crate1RepeatFlag == true)){
   digitalWrite(binUp1,HIGH);
   timer1binUp1 = millis();
   flag1binUp1 = true;
@@ -1709,6 +1710,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
   crate1Complete =false;
   crate1ProcessFlag =false;
   flag1binUp1 = false;
+  Crate1RepeatFlag = false;
   
 
 }
