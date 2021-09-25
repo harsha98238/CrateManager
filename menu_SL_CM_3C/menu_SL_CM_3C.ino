@@ -1,7 +1,7 @@
 #include <EEPROM.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
-#include <Watchdog.h>
+//#include <Watchdog.h>
 
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -22,7 +22,7 @@ byte colPins[COLS] = {45, 46, 47, 48}; //connect to the column pinouts of the ke
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
 //wdt obj
-Watchdog watchdog;
+//Watchdog watchdog;
 
 //sensor input variables
 //gpio to use to trigger delay
@@ -591,8 +591,7 @@ int Object2PresentOutput = 0;
 void setup() {
   
   Serial.begin(115200);//bits per second
-  watchdog.enable(Watchdog::TIMEOUT_1S);
-
+  
   
   // initialize the LCD
   lcd.init(); 
@@ -651,6 +650,9 @@ void setup() {
   lcd.print("RB1=");
   lcd.setCursor(10,1);
   lcd.print("RB2=");
+  lcd.setCursor(0,2);
+  lcd.print("TB3=");
+  
 
   delay(50);
 
@@ -675,8 +677,8 @@ void setup() {
   Color3ReadValue3=EEPROM.read(8);  //Color3UpdatedValue3
   RecoverdColor3Count=((Color3ReadValue3)+(Color3ReadValue2*255)+(Color3ReadValue1*(255*255)));
   color3Cnt = RecoverdColor3Count;
-//  lcd.setCursor(4,1);
-//  lcd.print(color3Cnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
 
 
   Krichi1ReadValue1=EEPROM.read(9);  //Krichi1UpdatedValue1
@@ -773,6 +775,7 @@ if (PreviousSensorOption == 1)
 {
   ColorSensorOption = true;
   }
+//watchdog.enable(Watchdog::TIMEOUT_1S);
   
 
 }
@@ -2535,8 +2538,8 @@ if (C3CountFlag1 == true and C3CountFlag2 == false)
   Serial.println(color3Cnt);
   if(CountDisplayFlag == true)
 {
-//  lcd.setCursor(4,1);
-//  lcd.print(color3Cnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
 } 
 }
 
@@ -2786,8 +2789,6 @@ if (ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = t
     objerrflag1 = false;
     obj2errflag = false;
     obj2errflag2 = false;
-    lcd.setCursor(0,2);
-    lcd.print("                    ");
     lcd.setCursor(0,3);
     lcd.print("                    ");
     Serial.println("Error reset at loop");
@@ -2864,8 +2865,8 @@ if (color3Cnt >= 99999)
 color3Cnt = 0;
 if(CountDisplayFlag == true)
 { 
-//lcd.setCursor(4,1);
-//lcd.print(color3Cnt);
+lcd.setCursor(4,2);
+lcd.print(color3Cnt);
 }
 EEPROM.update(6,0);
 EEPROM.update(7,0);
@@ -2919,14 +2920,14 @@ if (FullCopCount >= 99999)
 FullCopCount = 0;
 if(CountDisplayFlag == true)
 { 
-//lcd.setCursor(4,1);
-//lcd.print(color3Cnt);
+lcd.setCursor(4,2);
+lcd.print(color3Cnt);
 }
 EEPROM.update(21,0);
 EEPROM.update(22,0);
 EEPROM.update(23,0);
 }
-watchdog.reset();
+//watchdog.reset();
 }
 
 
@@ -3409,6 +3410,9 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.print("RB1=");
   lcd.setCursor(10,1);
   lcd.print("RB2=");
+  lcd.setCursor(0,2);
+  lcd.print("TB3=");
+  
   
   lcd.setCursor(4,0);
   lcd.print(color1Cnt);
@@ -3418,6 +3422,9 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.print(FullCopCount);
   lcd.setCursor(14,1);
   lcd.print(krichiCnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
+  
 
   
   InsideMenuFlag = false;
