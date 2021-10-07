@@ -1239,29 +1239,29 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
 
 
 
-//color1 error
-  if (digitalRead(color1) == false and colorerrflag == false)
-    {
-      colorerrtimer = millis();
-      colorerrflag1 = true;
-      colorerrflag = true;
-     
-    }
-
-  if (digitalRead(color1) == true )
-    {
-      colorerrflag = false;
-      colorerrflag1 = false;
-    }
-   
-  
-  if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
-    { 
-      Color1ErrorOccuredFlag = true;
-      Serial.println("color 1 sensor error occured");
-      error = true;
-      
-    }
+////color1 error
+//  if (digitalRead(color1) == false and colorerrflag == false)
+//    {
+//      colorerrtimer = millis();
+//      colorerrflag1 = true;
+//      colorerrflag = true;
+//     
+//    }
+//
+//  if (digitalRead(color1) == true )
+//    {
+//      colorerrflag = false;
+//      colorerrflag1 = false;
+//    }
+//   
+//  
+//  if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
+//    { 
+//      Color1ErrorOccuredFlag = true;
+//      Serial.println("color 1 sensor error occured");
+//      error = true;
+//      
+//    }
 
 
   
@@ -1328,13 +1328,13 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
     }
 
 /****************************Color 1 identification********************************/
- if(digitalRead(color1) == false and  color1flag == false) //clr1false
- {
-  color1flag = true;
-  color1identified = true;
-  Serial.println("colour1 identified");
-  s2on = true;
-}   
+// if(digitalRead(color1) == false and  color1flag == false) //clr1false
+// {
+//  color1flag = true;
+//  color1identified = true;
+//  Serial.println("colour1 identified");
+//  s2on = true;
+//}   
 /****************************Object 1 identification********************************/
 // if(digitalRead(obj1) == false and Object1flag1 == false  )
 //    {
@@ -1396,7 +1396,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   }
   }
 //TO TRIGGER SHUTTER2 for color1COP
-  if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == false)
+  if (Object1flag1 == true and digitalRead(obj1) == true /*and color1identified == true */and yarn1flag == false)
       {
       Shutter2Onflag1 = true;
       Object1DetectTmr = millis();
@@ -1468,7 +1468,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
 }
 
 //Shutter2 ON flag
-    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false  )
+    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false /*and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false*/  )
         {
           Shutter2OnReady = true;
           Shutter2Onflag2 = true;
@@ -1481,7 +1481,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
      }
 
 // ****************************Color 1 Ejection********************************//
-if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false  )//was*50
+if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false /*and Tray2EmptyFlag == false and  Tray3EmptyFlag == false */ )//was*50
   
   {
   digitalWrite(s2,HIGH);
