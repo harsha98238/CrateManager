@@ -595,6 +595,10 @@ bool Crate1Error2 = false;
 unsigned long Crate2PresenceTimer = 0;
 bool Crate2Error2 = false;
 
+
+/*crate repeat*/
+bool Crate1RepeatFlag = false;
+unsigned long Crate1EjectCount = 0;
 void setup() {
   
   Serial.begin(115200);//bits per second
@@ -1681,8 +1685,9 @@ if( copStorage1Count >= numCopStorage1 and crate1error == false /*and digitalRea
   
   }
 
-  if  (millis() - timer1CrateEjection1 > 2000 and flag2CrateEjection1 == true)
+  if  (millis() - timer1CrateEjection1 > 2000 and flag2CrateEjection1 == true or (Crate1RepeatFlag == true))
   {
+  Crate1EjectCount++;
   digitalWrite(crateEjector1,HIGH);
   Serial.println("crate eject high");
   timer2CrateEjection1 = millis();
@@ -1697,17 +1702,22 @@ if( millis() - timer2CrateEjection1 > (crate1RemoveOndelay * 50) and flag3CrateE
       flag3CrateEjection1 = false;
       crate1Complete = true;
   }
-
+if (    Crate1EjectCount >=2)
+{    
+  Crate1EjectCount = 0; 
+  Crate1RepeatFlag = false;
+}
 /*****************************************************CrateReplacement************************************************************/
 if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 3000 and crate1ProcessFlag == false)
 {
   if( digitalRead(crate1) == false){
     crate1ProcessFlag =true;
-   // Crate1RepeatFlag = true;
+    Crate1RepeatFlag = true;
+
   }
 }
 
-if(( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==false) /*or (Crate1RepeatFlag == true)*/){
+if(( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==false) ){
   digitalWrite(binUp1,HIGH);
   timer1binUp1 = millis();
   flag1binUp1 = true;
@@ -1735,7 +1745,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
   crate1Complete =false;
   crate1ProcessFlag =false;
   flag1binUp1 = false;
-  //Crate1RepeatFlag = false;
+  Crate1RepeatFlag = false;
   
 
 }
