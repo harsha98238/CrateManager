@@ -787,6 +787,8 @@ if (PreviousSensorOption == 1)
   ColorSensorOption = true;
   }
 //watchdog.enable(Watchdog::TIMEOUT_1S);
+
+digitalWrite(vcMotor,HIGH);
   
 
 }
@@ -1103,14 +1105,14 @@ if ( (millis() - beltonDetection > (timeblock * 50)) or (millis() - beltoffDetec
 if (errorB == true and errorflag == false)
   {
   //this is both horizontal and vertical
-  digitalWrite(vcMotor,LOW);
+  //digitalWrite(vcMotor,LOW);
   errorflag = true;
   }
    
 if (errorB == false)
   {
   //this is both horizontal and vertical
-  digitalWrite(vcMotor,HIGH);
+  //digitalWrite(vcMotor,HIGH);
   }
 
 /*full bobin ejection*/
