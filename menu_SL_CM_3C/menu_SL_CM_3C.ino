@@ -292,6 +292,7 @@ unsigned long timeblock=100;
 bool errorB=false;
 //bool errorBflag=false;
 bool errorBoccured=false;
+bool BeltErrorflag = false;
 //bool errorBoccured1=false;
 //bool errorBoccuredoff=false;
 //unsigned long errorBontmr=0;
@@ -882,7 +883,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
 
 }
 
-  if(millis() - InitTimer1BinUp1 > 2400 and InitBinUpFlag1 == true)
+  if(millis() - InitTimer1BinUp1 > 2700 and InitBinUpFlag1 == true)//2400
 {
   digitalWrite(binLock1,LOW);
   digitalWrite(binLock2,LOW);
@@ -1097,23 +1098,28 @@ if (digitalRead(beltDetection) == false and toggle1 == false )
 if ( (millis() - beltonDetection > (timeblock * 50)) or (millis() - beltoffDetection > (timeblock * 50)))
   { 
     BeltError = true;
+   
     Serial.println("Vertical belt error occured");
     errorB = true;
   }
 
+
+
 /*error for belt*/
-if (errorB == true and errorflag == false)
+if (BeltError == true and BeltErrorflag == false)
   {
   //this is both horizontal and vertical
-  //digitalWrite(vcMotor,LOW);
-  errorflag = true;
+  Serial.println("vc low");
+    digitalWrite(vcMotor,LOW);
+    BeltErrorflag = true;
   }
-   
-if (errorB == false)
-  {
+if(BeltErrorflag == true and BeltError == false)
+{
   //this is both horizontal and vertical
-  //digitalWrite(vcMotor,HIGH);
-  }
+  Serial.println("vc high");
+    digitalWrite(vcMotor,HIGH);
+    BeltErrorflag = false;
+}
 
 /*full bobin ejection*/
 /**************Full bobbin Sensor error**************/
@@ -1653,7 +1659,7 @@ if (binup1inerrorok1 == true and millis() - binup1inerrortime > 4000)
   }
     
 
-  if (binup1inerrorok2 == true and millis() - binup1inerrortime2 > 500)//was400
+  if (binup1inerrorok2 == true and millis() - binup1inerrortime2 > 800)//was400//500
   {
     digitalWrite(binLock1,LOW);
       
@@ -1731,7 +1737,7 @@ if(millis() - timer1binUp1 > 1000  and flag1binUp1 == true){
   }
 }
 
-if(millis() - timer1binUp1 > 2400 and flag1binUp1 == true){
+if(millis() - timer1binUp1 > 2700 and flag1binUp1 == true){//2400
   digitalWrite(binLock1,LOW);
  
 }
@@ -2793,7 +2799,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
 ///*shutter4 end*/
 
 /*error reset*/
-if (ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = true) or(errors4 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true)or (Tray3LightError == true)))
+if (ResetSwitch == true and ((error == true) or (BeltError == true) or (errors3 = true) or(errors4 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true)or (Tray3LightError == true)))
   { 
     ResetSwitch = false;
     BeltError = false;
@@ -2833,6 +2839,9 @@ if (ResetSwitch == true and ((error == true) or (errorB == true) or (errors3 = t
     lcd.setCursor(0,3);
     lcd.print("                    ");
     Serial.println("Error reset at loop");
+    //this is both horizontal and vertical
+  digitalWrite(vcMotor,HIGH);
+  
 }
 /*error reset ends*/
 
