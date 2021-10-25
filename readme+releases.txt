@@ -5,3 +5,4 @@ venkateshwra spinning mill and venkateshwara cotton mill(updated at field : 23fe
 suryamba mill : 227beed0b62756a23aebca93e436191f1c46e461
 SST mill : cb1764c9fd2667c5d653af26cf7901cb210e84a5
 Siivaganapathy mills  : cd0765532f023e0845f3335d27244753e80d3cb5 
+Natchiyar mills(Rajapalayam) (1C CM) :15bdb6d85d5dfcad539bb8496d2b8515dfc5d246
