@@ -1,10 +1,13 @@
 #include <EEPROM.h>
 #include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
+//#include <LiquidCrystal_I2C.h>
 //#include <Watchdog.h>
+#include <LiquidCrystal.h>
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+//LiquidCrystal_I2C lcd(0x27, 20, 4);
 #include <Keypad.h>
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
@@ -41,17 +44,17 @@ const int crate3           = 51;
 const int yarn2            = 52;
 const int yarn3            = 53;
 //output variable
-const int vcMotor          = 2;
-const int ccb              = 3;
-const int s1               = 4;
-const int s2               = 5;
+const int vcMotor          = 24;//2
+const int ccb              = 25;//3
+const int s1               = 26;//4
+const int s2               = 27;//5
 const int s3               = 6;
 const int copStorage1      = 7; //orientation box 1
 const int copStorage2      = 8; //orientation box 2
 const int crateEjector1    = 9; //bin change 1
 const int crateEjector2    = 10; //bin change 2
-const int binLock1         = 11;  
-const int binLock2         = 12;
+const int binLock1         = 28;//11  
+const int binLock2         = 29;//12
 const int binUp1           = 14; //bin down 1
 const int binUp2           = 15;  //bin down 2
 const int alarmLightyellow = 16;
@@ -602,7 +605,7 @@ bool Crate1RepeatFlag = false;
 unsigned long Crate1EjectCount = 0;
 
 
-/*new fc*/
+/*new fc  (laser through beam sensor)  */
 
 unsigned long fc_time = 0;
 int fc_interval=0;
@@ -620,10 +623,13 @@ void setup() {
   Serial.begin(115200);//bits per second
   
   
-  // initialize the LCD
-  lcd.init(); 
-  // Turn on the blacklight.
-  lcd.backlight();
+//  // initialize the LCD
+//  lcd.init(); 
+//  // Turn on the blacklight.
+//  lcd.backlight();
+  
+  lcd.begin(20, 4);
+  
   pinMode(beltDetection, INPUT);
   pinMode(fullCopDetection, INPUT);
   pinMode(color1, INPUT);
@@ -1085,6 +1091,7 @@ if ((currentMillis - previousMillis)  >=  interval)
     }
     
   }
+/*lcd reset start*/ 
 //CurrentMillisLCD = millis();
 //if((CurrentMillisLCD - PreviousMillisLCD) >= IntervalLCD)
 //{
@@ -3557,8 +3564,10 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
 {
   Serial.println("serial reinintialised");
 //  LiquidCrystal_I2C lcd(0x27, 20, 4);
-  lcd.init(); //initialization added
-  lcd.backlight();
+//  lcd.init(); //initialization added
+//  lcd.backlight();
+  
+  lcd.begin(20, 4);
   delay(100);
   lcd.clear();
   lcd.setCursor(0,0);
