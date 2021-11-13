@@ -44,17 +44,17 @@ const int crate3           = 51;
 const int yarn2            = 52;
 const int yarn3            = 53;
 //output variable
-const int vcMotor          = 2;//2  24
-const int ccb              = 3;//3  25
-const int s1               = 4;//4  26
-const int s2               = 5;//5  27
+const int vcMotor          = 24;//2  24
+const int ccb              = 25;//3  25
+const int s1               = 26;//4  26
+const int s2               = 27;//5  27
 const int s3               = 6;
 const int copStorage1      = 7; //orientation box 1
 const int copStorage2      = 8; //orientation box 2
 const int crateEjector1    = 9; //bin change 1
 const int crateEjector2    = 10; //bin change 2
-const int binLock1         = 11;//11  28
-const int binLock2         = 12;//12  29
+const int binLock1         = 28;//11  28
+const int binLock2         = 29;//12  29
 const int binUp1           = 14; //bin down 1
 const int binUp2           = 15;  //bin down 2
 const int alarmLightyellow = 16;
@@ -288,7 +288,7 @@ bool toggle = false;
 bool toggle1 = false;
 unsigned long beltonDetection = 0;
 unsigned long beltoffDetection= 0;
-unsigned long timeblock=15000;
+unsigned long timeblock=15000;//100 (changed to bring error late)
 
 
 //belt error
@@ -1126,7 +1126,7 @@ if ((currentMillis - previousMillis)  >=  interval)
   int Color2UpdatedValue1  = (color2Cnt/(255*255));
   int b2  = Color2UpdatedValue1*255*255;
 
-  int c2  = color2Cnt-b2;MotorFlag = false;
+  int c2  = color2Cnt-b2;
   int d2 = c2/255;
 
   int Color2UpdatedValue2 = d2 * 255;
@@ -4127,13 +4127,13 @@ if ((customKey=='#') and (MotorFlag == false))
   digitalWrite(vcMotor,LOW);
   MotorFlag = true;
 }
-if ((customKey=='*') and (MotorFlag == true))
-{
-  digitalWrite(vcMotor,HIGH);
-  MotorFlag = false;
-  Serial.println("inside motor on loop");
-  
-}
+//if ((customKey=='*') and (MotorFlag == true))
+//{
+//  digitalWrite(vcMotor,HIGH);
+//  MotorFlag = false;
+//  Serial.println("inside motor on loop");
+//  
+//}
 
 
 
