@@ -1,13 +1,13 @@
 #include <EEPROM.h>
 #include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
+//#include <LiquidCrystal_I2C.h>
 //#include <Watchdog.h>
-//#include <LiquidCrystal.h>
-//const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-//LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+#include <LiquidCrystal.h>
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+//LiquidCrystal_I2C lcd(0x27, 20, 4);
 #include <Keypad.h>
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
@@ -697,12 +697,12 @@ void setup() {
   Serial.begin(115200);//bits per second
   
   
-  // initialize the LCD
-  lcd.init(); 
-  // Turn on the blacklight.
-  lcd.backlight();
+//  // initialize the LCD
+//  lcd.init(); 
+//  // Turn on the blacklight.
+//  lcd.backlight();
   
-//  lcd.begin(20, 4);
+  lcd.begin(20, 4);
   
   pinMode(beltDetection, INPUT);
   pinMode(fullCopDetection, INPUT);
