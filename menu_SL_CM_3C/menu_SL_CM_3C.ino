@@ -585,7 +585,7 @@ int PreviousSensorOption;
 /*object 2 simulator*/
 unsigned long Object2simulatorPreviousPulse = 0;
 //to adjust Object2 pulse delay
-int Object2pulsedelay = 16;//16
+int Object2pulsedelay = 20;//16
 bool Object2simulatorflag = false;
 bool Object1flag1 =  false;
 int Object2index = 0;
@@ -625,66 +625,66 @@ const  int IntervalLCD = 1UL*5UL*60UL*1000UL;
 /*motor keypad*/
 bool MotorFlag = false;
 
-/*communication*/
-//half way communication start with device part
-
-#include<ArduinoJson.h>
-#include <AESLib.h>
-
-AESLib aesLib;
-
-int trx_pin = 17;
-bool ledFlag = false;
-bool writePass =false;
-bool reciveFlag = false;
-bool serialFlag = false;
-unsigned long int rec_time ;
-unsigned long int tx_start_time ;
-unsigned long int tx_end_time ;
-unsigned long int communicationDelay =0;
-unsigned long delayTime;
-String command ="";
-
-// AES Encryption Key
-byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
-
-// General initialization vector (use your own)
-byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-//String plaintext = "12345678;";
- byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
- byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-int sendMessage(String msg) {// encrypt and send message to slave device
- 
-  byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  digitalWrite(trx_pin,HIGH);
-  char output[256] = {0};
-  char input[256] = {0};
-  sprintf(input, msg.c_str());
-  int inputLen = strlen(input);
-  aesLib.encrypt64(input, inputLen, output, aes_key, sizeof(aes_key), enc_iv);
-  Serial1.write(output);
-  Serial.write(output);
-  return 1;
-}
-
-String decryptMessage(String msg) {// encrypt and send message to slave device
-  byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-  char output[256] = {0};
-  char ciphertext[512] = {0};
-  msg.toCharArray(ciphertext, msg.length());
-  char decryptedchar[strlen(ciphertext)]; // half may be enough
-  aesLib.decrypt64(ciphertext, strlen(ciphertext), decryptedchar, aes_key, sizeof(aes_key), dec_iv);
-  String decrypted = String(decryptedchar);
- 
-  if (decrypted.indexOf(decrypted) == -1) {
-    Serial.println("Decryption FAILED!");
-  }  
-  return decrypted; 
-  }
-
-/*communication*/
+///*communication*/
+////half way communication start with device part
+//
+//#include<ArduinoJson.h>
+//#include <AESLib.h>
+//
+//AESLib aesLib;
+//
+//int trx_pin = 17;
+//bool ledFlag = false;
+//bool writePass =false;
+//bool reciveFlag = false;
+//bool serialFlag = false;
+//unsigned long int rec_time ;
+//unsigned long int tx_start_time ;
+//unsigned long int tx_end_time ;
+//unsigned long int communicationDelay =0;
+//unsigned long delayTime;
+//String command ="";
+//
+//// AES Encryption Key
+//byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
+//
+//// General initialization vector (use your own)
+//byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//
+////String plaintext = "12345678;";
+// byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+// byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//
+//int sendMessage(String msg) {// encrypt and send message to slave device
+// 
+//  byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//  digitalWrite(trx_pin,HIGH);
+//  char output[256] = {0};
+//  char input[256] = {0};
+//  sprintf(input, msg.c_str());
+//  int inputLen = strlen(input);
+//  aesLib.encrypt64(input, inputLen, output, aes_key, sizeof(aes_key), enc_iv);
+//  Serial1.write(output);
+//  Serial.write(output);
+//  return 1;
+//}
+//
+//String decryptMessage(String msg) {// encrypt and send message to slave device
+//  byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//  char output[256] = {0};
+//  char ciphertext[512] = {0};
+//  msg.toCharArray(ciphertext, msg.length());
+//  char decryptedchar[strlen(ciphertext)]; // half may be enough
+//  aesLib.decrypt64(ciphertext, strlen(ciphertext), decryptedchar, aes_key, sizeof(aes_key), dec_iv);
+//  String decrypted = String(decryptedchar);
+// 
+//  if (decrypted.indexOf(decrypted) == -1) {
+//    Serial.println("Decryption FAILED!");
+//  }  
+//  return decrypted; 
+//  }
+//
+///*communication*/
 
 
 
@@ -915,14 +915,14 @@ digitalWrite(vcMotor,HIGH);
 
 
 
-/*communication*/
-  Serial1.begin(115200);
-  pinMode(trx_pin,OUTPUT);
-  digitalWrite(trx_pin,LOW);
-  aesLib.gen_iv(aes_iv);
-  aesLib.set_paddingmode((paddingMode)0);
- // Serial.setTimeout(250);
-   Serial1.setTimeout(20);
+///*communication*/
+//  Serial1.begin(115200);
+//  pinMode(trx_pin,OUTPUT);
+//  digitalWrite(trx_pin,LOW);
+//  aesLib.gen_iv(aes_iv);
+//  aesLib.set_paddingmode((paddingMode)0);
+// // Serial.setTimeout(250);
+//   Serial1.setTimeout(20);
 
 
 }
@@ -1338,7 +1338,7 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
     errorB = true;
   }
 ///*FullCopDetection New*/
-// if (digitalRead(fullCopDetection) == false and fc_toggle == true)
+// if (digitalRead(fullCopDetection) == false and fc_toggle == true)//low trigger on
 //  {
 //    fullcopBeltSeperationTimerStart= millis();
 //    fc_toggle = false;
@@ -1351,7 +1351,7 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
 //    fullcopBeltSeperationTimerEnd = millis();
 //    fullcopinterval = fullcopBeltSeperationTimerEnd - fullcopBeltSeperationTimerStart;
 //    //Serial.println(fullcopinterval);
-//    if (fullcopinterval > 250)
+//    if (fullcopinterval > 300)//250
 //      {
 //        
 //        fc_time = millis();
@@ -1361,23 +1361,23 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
 //      //beltError = false;
 //  }
 //
-//  if(fullcopinterval<800 and fullcopinterval>300) 
+//  if(fullcopinterval<800 and fullcopinterval>300)//find FC 
 //  {
 //    fcflag = true;
 //    fc_interval = fullcopinterval;
 //    fullcopinterval = 0;
 //  }
 ////To Trigger Nozzle after a delay of 300ms
-//  if ((millis() - fc_time > 300) and (millis() -fc_time < 500 ) and fcflag == true)
+//  if ((millis() - fc_time > 300) and (millis() -fc_time < 500 ) and fcflag == true)//nozzle timing
 //  {
-//    fcflag = false; 
+//    fcflag = false;//check..
 //    Serial.println("S1 high");
 //    digitalWrite(s1,HIGH);
 //    FullCopCountFlag = true; 
 //  }  
 //  else
 //  {
-//   if(FullCopCountFlag == true and millis()-fc_time >600)
+//   if(FullCopCountFlag == true and millis()-fc_time >600)//time??
 //    {
 //    FullCopCount++;
 //    FullCopCountFlag = false;
@@ -1592,48 +1592,48 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   Object2simulatorflag = false;
 }   
 /****************************Object 1 identification********************************/
- if(digitalRead(obj1) == false and Object1flag1 == false  )
-    {
-    Object1Detected = true;//only used inside loop
-    Object1flag1 = true;
-    Shutter2OnReady = false;
-    Serial.println("Object1 identified");
-    color1flag = false;
-    color1identified = false;
-    if (ColorSensorOption == true)
-    { 
-    Color2flag = false;
-    }
-    Object2simulatorflag = true;
-   }
-if( (millis() - Object2simulatorPreviousPulse) >50 )
-    {
-      if( Object2simulatorflag == true)
-      {
-       Object2simTrainarray[Object2index] = 1;
-      }
-      if( Object2simulatorflag == false)
-      {
-       Object2simTrainarray[Object2index] = 0;
-      }
-      
-      Object2indexpresent = Object2index - Object2pulsedelay;
-      if (Object2indexpresent < 0)
-      {
-        Object2indexpresent = Object2indexpresent + 100 ;
-      }
-
-      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] ;
-      if (Object2indexpresent < 99 and Object2indexpresent > 0 )
-      {
-      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] +
-                            Object2simTrainarray[Object2indexpresent - 1] +
-                            Object2simTrainarray[Object2indexpresent + 1];
-      }
-      Object2index = (Object2index+1) % 100 ;
-      Object2simulatorPreviousPulse = millis();
-      Object2simulatorflag = false;
-      }
+// if(digitalRead(obj1) == false and Object1flag1 == false  )
+//    {
+//    Object1Detected = true;//only used inside loop
+//    Object1flag1 = true;
+//    Shutter2OnReady = false;
+//    Serial.println("Object1 identified");
+//    color1flag = false;
+//    color1identified = false;
+//    if (ColorSensorOption == true)
+//    { 
+//    Color2flag = false;
+//    }
+//    Object2simulatorflag = true;
+//   }
+//if( (millis() - Object2simulatorPreviousPulse) >50 )
+//    {
+//      if( Object2simulatorflag == true)
+//      {
+//       Object2simTrainarray[Object2index] = 1;
+//      }
+//      if( Object2simulatorflag == false)
+//      {
+//       Object2simTrainarray[Object2index] = 0;
+//      }
+//      
+//      Object2indexpresent = Object2index - Object2pulsedelay;
+//      if (Object2indexpresent < 0)
+//      {
+//        Object2indexpresent = Object2indexpresent + 100 ;
+//      }
+//
+//      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] ;
+//      if (Object2indexpresent < 99 and Object2indexpresent > 0 )
+//      {
+//      Object2PresentOutput = Object2simTrainarray[Object2indexpresent] +
+//                            Object2simTrainarray[Object2indexpresent - 1] +
+//                            Object2simTrainarray[Object2indexpresent + 1];
+//      }
+//      Object2index = (Object2index+1) % 100 ;
+//      Object2simulatorPreviousPulse = millis();
+//      Object2simulatorflag = false;
+//      }
 
 
 
@@ -2038,28 +2038,28 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
 
   }
 
-////Object2 Sensor Error
-//if (digitalRead(obj2) == false and obj2errflag == false)
-//  {
-//    obj2errtimer = millis();
-//    obj2errflag2 = true;
-//    obj2errflag = true;  
-//  }
-//
-//if (digitalRead(obj2) == true)
-//  {
-//    obj2errflag = false;
-//    obj2errflag2 = false;
-//  }
-//   
-//  
-//if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
-//  { 
-//    Object2ErrorOccuredFlag = true;
-//    Serial.println("Object2 error occured");
-//    errors3 = true;
-//    
-//  }
+//Object2 Sensor Error
+if (digitalRead(obj2) == false and obj2errflag == false)
+  {
+    obj2errtimer = millis();
+    obj2errflag2 = true;
+    obj2errflag = true;  
+  }
+
+if (digitalRead(obj2) == true)
+  {
+    obj2errflag = false;
+    obj2errflag2 = false;
+  }
+   
+  
+if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
+  { 
+    Object2ErrorOccuredFlag = true;
+    Serial.println("Object2 error occured");
+    errors3 = true;
+    
+  }
 
 
 
@@ -2110,7 +2110,7 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
 /*s3error ends*/
 // ****************************Yarn 2 identification********************************//
 
-if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2flag1 == true /*and digitalRead(obj2) == false*/ ) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
+if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true and digitalRead(obj2) == false ) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
 {
     timeryarn2 = millis();
     yarn2flag = true;
@@ -2174,9 +2174,24 @@ if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) 
 
 // ****************************Object 2 identification********************************//
 
-///*object simulator @ S3*/
-if((Object2PresentOutput >= 1 and Object2flag1 == false))
-{
+/////*object simulator @ S3*/
+//if((Object2PresentOutput >= 1 and Object2flag1 == false))
+//{
+//    Object2Detected = true;
+//    Object2flag1 = true;
+//    Shutter3OnReady = false;
+//    Serial.println("Object2 identified");
+//    //yarn2flag = false;
+//    
+//    if (ColorSensorOption == false)
+//    {
+//    Color2flag = false;
+//    color2identified = false;
+//    }
+//}
+
+  if(digitalRead(obj2) == false  and Object2flag1 == false)
+  {
     Object2Detected = true;//only used inside loo
     Object2flag1 = true;
     Shutter3OnReady = false;
@@ -2188,25 +2203,10 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
     Color2flag = false;
     color2identified = false;
     }
-}
-
-//  if(digitalRead(obj2) == false  and Object2flag1 == false)
-//  {
-//    Object2Detected = true;//only used inside loo
-//    Object2flag1 = true;
-//    Shutter3OnReady = false;
-//    Serial.println("Object2 identified");
-//    //yarn2flag = false;
-//    
-//    if (ColorSensorOption == false)
-//    {
-//    Color2flag = false;
-//    color2identified = false;
-//    }
-//    
-//  }
+    
+  }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2flag1 == true /*and digitalRead(obj2) == true*/ and color2identified == true and yarn2flag == false and BobbinMixupflag == false)
+  if (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == false and BobbinMixupflag == false)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -2220,7 +2220,7 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
       Serial.println("trigger s3 for c2 cop");
       }
 //bobbin mix SHUTTER3 for color2COP
-  if (Object2flag1 == true /*and digitalRead(obj2) == true*/ and yarn2flag == false and BobbinMixupflag == true)
+  if (Object2Detected == true and digitalRead(obj2) == true and yarn2flag == false and BobbinMixupflag == true)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -2236,23 +2236,23 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
       }
   
   //Passing Shutter3 - cop must be 3rd color    
-//     if (Object2flag1 == true /*and digitalRead(obj2) == true*/ and color2identified == false and yarn2flag == false) 
-//
-//     {
-//      Object2DetectTmr = millis();
-//      yarn2flag = false;
-//      yarn2detected = false;
-//
-//      Color2flag = false;
-//      color2identified = false;
-//      
-//      s3on = false;
-//      Object2Detected = false;
-//      Object2flag1 = false;
-//      Serial.println("Color3 empty Check");
-//    }
+     if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == false and yarn2flag == false) 
+
+     {
+      Object2DetectTmr = millis();
+      yarn2flag = false;
+      yarn2detected = false;
+
+      Color2flag = false;
+      color2identified = false;
+      
+      s3on = false;
+      Object2Detected = false;
+      Object2flag1 = false;
+      Serial.println("Color3 empty Check");
+    }
  //To find Yarn at Object2 sensor and use the information for shutter4     
-if(Object2flag1 == true /*and digitalRead(obj2) == true*/ and yarn2flag == true)
+if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2273,7 +2273,7 @@ if(Object2flag1 == true /*and digitalRead(obj2) == true*/ and yarn2flag == true)
       Serial.println("Color3 yarn Check");
     }
 //Color 2 COP with Yarn (color 2 kirchi)
-    if   (Object2flag1 == true /*and digitalRead(obj2) == true*/ and color2identified == true and yarn2flag == true)
+    if   (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == true)//Object2flag1 == true 
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -3224,85 +3224,85 @@ EEPROM.update(23,0);
 //watchdog.reset();
 
 
-/*communication*/
-
-  if(Serial1.available())
-  {rec_time = millis();
-    reciveFlag = true;
-    //String recData = serialCall();
-    String recData = Serial1.readString();
-    Serial.println(recData); 
-    String decryptedMessage = decryptMessage(recData);
-    
-    DynamicJsonDocument doc(300);
-    DeserializationError error = deserializeJson(doc, decryptedMessage);
-    Serial.print("receive buffer time :");    
-    Serial.println(millis()-rec_time);
-
-    if (decryptedMessage == "mac_id00005" or decryptedMessage=="EOL" or (millis ()-communicationDelay) >3000 or doc["MAC_ID"] == "mac_id00005")
-      serialFlag = true;
-
-    if(serialFlag == true){
-      if(decryptedMessage != "EOL"){
-      Serial.print("Commend received from master :");
-      Serial.println(decryptedMessage);
-      }
-      if(decryptedMessage == "mac_id00005"){
-        Serial.println("Machine 1 Direct Access");
-        writePass = true;
-      }
-      else if(doc["MAC_ID"] == "mac_id00005")
-       {
-          Serial.println("Machine 1 is macthing");
-          if( doc["COMMAND"]== "PULL" )
-          {
-             Serial.println("Machine 1 is Accessed");
-              writePass = true;
-          }          
-          else
-            Serial.println("Machine 1 is not Accessed");        
-        }
-      else
-        {
-          Serial.println("Machine 1 is not macthing");
-          communicationDelay = millis();
-        }
-        serialFlag =false;      
-      }
-  }
-  if (writePass == true)
-  {
-   String value1;
-   digitalWrite(trx_pin,HIGH);  
-   
-   tx_start_time = millis();  
-   DynamicJsonDocument doc(200);
-   doc["MAC_ID"] = "mac_id00005";
-   doc["COLOUR_1"] = color1Cnt;
-   doc["COLOUR_2"] = color2Cnt;
-   doc["REJECT_COUNT 1"] = FullCopCount;
-   doc["REJECT_COUNT 2"] = krichiCnt;
-   doc["COLOUR_3"] = color3Cnt;
-   String message ;
-   serializeJsonPretty(doc, message);
-   if (sendMessage(message) == 1)
-        {
-          Serial.println("");
-          Serial.println("message send to master");
-        }
-    if (Serial1.print("EOL"))
-   Serial1.flush();    
-   tx_end_time = millis();
-   digitalWrite(trx_pin,LOW);
-   Serial.print("Total timeing :");
-   Serial.println(tx_end_time-rec_time);
-   Serial.print("receiver timeing :");
-   Serial.println(tx_start_time-rec_time);
-   Serial.print("Treansmission timeing :");
-   Serial.println(tx_end_time-tx_start_time);
-   
-   writePass = false;
-  }
+///*communication*/
+//
+//  if(Serial1.available())
+//  {rec_time = millis();
+//    reciveFlag = true;
+//    //String recData = serialCall();
+//    String recData = Serial1.readString();
+//    Serial.println(recData); 
+//    String decryptedMessage = decryptMessage(recData);
+//    
+//    DynamicJsonDocument doc(300);
+//    DeserializationError error = deserializeJson(doc, decryptedMessage);
+//    Serial.print("receive buffer time :");    
+//    Serial.println(millis()-rec_time);
+//
+//    if (decryptedMessage == "mac_id00005" or decryptedMessage=="EOL" or (millis ()-communicationDelay) >3000 or doc["MAC_ID"] == "mac_id00005")
+//      serialFlag = true;
+//
+//    if(serialFlag == true){
+//      if(decryptedMessage != "EOL"){
+//      Serial.print("Commend received from master :");
+//      Serial.println(decryptedMessage);
+//      }
+//      if(decryptedMessage == "mac_id00005"){
+//        Serial.println("Machine 1 Direct Access");
+//        writePass = true;
+//      }
+//      else if(doc["MAC_ID"] == "mac_id00005")
+//       {
+//          Serial.println("Machine 1 is macthing");
+//          if( doc["COMMAND"]== "PULL" )
+//          {
+//             Serial.println("Machine 1 is Accessed");
+//              writePass = true;
+//          }          
+//          else
+//            Serial.println("Machine 1 is not Accessed");        
+//        }
+//      else
+//        {
+//          Serial.println("Machine 1 is not macthing");
+//          communicationDelay = millis();
+//        }
+//        serialFlag =false;      
+//      }
+//  }
+//  if (writePass == true)
+//  {
+//   String value1;
+//   digitalWrite(trx_pin,HIGH);  
+//   
+//   tx_start_time = millis();  
+//   DynamicJsonDocument doc(200);
+//   doc["MAC_ID"] = "mac_id00005";
+//   doc["COLOUR_1"] = color1Cnt;
+//   doc["COLOUR_2"] = color2Cnt;
+//   doc["REJECT_COUNT 1"] = FullCopCount;
+//   doc["REJECT_COUNT 2"] = krichiCnt;
+//   doc["COLOUR_3"] = color3Cnt;
+//   String message ;
+//   serializeJsonPretty(doc, message);
+//   if (sendMessage(message) == 1)
+//        {
+//          Serial.println("");
+//          Serial.println("message send to master");
+//        }
+//    if (Serial1.print("EOL"))
+//   Serial1.flush();    
+//   tx_end_time = millis();
+//   digitalWrite(trx_pin,LOW);
+//   Serial.print("Total timeing :");
+//   Serial.println(tx_end_time-rec_time);
+//   Serial.print("receiver timeing :");
+//   Serial.println(tx_start_time-rec_time);
+//   Serial.print("Treansmission timeing :");
+//   Serial.println(tx_end_time-tx_start_time);
+//   
+//   writePass = false;
+//  }
 
 //  if(millis()-delayTime>200){
 //    delayTime=millis();
