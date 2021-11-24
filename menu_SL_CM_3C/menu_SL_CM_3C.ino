@@ -48,7 +48,7 @@ const int vcMotor          = 24;//2  24
 const int ccb              = 25;//3  25
 const int s1               = 26;//4  26
 const int s2               = 27;//5  27
-const int s3               = 6;
+const int s3               = 17;//6
 const int copStorage1      = 7; //orientation box 1
 const int copStorage2      = 8; //orientation box 2
 const int crateEjector1    = 9; //bin change 1
@@ -58,7 +58,7 @@ const int binLock2         = 29;//12  29
 const int binUp1           = 14; //bin down 1
 const int binUp2           = 15;  //bin down 2
 const int alarmLightyellow = 16;
-const int s4               = 17;
+const int s4               = 53;//17
 const int copStorage3      = 18; //orientation box 1
 const int crateEjector3    = 19; //bin change 1
 const int binLock3         = 22; 
@@ -687,8 +687,10 @@ bool MotorFlag = false;
 ///*communication*/
 
 
-
-
+//to switch off lcd backlight
+const int Backlight = 6;//replace with 31   53
+bool BacklightFlag = false;
+unsigned long BacklightTimer = 0;
 
 
 
@@ -703,7 +705,7 @@ void setup() {
 //  lcd.backlight();
   
   lcd.begin(20, 4);
-  
+  digitalWrite(Backlight,HIGH);
   pinMode(beltDetection, INPUT);
   pinMode(fullCopDetection, INPUT);
   pinMode(color1, INPUT);
@@ -737,7 +739,9 @@ void setup() {
   pinMode(crateEjector3,OUTPUT);
   pinMode(binUp3,OUTPUT);
   pinMode(binLock3,OUTPUT);
-  
+
+  pinMode(Backlight,OUTPUT);
+   
   lcd.setCursor(0,0);
   lcd.print("                    ");
   lcd.setCursor(0,1);
@@ -930,7 +934,14 @@ digitalWrite(vcMotor,HIGH);
 
 
 void loop(){ 
-
+  if(((millis()) - (BacklightTimer) >= 1000) and   (BacklightFlag == true))
+  {
+    digitalWrite(Backlight,LOW);
+    //lcd.clear();
+    BacklightFlag = false; 
+    //BacklightTimer = 0;
+    Serial.println("BacklightTimer = ON");
+  }
 if (Initializationflag = true and InitCopStorageFlag == false )
 {
   digitalWrite(copStorage1,HIGH); 
@@ -3801,7 +3812,6 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
 //  LiquidCrystal_I2C lcd(0x27, 20, 4);
 //  lcd.init(); //initialization added
 //  lcd.backlight();
-  
   lcd.begin(20, 4);
   delay(100);
   lcd.clear();
@@ -3838,8 +3848,12 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   InsideOption3Flag = false;
   
   InsideClearFlag = false;
-
+  BacklightTimer = millis();
+  Serial.println("BacklightTimer flag");
+  digitalWrite(Backlight,LOW);
+  
   }
+
 if ((InsideClearFlag == false) and (customKey=='C')and (InsideMenuFlag == false)  and (InsideOption1Flag == false) and  (InsideOption2Flag == false)and (InsideOption3Flag == false) )
 {
   lcd.clear();
@@ -3851,6 +3865,7 @@ if ((InsideClearFlag == false) and (customKey=='C')and (InsideMenuFlag == false)
   lcd.print("PRESS B TO EXIT");
   InsideClearFlag = true;
   CountDisplayFlag = false;
+  //BacklightFlag = true;
 }
 
 if( (InsideClearFlag == true) and (customKey=='1') )
@@ -3899,6 +3914,8 @@ if( (InsideClearFlag == true) and (customKey=='1') )
 
 if ((InsideMenuFlag == false) and (customKey=='A'))
 {
+  digitalWrite(Backlight,HIGH);
+  lcd.begin(20, 4);
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("1. BIN SIZE");
@@ -3908,6 +3925,7 @@ if ((InsideMenuFlag == false) and (customKey=='A'))
   lcd.print("3. SENSOR OPTION");
   InsideMenuFlag = true;
   CountDisplayFlag = false;
+  BacklightFlag = true;
 }
 
   if( (InsideMenuFlag == true) and (customKey=='1')  and (InsideOption1Flag == false) and  (InsideOption2Flag == false)and (InsideOption3Flag == false)  )
