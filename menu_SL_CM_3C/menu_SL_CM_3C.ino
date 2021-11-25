@@ -686,12 +686,12 @@ bool MotorFlag = false;
 //
 ///*communication*/
 
-
-//to switch off lcd backlight
-const int Backlight = 6;//replace with 31   53
-bool BacklightFlag = false;
-unsigned long BacklightTimer = 0;
-
+//
+////to switch off lcd backlight
+//const int Backlight = 6;//replace with 31   53
+//bool BacklightFlag = false;
+//unsigned long BacklightTimer = 0;
+//
 
 
 void setup() {
@@ -705,7 +705,6 @@ void setup() {
 //  lcd.backlight();
   
   lcd.begin(20, 4);
-  digitalWrite(Backlight,HIGH);
   pinMode(beltDetection, INPUT);
   pinMode(fullCopDetection, INPUT);
   pinMode(color1, INPUT);
@@ -739,9 +738,9 @@ void setup() {
   pinMode(crateEjector3,OUTPUT);
   pinMode(binUp3,OUTPUT);
   pinMode(binLock3,OUTPUT);
-
-  pinMode(Backlight,OUTPUT);
-   
+//
+//  pinMode(Backlight,OUTPUT);
+//    digitalWrite(Backlight,HIGH);
   lcd.setCursor(0,0);
   lcd.print("                    ");
   lcd.setCursor(0,1);
@@ -934,14 +933,14 @@ digitalWrite(vcMotor,HIGH);
 
 
 void loop(){ 
-  if(((millis()) - (BacklightTimer) >= 1000) and   (BacklightFlag == true))
-  {
-    digitalWrite(Backlight,LOW);
-    //lcd.clear();
-    BacklightFlag = false; 
-    //BacklightTimer = 0;
-    Serial.println("BacklightTimer = ON");
-  }
+//  if(((millis()) - (BacklightTimer) >= 1000) and   (BacklightFlag == true))
+//  {
+//    digitalWrite(Backlight,LOW);
+//    //lcd.clear();
+//    BacklightFlag = false; 
+//    //BacklightTimer = 0;
+//    Serial.println("BacklightTimer = ON");
+//  }
 if (Initializationflag = true and InitCopStorageFlag == false )
 {
   digitalWrite(copStorage1,HIGH); 
@@ -3848,9 +3847,9 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   InsideOption3Flag = false;
   
   InsideClearFlag = false;
-  BacklightTimer = millis();
-  Serial.println("BacklightTimer flag");
-  digitalWrite(Backlight,LOW);
+//  BacklightTimer = millis();
+//  Serial.println("BacklightTimer flag");
+//  digitalWrite(Backlight,LOW);
   
   }
 
@@ -3914,7 +3913,7 @@ if( (InsideClearFlag == true) and (customKey=='1') )
 
 if ((InsideMenuFlag == false) and (customKey=='A'))
 {
-  digitalWrite(Backlight,HIGH);
+//  digitalWrite(Backlight,HIGH);
   lcd.begin(20, 4);
   lcd.clear();
   lcd.setCursor(0,0);
@@ -3925,7 +3924,7 @@ if ((InsideMenuFlag == false) and (customKey=='A'))
   lcd.print("3. SENSOR OPTION");
   InsideMenuFlag = true;
   CountDisplayFlag = false;
-  BacklightFlag = true;
+//  BacklightFlag = true;
 }
 
   if( (InsideMenuFlag == true) and (customKey=='1')  and (InsideOption1Flag == false) and  (InsideOption2Flag == false)and (InsideOption3Flag == false)  )
