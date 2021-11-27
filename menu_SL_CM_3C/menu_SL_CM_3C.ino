@@ -48,7 +48,7 @@ const int vcMotor          = 24;//2  24
 const int ccb              = 25;//3  25
 const int s1               = 26;//4  26
 const int s2               = 27;//5  27
-const int s3               = 17;//6
+const int s3               = 6;//6  17
 const int copStorage1      = 7; //orientation box 1
 const int copStorage2      = 8; //orientation box 2
 const int crateEjector1    = 9; //bin change 1
@@ -58,7 +58,7 @@ const int binLock2         = 29;//12  29
 const int binUp1           = 14; //bin down 1
 const int binUp2           = 15;  //bin down 2
 const int alarmLightyellow = 16;
-const int s4               = 53;//17
+const int s4               = 17;//17   53
 const int copStorage3      = 18; //orientation box 1
 const int crateEjector3    = 19; //bin change 1
 const int binLock3         = 22; 
@@ -694,6 +694,17 @@ bool MotorFlag = false;
 //
 
 
+
+/*Variable for Bin size*/
+int BinSize = 0;
+
+
+/*Lcd refresh*/
+unsigned long PreviousRefreshTimer = 0;
+unsigned long RefreshTimer;
+const unsigned long RefreshInterval = 10000;   // Change  every 10sec
+bool LcdRefreshFlag = false;
+ 
 void setup() {
   
   Serial.begin(115200);//bits per second
@@ -762,6 +773,9 @@ void setup() {
   lcd.print("RB2=");
   lcd.setCursor(0,2);
   lcd.print("TB3=");
+  lcd.setCursor(10,2);
+  lcd.print("BS =");
+  
   
 
   delay(50);
@@ -844,6 +858,7 @@ if (PreviousBinSize == 0)
   Flag200 = false;
   Flag120 = false;
   Flag10  = false;
+
   
   }
 if (PreviousBinSize == 1)
@@ -854,6 +869,7 @@ if (PreviousBinSize == 1)
   Flag200 = false;
   Flag120 = false;
   Flag10  = false;
+
   }
 if (PreviousBinSize == 2)
 {
@@ -863,6 +879,7 @@ if (PreviousBinSize == 2)
   Flag200 = false;
   Flag120 = false;
   Flag10  = false;
+
   }
 if (PreviousBinSize == 3)
 {
@@ -872,6 +889,7 @@ if (PreviousBinSize == 3)
   Flag200 = true;
   Flag120 = false;
   Flag10  = false;
+
   }
 if (PreviousBinSize == 4)
 {
@@ -881,6 +899,7 @@ if (PreviousBinSize == 4)
   Flag200 = false;
   Flag120 = true;
   Flag10  = false;
+
   }
 if (PreviousBinSize == 5)
 {
@@ -890,6 +909,7 @@ if (PreviousBinSize == 5)
   Flag200 = false;
   Flag120 = false;
   Flag10  = true;
+
   }
 
 
@@ -941,6 +961,48 @@ void loop(){
 //    //BacklightTimer = 0;
 //    Serial.println("BacklightTimer = ON");
 //  }
+
+
+
+/*lcd refresh*/
+RefreshTimer = millis();
+
+if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefreshFlag == false)) 
+ {
+  PreviousRefreshTimer = RefreshTimer;
+  
+  lcd.begin(20, 4);
+  delay(100);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("TB1=");
+  lcd.setCursor(10,0);
+  lcd.print("TB2=");
+  lcd.setCursor(0,1);
+  lcd.print("RB1=");
+  lcd.setCursor(10,1);
+  lcd.print("RB2=");
+  lcd.setCursor(0,2);
+  lcd.print("TB3=");
+  lcd.setCursor(10,2);
+  lcd.print("BS =");
+  
+  
+  lcd.setCursor(4,0);
+  lcd.print(color1Cnt);
+  lcd.setCursor(14,0);
+  lcd.print(color2Cnt);
+  lcd.setCursor(4,1);
+  lcd.print(FullCopCount);
+  lcd.setCursor(14,1);
+  lcd.print(krichiCnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
+ }
+
+
 if (Initializationflag = true and InitCopStorageFlag == false )
 {
   digitalWrite(copStorage1,HIGH); 
@@ -1060,6 +1122,7 @@ numCopStorage1 = 4;
 numCopStorage2 = 4;
 numCopStorage3 = 4;
 Flag140 = false;
+BinSize = 140;
 }
 
 if( (Flag140 == false)  and (Flag160 == true)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == false) and (Flag10 == false) ) 
@@ -1070,6 +1133,7 @@ numCopStorage1 = 4;
 numCopStorage2 = 4;
 numCopStorage3 = 4;
 Flag160 = false;
+BinSize = 160;
 }
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == true)  and (Flag200 == false)and (Flag120 == false) and (Flag10 == false)  ) 
@@ -1080,6 +1144,7 @@ numCopStorage1 = 4;
 numCopStorage2 = 4;
 numCopStorage3 = 4;
 Flag180 = false;
+BinSize = 180;
 }
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == true) and (Flag120 == false) and (Flag10 == false) ) 
@@ -1090,6 +1155,7 @@ numCopStorage1 = 5;
 numCopStorage2 = 5;
 numCopStorage3 = 5;
 Flag200 = false;
+BinSize = 200;
 }
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == true) and (Flag10 == false) ) 
@@ -1100,16 +1166,18 @@ numCopStorage1 = 4;
 numCopStorage2 = 4;
 numCopStorage3 = 4;
 Flag120 = false;
+BinSize = 120;
 }
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == false) and (Flag10 == true) ) 
 {
-Serial.println("140 Bin size");
+Serial.println("10 Bin size");
 c1Cntreset = 5;
 numCopStorage1 = 2; 
 numCopStorage2 = 2;
 numCopStorage3 = 2;
 Flag10 = false;
+BinSize = 10;
 }
 
 
@@ -1259,13 +1327,12 @@ if ((currentMillis - previousMillis)  >=  interval)
 //  lcd.print(FullCopCount);
 //  lcd.setCursor(4,1);
 //  lcd.print(color3Cnt);
-//
-//
-//
-//
-//  
-//
-//}
+//  lcd.setCursor(10,2);
+//  lcd.print("BS =");
+//  lcd.setCursor(14,2);
+//  lcd.print(BinSize);
+  
+//  }
 
 
 
@@ -3824,6 +3891,8 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.print("RB2=");
   lcd.setCursor(0,2);
   lcd.print("TB3=");
+  lcd.setCursor(10,2);
+  lcd.print("BS =");
   
   
   lcd.setCursor(4,0);
@@ -3836,6 +3905,9 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.print(krichiCnt);
   lcd.setCursor(4,2);
   lcd.print(color3Cnt);
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
+  
   Serial.println("Done resetting display");
   
 
@@ -3847,6 +3919,7 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   InsideOption3Flag = false;
   
   InsideClearFlag = false;
+  LcdRefreshFlag = false;
 //  BacklightTimer = millis();
 //  Serial.println("BacklightTimer flag");
 //  digitalWrite(Backlight,LOW);
@@ -3925,6 +3998,7 @@ if ((InsideMenuFlag == false) and (customKey=='A'))
   InsideMenuFlag = true;
   CountDisplayFlag = false;
 //  BacklightFlag = true;
+  LcdRefreshFlag = true;
 }
 
   if( (InsideMenuFlag == true) and (customKey=='1')  and (InsideOption1Flag == false) and  (InsideOption2Flag == false)and (InsideOption3Flag == false)  )
