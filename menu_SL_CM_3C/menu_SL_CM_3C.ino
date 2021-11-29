@@ -59,8 +59,8 @@ const int binUp1           = 14; //bin down 1
 const int binUp2           = 15;  //bin down 2
 const int alarmLightyellow = 16;
 const int s4               = 17;//17   53
-const int copStorage3      = 18; //orientation box 1
-const int crateEjector3    = 19; //bin change 1
+const int copStorage3      = 31; //orientation box 1 //18  //20
+const int crateEjector3    = 21; //bin change 1  //19
 const int binLock3         = 22; 
 const int binUp3           = 23; //bin down 1
 //ccb
@@ -625,66 +625,7 @@ const  int IntervalLCD = 1UL*5UL*60UL*1000UL;
 /*motor keypad*/
 bool MotorFlag = false;
 
-///*communication*/
-////half way communication start with device part
-//
-//#include<ArduinoJson.h>
-//#include <AESLib.h>
-//
-//AESLib aesLib;
-//
-//int trx_pin = 17;
-//bool ledFlag = false;
-//bool writePass =false;
-//bool reciveFlag = false;
-//bool serialFlag = false;
-//unsigned long int rec_time ;
-//unsigned long int tx_start_time ;
-//unsigned long int tx_end_time ;
-//unsigned long int communicationDelay =0;
-//unsigned long delayTime;
-//String command ="";
-//
-//// AES Encryption Key
-//byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
-//
-//// General initialization vector (use your own)
-//byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//
-////String plaintext = "12345678;";
-// byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-// byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//
-//int sendMessage(String msg) {// encrypt and send message to slave device
-// 
-//  byte enc_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//  digitalWrite(trx_pin,HIGH);
-//  char output[256] = {0};
-//  char input[256] = {0};
-//  sprintf(input, msg.c_str());
-//  int inputLen = strlen(input);
-//  aesLib.encrypt64(input, inputLen, output, aes_key, sizeof(aes_key), enc_iv);
-//  Serial1.write(output);
-//  Serial.write(output);
-//  return 1;
-//}
-//
-//String decryptMessage(String msg) {// encrypt and send message to slave device
-//  byte dec_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//  char output[256] = {0};
-//  char ciphertext[512] = {0};
-//  msg.toCharArray(ciphertext, msg.length());
-//  char decryptedchar[strlen(ciphertext)]; // half may be enough
-//  aesLib.decrypt64(ciphertext, strlen(ciphertext), decryptedchar, aes_key, sizeof(aes_key), dec_iv);
-//  String decrypted = String(decryptedchar);
-// 
-//  if (decrypted.indexOf(decrypted) == -1) {
-//    Serial.println("Decryption FAILED!");
-//  }  
-//  return decrypted; 
-//  }
-//
-///*communication*/
+
 
 //
 ////to switch off lcd backlight
@@ -704,7 +645,67 @@ unsigned long PreviousRefreshTimer = 0;
 unsigned long RefreshTimer;
 const unsigned long RefreshInterval = 10000;   // Change  every 10sec
 bool LcdRefreshFlag = false;
- 
+
+/*communication*/
+
+#include <AESLib.h>
+#include<ArduinoJson.h>
+
+#define BAUD 115200
+#define machineID "mac_id000002"
+
+
+AESLib aesLib;
+
+int trx_pin = 20 ; //31
+bool ledFlag = false;
+bool writePass =false;
+bool reciveFlag = false;
+bool serialFlag = false;
+unsigned long int rec_time ;
+unsigned long int tx_start_time ;
+unsigned long int tx_end_time ;
+unsigned long int communicationDelay =0;
+unsigned long delayTime;
+unsigned long int t;
+
+
+// AES Encryption Key
+byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
+
+// General initialization vector (use your own)
+byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+char message[200] = {0};
+
+
+String encrypt(char * msg, byte iv[]) {
+  unsigned long ms = micros();
+  int msgLen = strlen(msg);
+  char encrypted[2 * msgLen];
+  aesLib.encrypt64(msg, msgLen, encrypted, aes_key, sizeof(aes_key), iv);
+  Serial.print("Encryption took: ");
+  Serial.print(micros() - ms);
+  Serial.println("us");
+  return String(encrypted);
+}
+
+String decrypt(String msg) {
+  byte iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 }; // iv_block gets written to, reqires always fresh copy.
+  unsigned long ms = micros();
+  int msgLen =msg.length();
+  char decrypted[msgLen]; // half may be enough  
+  char ciphertext[512] = {0};
+  msg.toCharArray(ciphertext, msg.length());
+  aesLib.decrypt64(ciphertext, msgLen, decrypted, aes_key, sizeof(aes_key), iv);
+//  Serial.print("Decryption [2] took: ");
+//  Serial.print(micros() - ms);
+//  Serial.println("us");
+  return String(decrypted);
+}
+/*communication*/
+
+
 void setup() {
   
   Serial.begin(115200);//bits per second
@@ -934,23 +935,26 @@ if (PreviousSensorOption == 1)
 //watchdog.enable(Watchdog::TIMEOUT_1S);
 
 digitalWrite(vcMotor,HIGH);
-  
+
+/*communication*/  
+  Serial1.begin(BAUD);  
+  pinMode(trx_pin,OUTPUT);
+  digitalWrite(trx_pin,LOW);
+  aesLib.gen_iv(aes_iv);
+  aesLib.set_paddingmode(paddingMode::CMS);
+/*communication*/
 
 
-
-///*communication*/
-//  Serial1.begin(115200);
-//  pinMode(trx_pin,OUTPUT);
-//  digitalWrite(trx_pin,LOW);
-//  aesLib.gen_iv(aes_iv);
-//  aesLib.set_paddingmode((paddingMode)0);
-// // Serial.setTimeout(250);
-//   Serial1.setTimeout(20);
 
 
 }
 
+/*communication*/
+int loopcount = 0;
 
+char cleartext[256];
+char ciphertext[512];
+/*communication*/
 
 void loop(){ 
 //  if(((millis()) - (BacklightTimer) >= 1000) and   (BacklightFlag == true))
@@ -3299,100 +3303,101 @@ EEPROM.update(22,0);
 EEPROM.update(23,0);
 }
 //watchdog.reset();
+/*communication*/
 
 
-///*communication*/
-//
-//  if(Serial1.available())
-//  {rec_time = millis();
-//    reciveFlag = true;
-//    //String recData = serialCall();
-//    String recData = Serial1.readString();
-//    Serial.println(recData); 
-//    String decryptedMessage = decryptMessage(recData);
-//    
-//    DynamicJsonDocument doc(300);
-//    DeserializationError error = deserializeJson(doc, decryptedMessage);
-//    Serial.print("receive buffer time :");    
-//    Serial.println(millis()-rec_time);
-//
-//    if (decryptedMessage == "mac_id00005" or decryptedMessage=="EOL" or (millis ()-communicationDelay) >3000 or doc["MAC_ID"] == "mac_id00005")
-//      serialFlag = true;
-//
-//    if(serialFlag == true){
-//      if(decryptedMessage != "EOL"){
-//      Serial.print("Commend received from master :");
-//      Serial.println(decryptedMessage);
-//      }
-//      if(decryptedMessage == "mac_id00005"){
-//        Serial.println("Machine 1 Direct Access");
-//        writePass = true;
-//      }
-//      else if(doc["MAC_ID"] == "mac_id00005")
-//       {
-//          Serial.println("Machine 1 is macthing");
-//          if( doc["COMMAND"]== "PULL" )
-//          {
-//             Serial.println("Machine 1 is Accessed");
-//              writePass = true;
-//          }          
-//          else
-//            Serial.println("Machine 1 is not Accessed");        
-//        }
-//      else
-//        {
-//          Serial.println("Machine 1 is not macthing");
-//          communicationDelay = millis();
-//        }
-//        serialFlag =false;      
-//      }
-//  }
-//  if (writePass == true)
-//  {
-//   String value1;
-//   digitalWrite(trx_pin,HIGH);  
-//   
-//   tx_start_time = millis();  
-//   DynamicJsonDocument doc(200);
-//   doc["MAC_ID"] = "mac_id00005";
-//   doc["COLOUR_1"] = color1Cnt;
-//   doc["COLOUR_2"] = color2Cnt;
-//   doc["REJECT_COUNT 1"] = FullCopCount;
-//   doc["REJECT_COUNT 2"] = krichiCnt;
-//   doc["COLOUR_3"] = color3Cnt;
-//   String message ;
-//   serializeJsonPretty(doc, message);
-//   if (sendMessage(message) == 1)
-//        {
-//          Serial.println("");
-//          Serial.println("message send to master");
-//        }
-//    if (Serial1.print("EOL"))
-//   Serial1.flush();    
-//   tx_end_time = millis();
-//   digitalWrite(trx_pin,LOW);
-//   Serial.print("Total timeing :");
-//   Serial.println(tx_end_time-rec_time);
-//   Serial.print("receiver timeing :");
-//   Serial.println(tx_start_time-rec_time);
-//   Serial.print("Treansmission timeing :");
-//   Serial.println(tx_end_time-tx_start_time);
-//   
-//   writePass = false;
-//  }
+  if(Serial1.available())
+  {
+    rec_time = millis();
+    reciveFlag = true;
+    //String recData = serialCall();
+    String recData = Serial1.readString();
+    Serial.println(recData); 
+    String decryptedMessage = decrypt(recData);
+    Serial.println(decryptedMessage); 
+    DynamicJsonDocument doc(300);
+    DeserializationError error = deserializeJson(doc, decryptedMessage);
+    Serial.print("receive buffer time :");    
+    Serial.println(millis()-rec_time);
 
-//  if(millis()-delayTime>200){
-//    delayTime=millis();
-//    if(ledFlag == false)
-//      {
-//        ledFlag = true; 
-//        digitalWrite(led,HIGH);
-//      }
-//      else{
-//        ledFlag =false;
-//        digitalWrite(led,LOW);
-//      }
-//  }
+    if (decryptedMessage == machineID or doc["MAC_ID"] == machineID)// has to fine tune
+      serialFlag = true;
+
+    if(serialFlag == true){
+      if(decryptedMessage == machineID){
+        Serial.println("Machine 1 Direct Access");
+        writePass = true;
+      }
+      else if(doc["MAC_ID"] == machineID )
+       {
+          Serial.println("Machine 1 is macthing");
+          if( doc["COMMAND"]== "PULL" )
+          {
+             Serial.println("Machine 1 is Accessed");
+              writePass = true;
+
+          }          
+          else
+            Serial.println("Machine 1 is not Accessed");        
+        }
+      else
+        {
+          Serial.println("Machine 1 is not macthing");
+          communicationDelay = millis();
+        }
+        serialFlag =false;      
+      }
+  }
+//  writePass = true;
+  if (writePass == true  )
+  {
+   String value1;
+    
+   tx_start_time = millis();  
+   DynamicJsonDocument doc(200);
+   doc["MAC_ID"] = machineID;
+   doc["COLOUR_1"] = color1Cnt;
+   doc["COLOUR_2"] = color2Cnt;
+   doc["REJECT_COLOUR 1"] = FullCopCount;
+   doc["REJECT_COLOUR 2"] = krichiCnt;
+   doc["COLOUR_3"] = color3Cnt;
+   String message ;
+   
+  serializeJsonPretty(doc, message);
+  sprintf(cleartext, message.c_str());
+  byte enc_iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };// iv_block gets written to, reqires always fresh copy.
+  String encrypted = encrypt(cleartext, enc_iv);
+  Serial.print("Encrypted Result: ");
+  
+  Serial.println(encrypted);
+   
+    digitalWrite(trx_pin,HIGH); 
+ 
+    Serial1.println(encrypted);
+ 
+
+//  Serial1.println("hoi");
+//  Serial1.println("\n\n");
+  t = millis();
+  
+  Serial.print("inside loop");
+   
+   writePass = false;
+  }
+  if (millis() - t >100){
+    
+    digitalWrite(trx_pin,LOW);
+  }
+
+
+
+
+
+
+
+
+/*communication*/
+
  
 
 
