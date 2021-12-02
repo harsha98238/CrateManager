@@ -643,7 +643,7 @@ int BinSize = 0;
 /*Lcd refresh*/
 unsigned long PreviousRefreshTimer = 0;
 unsigned long RefreshTimer;
-const unsigned long RefreshInterval = 10000;   // Change  every 10sec
+const unsigned long RefreshInterval = 2000;   // Change  every 10sec
 bool LcdRefreshFlag = false;
 
 /*communication*/
@@ -652,7 +652,7 @@ bool LcdRefreshFlag = false;
 #include<ArduinoJson.h>
 
 #define BAUD 115200
-#define machineID "mac_id000002"
+#define machineID "mac_id00007"
 
 
 AESLib aesLib;
@@ -3319,6 +3319,9 @@ EEPROM.update(23,0);
     DeserializationError error = deserializeJson(doc, decryptedMessage);
     Serial.print("receive buffer time :");    
     Serial.println(millis()-rec_time);
+    Serial.println(decryptedMessage);
+    if(recData ==machineID)
+      Serial1.println("hi");
 
     if (decryptedMessage == machineID or doc["MAC_ID"] == machineID)// has to fine tune
       serialFlag = true;
