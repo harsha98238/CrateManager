@@ -316,8 +316,8 @@ unsigned long fullcopBeltSeperationTimerStart=0;
 unsigned long fullcopBeltSeperationTimerEnd=0;
 unsigned long timefc=0;
 unsigned long fullcopinterval=0;
-short s1OnDelay=1;
-short s1OffDelay=4;
+short s1OnDelay=1;//4
+short s1OffDelay=8;//4
 //unsigned long FCCnt = 0;
 //change from unsigned long
 bool FullCopCountFlag = false;
@@ -652,7 +652,7 @@ bool LcdRefreshFlag = false;
 //#include<ArduinoJson.h>
 //
 //#define BAUD 115200
-//#define machineID "mac_id00006"
+//#define machineID "mac_id00005"
 //
 //
 //AESLib aesLib;
@@ -668,6 +668,7 @@ bool LcdRefreshFlag = false;
 //unsigned long int communicationDelay =0;
 //unsigned long delayTime;
 //unsigned long int t;
+//unsigned long int serialDelay;
 //
 //
 //// AES Encryption Key
@@ -3305,7 +3306,7 @@ EEPROM.update(23,0);
 //watchdog.reset();
 
 ///*communication*/
-//  if(Serial1.available())
+//  if(Serial1.available()and millis() - serialDelay >1000)
 //  {
 //    rec_time = millis();
 //    reciveFlag = true;
@@ -3319,12 +3320,14 @@ EEPROM.update(23,0);
 //    Serial.print("receive buffer time :");    
 //    Serial.println(millis()-rec_time);
 //    Serial.println(decryptedMessage);
-//   
+//
+//   if(recData != "")
+//      serialDelay = millis();
 //      
 //    if (decryptedMessage == machineID or doc["MAC_ID"] == machineID)// has to fine tune
 //      serialFlag = true;
 //
-//    if(serialFlag == true){
+//    if(serialFlag == true ){
 //      if(decryptedMessage == machineID){
 //        Serial.println("Machine 1 Direct Access");
 //        writePass = true;
@@ -3348,6 +3351,7 @@ EEPROM.update(23,0);
 //        }
 //        serialFlag =false;      
 //      }
+//      recData ="";
 //  }
 ////  writePass = true;
 //  if (writePass == true  )
@@ -3385,7 +3389,7 @@ EEPROM.update(23,0);
 //   
 //   writePass = false;
 //  }
-//  if (millis() - t >100){
+//  if (millis() - t >2000){
 //    
 //    digitalWrite(trx_pin,LOW);
 //  }
@@ -3944,6 +3948,7 @@ if ((InsideClearFlag == false) and (customKey=='C')and (InsideMenuFlag == false)
   InsideClearFlag = true;
   CountDisplayFlag = false;
   //BacklightFlag = true;
+  LcdRefreshFlag = true;
 }
 
 if( (InsideClearFlag == true) and (customKey=='1') )
