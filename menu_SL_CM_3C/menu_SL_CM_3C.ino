@@ -316,7 +316,7 @@ unsigned long fullcopBeltSeperationTimerStart=0;
 unsigned long fullcopBeltSeperationTimerEnd=0;
 unsigned long timefc=0;
 unsigned long fullcopinterval=0;
-short s1OnDelay=1;//1
+short s1OnDelay=8;//1
 short s1OffDelay=4;//4  //8 for shutter
 //unsigned long FCCnt = 0;
 //change from unsigned long
@@ -2120,19 +2120,19 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
 
   }
 
-////Object2 Sensor Error
-//if (digitalRead(obj2) == false and obj2errflag == false)
-//  {
-//    obj2errtimer = millis();
-//    obj2errflag2 = true;
-//    obj2errflag = true;  
-//  }
-//
-//if (digitalRead(obj2) == true)
-//  {
-//    obj2errflag = false;
-//    obj2errflag2 = false;
-//  }
+//Object2 Sensor Error
+if (digitalRead(obj2) == false and obj2errflag == false)
+  {
+    obj2errtimer = millis();
+    obj2errflag2 = true;
+    obj2errflag = true;  
+  }
+
+if (digitalRead(obj2) == true)
+  {
+    obj2errflag = false;
+    obj2errflag2 = false;
+  }
    
   
 if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
