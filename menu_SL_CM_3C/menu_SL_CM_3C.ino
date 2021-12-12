@@ -171,7 +171,7 @@ bool Shutter3Onflag1 = false;
 bool Shutter3Onflag2 = false;
 bool C2CountFlag2 = false;
 bool C2CountFlag1 = false;
-short s3OnDelay = 2; //was2
+short s3OnDelay = 4; //was2
 short s3OffDelay=6;//was 6
 unsigned long color2Cnt;
 unsigned long color2Cntflag = 0;
@@ -585,7 +585,7 @@ int PreviousSensorOption;
 /*object 2 simulator*/
 unsigned long Object2simulatorPreviousPulse = 0;
 //to adjust Object2 pulse delay
-int Object2pulsedelay = 20;//16
+int Object2pulsedelay = 16;//16
 bool Object2simulatorflag = false;
 bool Object1flag1 =  false;
 int Object2index = 0;
@@ -2120,29 +2120,29 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
 
   }
 
-//Object2 Sensor Error
-if (digitalRead(obj2) == false and obj2errflag == false)
-  {
-    obj2errtimer = millis();
-    obj2errflag2 = true;
-    obj2errflag = true;  
-  }
-
-if (digitalRead(obj2) == true)
-  {
-    obj2errflag = false;
-    obj2errflag2 = false;
-  }
-   
-  
-if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
-  { 
-    Object2ErrorOccuredFlag = true;
-    Serial.println("Object2 error occured");
-    errors3 = true;
-    
-  }
-
+////Object2 Sensor Error
+//if (digitalRead(obj2) == false and obj2errflag == false)
+//  {
+//    obj2errtimer = millis();
+//    obj2errflag2 = true;
+//    obj2errflag = true;  
+//  }
+//
+//if (digitalRead(obj2) == true)
+//  {
+//    obj2errflag = false;
+//    obj2errflag2 = false;
+//  }
+//   
+//  
+//if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
+//  { 
+//    Object2ErrorOccuredFlag = true;
+//    Serial.println("Object2 error occured");
+//    errors3 = true;
+//    
+//  }
+//
 
 
 
@@ -2192,7 +2192,7 @@ if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == tr
 /*s3error ends*/
 // ****************************Yarn 2 identification********************************//
 
-if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true and digitalRead(obj2) == false ) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
+if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == false */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
 {
     timeryarn2 = millis();
     yarn2flag = true;
@@ -2200,7 +2200,7 @@ if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true a
 }
 
 /***************************Color 2 identification********************************/
-if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption == false) 
+if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption == false and Object2Detected == true ) 
  {
   Color2flag = true;
   color2identified = true;
@@ -2246,7 +2246,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
       Color2simulatorPreviousPulse = millis();
       Color2simulatorflag = false;
       }
-if(Color2PresentOutput >= 1 and color2identified == false and digitalRead(obj2) == false ) 
+if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected == true  /*and digitalRead(obj2) == false*/ ) 
 {
     color2identified = true;
     Serial.println("Color2 came");
@@ -2288,7 +2288,7 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
 //    
 //  }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == false and BobbinMixupflag == false)
+  if (Object2Detected == true /*and digitalRead(obj2) == true*/ and color2identified == true and yarn2flag == false and BobbinMixupflag == false)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -2302,7 +2302,7 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
       Serial.println("trigger s3 for c2 cop");
       }
 //bobbin mix SHUTTER3 for color2COP
-  if (Object2Detected == true and digitalRead(obj2) == true and yarn2flag == false and BobbinMixupflag == true)
+  if (Object2Detected == true /*and digitalRead(obj2) == true*/ and yarn2flag == false and BobbinMixupflag == true)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -2317,24 +2317,24 @@ if((Object2PresentOutput >= 1 and Object2flag1 == false))
       Serial.println("trigger s3 for c2 cop");
       }
   
-  //Passing Shutter3 - cop must be 3rd color    
-     if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == false and yarn2flag == false) 
-
-     {
-      Object2DetectTmr = millis();
-      yarn2flag = false;
-      yarn2detected = false;
-
-      Color2flag = false;
-      color2identified = false;
-      
-      s3on = false;
-      Object2Detected = false;
-      Object2flag1 = false;
-      Serial.println("Color3 empty Check");
-    }
+//  //Passing Shutter3 - cop must be 3rd color    
+//     if (Object2flag1 == true /*and digitalRead(obj2) == true*/ and color2identified == false and yarn2flag == false) 
+//
+//     {
+//      Object2DetectTmr = millis();
+//      yarn2flag = false;
+//      yarn2detected = false;
+//
+//      Color2flag = false;
+//      color2identified = false;
+//      
+//      s3on = false;
+//      Object2Detected = false;
+//      Object2flag1 = false;
+//      Serial.println("Color3 empty Check");
+//    }
  //To find Yarn at Object2 sensor and use the information for shutter4     
-if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
+if(Object2Detected == true /*and digitalRead(obj2) == true*/ and yarn2flag == true)
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2355,7 +2355,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       Serial.println("Color3 yarn Check");
     }
 //Color 2 COP with Yarn (color 2 kirchi)
-    if   (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == true)//Object2flag1 == true 
+    if   (Object2Detected == true /*and digitalRead(obj2) == true*/ and color2identified == true and yarn2flag == true)//Object2flag1 == true 
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2394,7 +2394,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       Shutter3Onflag2 = false;
      }
 /***************************Color 2 Ejection********************************/
-if( (millis()-Object2DetectTmr) > (s3OnDelay*1)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/ )//was*50
+if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/ )//was*50
   
   {
   digitalWrite(s3,HIGH);
