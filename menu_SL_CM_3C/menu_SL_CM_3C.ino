@@ -2199,6 +2199,14 @@ if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /
     Serial.println("yarn2 came");
 }
 
+///*test yarn2 sim*/
+//if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2PresentOutput >= 1/*and Object2Detected == true*/ )
+//{
+//    timeryarn2 = millis();
+//    yarn2flag = true;
+//    Serial.println("yarn2 came");
+//}
+
 /***************************Color 2 identification********************************/
 if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption == false and Object2Detected == true ) 
  {
