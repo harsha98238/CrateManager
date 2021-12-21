@@ -130,7 +130,7 @@ short numCopStorage1 = 4;
 bool tray1check = false;
 bool tray1checkflag = false;
 unsigned long crate1alert = 0;
-short crate1alertondelay=200;
+short crate1alertondelay=15000;
 bool crate1error = false;
 unsigned long  binup1inerrortime = 0;
 unsigned long  binup1inerrortime2 = 0;
@@ -196,7 +196,7 @@ short numCopStorage2 = 4;
 bool tray2check = false;
 bool tray2checkflag = false;
 unsigned long crate2alert = 0;
-short crate2alertondelay=200;
+short crate2alertondelay=15000;
 bool crate2error = false;
 unsigned long  binup2inerrortime = 0;
 unsigned long  binup2inerrortime2 = 0;
@@ -422,7 +422,7 @@ short numCopStorage3 = 4;
 bool Tray3check = false;
 bool Tray3checkflag = false;
 unsigned long crate3alert = 0;
-short crate3alertondelay=200;
+short crate3alertondelay=15000;
 bool crate3error = false;
 unsigned long  binUp3inerrortime = 0;
 unsigned long  binUp3inerrortime2 = 0;
@@ -600,6 +600,8 @@ unsigned long CratePresenceTimer = 0;
 bool Crate1Error2 = false;
 unsigned long Crate2PresenceTimer = 0;
 bool Crate2Error2 = false;
+unsigned long Crate3PresenceTimer = 0;
+bool Crate3Error2 = false;
 
 
 /*crate repeat*/
@@ -1085,7 +1087,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitBinUpFlag1 = true;
 }
 
-  if(millis() - InitTimer1BinUp1 > 1000  and InitBinUpFlag1 == true)
+  if(millis() - InitTimer1BinUp1 > 1400  and InitBinUpFlag1 == true)//1000
 {
    digitalWrite(binLock1,HIGH);
    digitalWrite(binLock2,HIGH);
@@ -1941,7 +1943,7 @@ if (digitalRead(crate1) == true and tray1check == false)
     tray1check = false;
     tray1checkflag = false;
   }
-if (millis() - crate1alert > crate1alertondelay*50 and tray1checkflag == true)//50
+if (millis() - crate1alert > crate1alertondelay and tray1checkflag == true)//50
 {
   crate1alertcheck = true;
   Serial.println("tray alert");
@@ -2057,7 +2059,8 @@ if(( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==fa
   flag1binUp1 = true;
 }
 
-if(millis() - timer1binUp1 > 1000  and flag1binUp1 == true){
+if(millis() - timer1binUp1 > 1400  and flag1binUp1 == true)//1000
+{
   digitalWrite(binLock1,HIGH);
  if( millis() - timer1binUp1 > 1000 and millis() - timer1binUp1 < 2000 and digitalRead(crate1) == false){
   }
@@ -2523,7 +2526,7 @@ if (digitalRead(crate2) == true and tray2check == false)
     tray2check = false;
     tray2checkflag = false;
   }
-if (millis() - crate2alert > crate2alertondelay*50 and tray2checkflag == true)
+if (millis() - crate2alert > crate2alertondelay and tray2checkflag == true)
 {
   crate2alertcheck = true;
   Serial.println("tray2 alert");
@@ -2633,7 +2636,8 @@ if( crate2Complete == true  and crate2ProcessFlag == false and flag1binUp2 ==fal
   flag1binUp2 = true;
 }
 
-if(millis() - timer1binUp2 > 1000  and flag1binUp2 == true){
+if(millis() - timer1binUp2 > 1400  and flag1binUp2 == true)//1000
+{
   digitalWrite(binLock2,HIGH);
  if( millis() - timer1binUp2 > 1000 and millis() - timer1binUp2 < 2000 and digitalRead(crate2) == true){
 //    errors3 = true;
@@ -3014,7 +3018,7 @@ if (digitalRead(crate3) == true and Tray3check == false)
     Tray3check = false;
     Tray3checkflag = false;
   }
-if (millis() - crate3alert > crate3alertondelay*50 and Tray3checkflag == true)
+if (millis() - crate3alert > crate3alertondelay and Tray3checkflag == true)
 {
   crate3alertcheck = true;
   Serial.println("Tray3 alert");
@@ -3031,14 +3035,21 @@ if (digitalRead(crate3) == true and crate3alertcheck == true)
 
 if (crate3error == true and digitalRead(crate3) == false) 
 {
+  Crate3PresenceTimer = millis();
+  Crate3Error2 = true;
+  crate3error = false;
+}
+
+if ((((millis())-(Crate3PresenceTimer)) > 5000) and Crate3Error2 == true) 
+{
+  Crate3Error2 = false;
+
   digitalWrite(binUp3,HIGH);
   binUp3inerrortime = millis();
   binUp3inerrorok1 = true;
   crate3alertcheck = false;
   crate3error = false;
   Serial.println("binUp3 high");
-  
- 
 }
 
 if (binUp3inerrorok1 == true and millis() - binUp3inerrortime > 4000)
@@ -3111,7 +3122,8 @@ if( crate3Complete == true  and crate3ProcessFlag == false and flag1binUp3 ==fal
   flag1binUp3 = true;
 }
 
-if(millis() - timer1binUp3 > 1000  and flag1binUp3 == true){
+if(millis() - timer1binUp3 > 1400  and flag1binUp3 == true) //1000
+{
   digitalWrite(binLock3,HIGH);
  if( millis() - timer1binUp3 > 1000 and millis() - timer1binUp3 < 2000 and digitalRead(crate3) == true){
 
