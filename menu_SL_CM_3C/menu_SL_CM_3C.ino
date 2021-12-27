@@ -604,9 +604,9 @@ unsigned long Crate3PresenceTimer = 0;
 bool Crate3Error2 = false;
 
 
-/*crate repeat*/
-bool Crate1RepeatFlag = false;
-unsigned long Crate1EjectCount = 0;
+///*crate repeat*/
+//bool Crate1RepeatFlag = false;
+//unsigned long Crate1EjectCount = 0;
 
 
 /*new fc  (laser through beam sensor)  */
@@ -915,7 +915,8 @@ if (PreviousBinSize == 5)
   Flag10  = true;
 
   }
-
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
 
 if (PreviousBobbinMix == 0)
 {
@@ -970,44 +971,44 @@ void loop(){
 //  }
 
 
-//
-///*lcd refresh*/
-//RefreshTimer = millis();
-//
-//if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefreshFlag == false)) 
-// {
-//  PreviousRefreshTimer = RefreshTimer;
-//  
-//  lcd.begin(20, 4);
-//  delay(100);
-//  lcd.clear();
-//  lcd.setCursor(0,0);
-//  lcd.print("TB1=");
-//  lcd.setCursor(10,0);
-//  lcd.print("TB2=");
-//  lcd.setCursor(0,1);
-//  lcd.print("RB1=");
-//  lcd.setCursor(10,1);
-//  lcd.print("RB2=");
-//  lcd.setCursor(0,2);
-//  lcd.print("TB3=");
-//  lcd.setCursor(10,2);
-//  lcd.print("BS =");
-//  
-//  
-//  lcd.setCursor(4,0);
-//  lcd.print(color1Cnt);
-//  lcd.setCursor(14,0);
-//  lcd.print(color2Cnt);
-//  lcd.setCursor(4,1);
-//  lcd.print(FullCopCount);
-//  lcd.setCursor(14,1);
-//  lcd.print(krichiCnt);
-//  lcd.setCursor(4,2);
-//  lcd.print(color3Cnt);
-//  lcd.setCursor(14,2);
-//  lcd.print(BinSize);
-// }
+
+/*lcd refresh*/
+RefreshTimer = millis();
+
+if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefreshFlag == false)) 
+ {
+  PreviousRefreshTimer = RefreshTimer;
+  
+  lcd.begin(20, 4);
+  delay(100);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("TB1=");
+  lcd.setCursor(10,0);
+  lcd.print("TB2=");
+  lcd.setCursor(0,1);
+  lcd.print("RB1=");
+  lcd.setCursor(10,1);
+  lcd.print("RB2=");
+  lcd.setCursor(0,2);
+  lcd.print("TB3=");
+  lcd.setCursor(10,2);
+  lcd.print("BS =");
+  
+  
+  lcd.setCursor(4,0);
+  lcd.print(color1Cnt);
+  lcd.setCursor(14,0);
+  lcd.print(color2Cnt);
+  lcd.setCursor(4,1);
+  lcd.print(FullCopCount);
+  lcd.setCursor(14,1);
+  lcd.print(krichiCnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
+ }
 
 if (Initializationflag = true and InitCopStorageFlag == false )
 {
@@ -2020,9 +2021,9 @@ if( copStorage1Count >= numCopStorage1 and crate1error == false /*and digitalRea
   
   }
 
-  if  (millis() - timer1CrateEjection1 > 2000 and flag2CrateEjection1 == true or (Crate1RepeatFlag == true))
+  if  (millis() - timer1CrateEjection1 > 2000 and flag2CrateEjection1 == true )
   {
-  Crate1EjectCount++;
+//  Crate1EjectCount++;
   digitalWrite(crateEjector1,HIGH);
   Serial.println("crate eject high");
   timer2CrateEjection1 = millis();
@@ -2037,17 +2038,17 @@ if( millis() - timer2CrateEjection1 > (crate1RemoveOndelay * 50) and flag3CrateE
       flag3CrateEjection1 = false;
       crate1Complete = true;
   }
-if (    Crate1EjectCount >=2)
-{    
-  Crate1EjectCount = 0; 
-  Crate1RepeatFlag = false;
-}
+//if (    Crate1EjectCount >=2)
+//{    
+//  Crate1EjectCount = 0; 
+//  Crate1RepeatFlag = false;
+//}
 /*****************************************************CrateReplacement************************************************************/
 if( flag3CrateEjection1 == true and millis() - timer2CrateEjection1 > 3000 and crate1ProcessFlag == false)
 {
   if( digitalRead(crate1) == false){
     crate1ProcessFlag =true;
-    Crate1RepeatFlag = true;
+//    Crate1RepeatFlag = true;
 
   }
 }
@@ -2081,7 +2082,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
   crate1Complete =false;
   crate1ProcessFlag =false;
   flag1binUp1 = false;
-  Crate1RepeatFlag = false;
+//  Crate1RepeatFlag = false;
   
 
 }
