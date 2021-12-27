@@ -604,9 +604,9 @@ unsigned long Crate3PresenceTimer = 0;
 bool Crate3Error2 = false;
 
 
-///*crate repeat*/
-//bool Crate1RepeatFlag = false;
-//unsigned long Crate1EjectCount = 0;
+/*crate repeat*/
+bool Crate1RepeatFlag = false;
+unsigned long Crate1EjectCount = 0;
 
 
 /*new fc  (laser through beam sensor)  */
@@ -1808,7 +1808,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
 }
 
 //Shutter2 ON flag
-    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  /*and  Tray3EmptyFlag == false*/  )
+    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false  )
         {
           Shutter2OnReady = true;
           Shutter2Onflag2 = true;
@@ -1821,7 +1821,7 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
      }
 
 // ****************************Color 1 Ejection********************************//
-if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/  )//was*50
+if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false  )//was*50
   
   {
   digitalWrite(s2,HIGH);
@@ -2400,7 +2400,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
 //krichi2==false;
 //}   
 //Shutter3 ON flag
-    if (Shutter3Onflag1 == true and Shutter3Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  /*and  Tray3EmptyFlag == false*/  )
+    if (Shutter3Onflag1 == true and Shutter3Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false)
         {
           Shutter3OnReady = true;
           Shutter3Onflag2 = true;
@@ -2412,7 +2412,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       Shutter3Onflag2 = false;
      }
 /***************************Color 2 Ejection********************************/
-if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/ )//was*50
+if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false)//was*50
   
   {
   digitalWrite(s3,HIGH);
