@@ -1087,7 +1087,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitBinUpFlag1 = true;
 }
 
-  if(millis() - InitTimer1BinUp1 > 1400  and InitBinUpFlag1 == true)//1000
+  if(millis() - InitTimer1BinUp1 > 1900  and InitBinUpFlag1 == true)//1000
 {
    digitalWrite(binLock1,HIGH);
    digitalWrite(binLock2,HIGH);
@@ -1095,7 +1095,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
 
 }
 
-  if(millis() - InitTimer1BinUp1 > 2700 and InitBinUpFlag1 == true)//2400
+  if(millis() - InitTimer1BinUp1 > 2800 and InitBinUpFlag1 == true)//2400
 {
   digitalWrite(binLock1,LOW);
   digitalWrite(binLock2,LOW);
@@ -2059,14 +2059,14 @@ if(( crate1Complete == true  and crate1ProcessFlag == false and flag1binUp1 ==fa
   flag1binUp1 = true;
 }
 
-if(millis() - timer1binUp1 > 1400  and flag1binUp1 == true)//1000
+if(millis() - timer1binUp1 > 1900  and flag1binUp1 == true)//1000
 {
   digitalWrite(binLock1,HIGH);
  if( millis() - timer1binUp1 > 1000 and millis() - timer1binUp1 < 2000 and digitalRead(crate1) == false){
   }
 }
 
-if(millis() - timer1binUp1 > 2700 and flag1binUp1 == true){//2400
+if(millis() - timer1binUp1 > 2800 and flag1binUp1 == true){//2700
   digitalWrite(binLock1,LOW);
  
 }
@@ -2636,7 +2636,7 @@ if( crate2Complete == true  and crate2ProcessFlag == false and flag1binUp2 ==fal
   flag1binUp2 = true;
 }
 
-if(millis() - timer1binUp2 > 1400  and flag1binUp2 == true)//1000
+if(millis() - timer1binUp2 > 1900  and flag1binUp2 == true)//1000
 {
   digitalWrite(binLock2,HIGH);
  if( millis() - timer1binUp2 > 1000 and millis() - timer1binUp2 < 2000 and digitalRead(crate2) == true){
@@ -2645,7 +2645,8 @@ if(millis() - timer1binUp2 > 1400  and flag1binUp2 == true)//1000
   }
 }
 
-if(millis() - timer1binUp2 > 2400 and flag1binUp2 == true){
+if(millis() - timer1binUp2 > 2800 and flag1binUp2 == true)//2400
+{
   digitalWrite(binLock2,LOW);
  
 }
@@ -3122,7 +3123,7 @@ if( crate3Complete == true  and crate3ProcessFlag == false and flag1binUp3 ==fal
   flag1binUp3 = true;
 }
 
-if(millis() - timer1binUp3 > 1400  and flag1binUp3 == true) //1000
+if(millis() - timer1binUp3 > 1900  and flag1binUp3 == true) //1000
 {
   digitalWrite(binLock3,HIGH);
  if( millis() - timer1binUp3 > 1000 and millis() - timer1binUp3 < 2000 and digitalRead(crate3) == true){
@@ -3130,7 +3131,7 @@ if(millis() - timer1binUp3 > 1400  and flag1binUp3 == true) //1000
   }
 }
 
-if(millis() - timer1binUp3 > 2400 and flag1binUp3 == true){
+if(millis() - timer1binUp3 > 2800 and flag1binUp3 == true){
   digitalWrite(binLock3,LOW);
  
 }
