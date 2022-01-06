@@ -709,6 +709,7 @@ bool LcdRefreshFlag = false;
 ///*communication*/
 
 
+
 void setup() {
   
   Serial.begin(115200);//bits per second
@@ -1343,7 +1344,6 @@ if ((currentMillis - previousMillis)  >=  interval)
 
 
 
-/*lcd reset*/
 
 
 
