@@ -973,43 +973,43 @@ void loop(){
 
 
 
-///*lcd refresh*/
-//RefreshTimer = millis();
-//
-//if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefreshFlag == false)) 
-// {
-//  PreviousRefreshTimer = RefreshTimer;
-//  
-//  lcd.begin(20, 4);
-//  delay(100);
-//  lcd.clear();
-//  lcd.setCursor(0,0);
-//  lcd.print("TB1=");
-//  lcd.setCursor(10,0);
-//  lcd.print("TB2=");
-//  lcd.setCursor(0,1);
-//  lcd.print("RB1=");
-//  lcd.setCursor(10,1);
-//  lcd.print("RB2=");
-//  lcd.setCursor(0,2);
-//  lcd.print("TB3=");
-//  lcd.setCursor(10,2);
-//  lcd.print("BS =");
-//  
-//  
-//  lcd.setCursor(4,0);
-//  lcd.print(color1Cnt);
-//  lcd.setCursor(14,0);
-//  lcd.print(color2Cnt);
-//  lcd.setCursor(4,1);
-//  lcd.print(FullCopCount);
-//  lcd.setCursor(14,1);
-//  lcd.print(krichiCnt);
-//  lcd.setCursor(4,2);
-//  lcd.print(color3Cnt);
-//  lcd.setCursor(14,2);
-//  lcd.print(BinSize);
-// }
+/*lcd refresh*/
+RefreshTimer = millis();
+
+if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefreshFlag == false)) 
+ {
+  PreviousRefreshTimer = RefreshTimer;
+  
+  lcd.begin(20, 4);
+  delay(100);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("TB1=");
+  lcd.setCursor(10,0);
+  lcd.print("TB2=");
+  lcd.setCursor(0,1);
+  lcd.print("RB1=");
+  lcd.setCursor(10,1);
+  lcd.print("RB2=");
+  lcd.setCursor(0,2);
+  lcd.print("TB3=");
+  lcd.setCursor(10,2);
+  lcd.print("BS =");
+  
+  
+  lcd.setCursor(4,0);
+  lcd.print(color1Cnt);
+  lcd.setCursor(14,0);
+  lcd.print(color2Cnt);
+  lcd.setCursor(4,1);
+  lcd.print(FullCopCount);
+  lcd.setCursor(14,1);
+  lcd.print(krichiCnt);
+  lcd.setCursor(4,2);
+  lcd.print(color3Cnt);
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
+ }
 
 if (Initializationflag = true and InitCopStorageFlag == false )
 {
@@ -2511,7 +2511,7 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
 //
 //if (digitalRead(crate2) == true and tray2check == false)
 //  {
-//    Tray2EmptyFlag = true;
+//    
 //    crate2alert = millis();
 //    tray2check = true;
 //    tray2checkflag = true;
@@ -3004,7 +3004,6 @@ if(millis() - timer1binUp1 > 4000 and flag1binUp1 == true){
 //
 //if (digitalRead(crate3) == true and Tray3check == false)
 //  {
-//    Tray3EmptyFlag = true;
 //    crate3alert = millis();
 //    Tray3check = true;
 //    Tray3checkflag = true;
