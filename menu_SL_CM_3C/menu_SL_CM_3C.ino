@@ -709,7 +709,9 @@ String decrypt(String msg) {
 /*communication*/
 
 /*Crate struck logic*/
-bool CrateStruckDetectFlag1 = false;
+bool Crate1StruckError = false;
+unsigned long timer3CrateEjection1 = 0;
+
 void setup() {
   
   Serial.begin(115200);//bits per second
@@ -1821,8 +1823,8 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
      }
 
 // ****************************Color 1 Ejection********************************//
-if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and \
-Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and crate1struckerror == false /*and  Tray3EmptyFlag == false*/ )//was50
+if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and
+Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and Crate1StruckError == false /*and  Tray3EmptyFlag == false*/ )//was50
  
   {
   digitalWrite(s2,HIGH);
@@ -2061,16 +2063,17 @@ if( millis() - timer2CrateEjection1 > (crate1RemoveOndelay * 50) and flag3CrateE
 
 if(  millis() - timer3CrateEjection1 > 2000 and  crate1Complete == true  and flag1binUp1 ==false ) 
 {
-  if( digitalRead(crate1) == false and crate1struckerror == false )
+  if( digitalRead(crate1) == true and Crate1StruckError == false )
   {
   digitalWrite(binUp1,HIGH);
   timer1binUp1 = millis();
   flag1binUp1 = true;
   }
-  else
+  if( digitalRead(crate1) == false and Crate1StruckLoopFlag = true)
   {
-    crate1struckerror = true;
-    Serial.println('Crate struck occured')
+    Crate1StruckError = true;
+    Crate1StruckLoopFlag = false;
+    Serial.println("Crate struck occured");
   }
 }
 
@@ -2651,12 +2654,12 @@ if( crate2Complete == true and flag1binUp2 ==false)
   }
   crate2ProcessFlag = true;
 }
-if(crate2ProcessFlag == true and CrateStruckDetectFlag1 == false)
+if( crate2Complete == true and flag1binUp2 ==false)
 {
   digitalWrite(binUp2,HIGH);
   Serial.println("Bin up 2 high");
   timer1binUp2 = millis();
-  CrateStruckDetectFlag1 = true;
+//  CrateStruckDetectFlag1 = true;
   flag1binUp2 = true;
 }
 
@@ -2689,7 +2692,7 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
   crate2Complete =false;
   crate2ProcessFlag =false;
   flag1binUp2 = false;
-  CrateStruckDetectFlag1 = false;
+//  CrateStruckDetectFlag1 = false;
   
 
 }
@@ -3181,6 +3184,7 @@ if(millis() - timer1binUp2 > 4000 and flag1binUp2 == true){
 /*error reset*/
 if (ResetSwitch == true and ((error == true) or (BeltError == true) or (errors3 = true) or(errors4 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true)or (Tray3LightError == true)))
   { 
+    Crate1StruckError = false;
     ResetSwitch = false;
     BeltError = false;
     FullCopError = false;
@@ -3883,6 +3887,38 @@ case 26:
   break;
   case 27:
   if(Tray3Error == true)
+  {
+   
+    lcd.setCursor(0,3);
+    lcd.print("                ");
+    digitalWrite(alarmLightyellow,LOW);
+   return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+
+
+case 28:
+  if(Crate1StruckError == true)
+  {
+   
+    lcd.setCursor(0,3);
+    lcd.print("CRATE 1  STRUCK");
+    digitalWrite(alarmLightyellow,HIGH);
+    return true;
+  }
+  else
+  {
+   return false; 
+    }
+
+  break;
+  case 29:
+  if(Crate1StruckError == true)
   {
    
     lcd.setCursor(0,3);
