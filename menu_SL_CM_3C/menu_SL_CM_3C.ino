@@ -662,65 +662,65 @@ bool Crate3StruckError = false;
 bool Crate3StruckLoopFlag = false;
 
 
-/*communication*/
-
-#include <AESLib.h>
-#include<ArduinoJson.h>
-
-#define BAUD 115200
-#define machineID "mac_id00003"
-
-
-AESLib aesLib;
-
-int trx_pin = 20 ; //31
-bool ledFlag = false;
-bool writePass =false;
-bool reciveFlag = false;
-bool serialFlag = false;
-unsigned long int rec_time ;
-unsigned long int tx_start_time ;
-unsigned long int tx_end_time ;
-unsigned long int communicationDelay =0;
-unsigned long delayTime;
-unsigned long int t;
-unsigned long int serialDelay;
-
-
-// AES Encryption Key
-byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
-
-// General initialization vector (use your own)
-byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-char message[200] = {0};
-
-
-String encrypt(char * msg, byte iv[]) {
-  unsigned long ms = micros();
-  int msgLen = strlen(msg);
-  char encrypted[2 * msgLen];
-  aesLib.encrypt64(msg, msgLen, encrypted, aes_key, sizeof(aes_key), iv);
-  Serial.print("Encryption took: ");
-  Serial.print(micros() - ms);
-  Serial.println("us");
-  return String(encrypted);
-}
-
-String decrypt(String msg) {
-  byte iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 }; // iv_block gets written to, reqires always fresh copy.
-  unsigned long ms = micros();
-  int msgLen =msg.length();
-  char decrypted[msgLen]; // half may be enough  
-  char ciphertext[512] = {0};
-  msg.toCharArray(ciphertext, msg.length());
-  aesLib.decrypt64(ciphertext, msgLen, decrypted, aes_key, sizeof(aes_key), iv);
-//  Serial.print("Decryption [2] took: ");
+///*communication*/
+//
+//#include <AESLib.h>
+//#include<ArduinoJson.h>
+//
+//#define BAUD 115200
+//#define machineID "mac_id00003"
+//
+//
+//AESLib aesLib;
+//
+//int trx_pin = 20 ; //31
+//bool ledFlag = false;
+//bool writePass =false;
+//bool reciveFlag = false;
+//bool serialFlag = false;
+//unsigned long int rec_time ;
+//unsigned long int tx_start_time ;
+//unsigned long int tx_end_time ;
+//unsigned long int communicationDelay =0;
+//unsigned long delayTime;
+//unsigned long int t;
+//unsigned long int serialDelay;
+//
+//
+//// AES Encryption Key
+//byte aes_key[] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };
+//
+//// General initialization vector (use your own)
+//byte aes_iv[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//
+//char message[200] = {0};
+//
+//
+//String encrypt(char * msg, byte iv[]) {
+//  unsigned long ms = micros();
+//  int msgLen = strlen(msg);
+//  char encrypted[2 * msgLen];
+//  aesLib.encrypt64(msg, msgLen, encrypted, aes_key, sizeof(aes_key), iv);
+//  Serial.print("Encryption took: ");
 //  Serial.print(micros() - ms);
 //  Serial.println("us");
-  return String(decrypted);
-}
-/*communication*/
+//  return String(encrypted);
+//}
+//
+//String decrypt(String msg) {
+//  byte iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 }; // iv_block gets written to, reqires always fresh copy.
+//  unsigned long ms = micros();
+//  int msgLen =msg.length();
+//  char decrypted[msgLen]; // half may be enough  
+//  char ciphertext[512] = {0};
+//  msg.toCharArray(ciphertext, msg.length());
+//  aesLib.decrypt64(ciphertext, msgLen, decrypted, aes_key, sizeof(aes_key), iv);
+////  Serial.print("Decryption [2] took: ");
+////  Serial.print(micros() - ms);
+////  Serial.println("us");
+//  return String(decrypted);
+//}
+///*communication*/
 
 
 
@@ -955,25 +955,25 @@ if (PreviousSensorOption == 1)
 
 digitalWrite(vcMotor,HIGH);
 
-/*communication*/  
-  Serial1.begin(BAUD);  
-  pinMode(trx_pin,OUTPUT);
-  digitalWrite(trx_pin,LOW);
-  aesLib.gen_iv(aes_iv);
-  aesLib.set_paddingmode(paddingMode::CMS);
-/*communication*/
+///*communication*/  
+//  Serial1.begin(BAUD);  
+//  pinMode(trx_pin,OUTPUT);
+//  digitalWrite(trx_pin,LOW);
+//  aesLib.gen_iv(aes_iv);
+//  aesLib.set_paddingmode(paddingMode::CMS);
+///*communication*/
 
 
 
 
 }
-
-/*communication*/
-int loopcount = 0;
-
-char cleartext[256];
-char ciphertext[512];
-/*communication*/
+//
+///*communication*/
+//int loopcount = 0;
+//
+//char cleartext[256];
+//char ciphertext[512];
+///*communication*/
 
 void loop(){ 
 //  if(((millis()) - (BacklightTimer) >= 1000) and   (BacklightFlag == true))
@@ -3416,103 +3416,103 @@ EEPROM.update(23,0);
 }
 //watchdog.reset();
 
-/*communication*/
-  if(Serial1.available()and millis() - serialDelay >1000)
-  {
-    rec_time = millis();
-    reciveFlag = true;
-    //String recData = serialCall();
-    String recData = Serial1.readString();
-    Serial.println(recData); 
-    String decryptedMessage = decrypt(recData);
-    Serial.println(decryptedMessage); 
-    DynamicJsonDocument doc(300);
-    DeserializationError error = deserializeJson(doc, decryptedMessage);
-    Serial.print("receive buffer time :");    
-    Serial.println(millis()-rec_time);
-    Serial.println(decryptedMessage);
-
-   if(recData != "")
-      serialDelay = millis();
-      
-    if (decryptedMessage == machineID or doc["MAC_ID"] == machineID)// has to fine tune
-      serialFlag = true;
-
-    if(serialFlag == true ){
-      if(decryptedMessage == machineID){
-        Serial.println("Machine 1 Direct Access");
-        writePass = true;
-      }
-      else if(doc["MAC_ID"] == machineID )
-       {
-          Serial.println("Machine 1 is macthing");
-          if( doc["COMMAND"]== "PULL" )
-          {
-             Serial.println("Machine 1 is Accessed");
-              writePass = true;
-
-          }          
-          else
-            Serial.println("Machine 1 is not Accessed");        
-        }
-      else
-        {
-          Serial.println("Machine 1 is not macthing");
-          communicationDelay = millis();
-        }
-        serialFlag =false;      
-      }
-      recData ="";
-  }
-//  writePass = true;
-  if (writePass == true  )
-  {
-   String value1;
-    
-   tx_start_time = millis();  
-   DynamicJsonDocument doc(200);
-   doc["MAC_ID"] = machineID;
-   doc["COLOUR_1"] = color1Cnt;
-   doc["COLOUR_2"] = color2Cnt;
-   doc["REJECT_COLOUR 1"] = FullCopCount;
-   doc["REJECT_COLOUR 2"] = krichiCnt;
-   doc["COLOUR_3"] = color3Cnt;
-   String message ;
-   
-  serializeJsonPretty(doc, message);
-  sprintf(cleartext, message.c_str());
-  byte enc_iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };// iv_block gets written to, reqires always fresh copy.
-  String encrypted = encrypt(cleartext, enc_iv);
-  Serial.print("Encrypted Result: ");
-  
-  Serial.println(encrypted);
-   
-    digitalWrite(trx_pin,HIGH); 
- 
-    Serial1.println(encrypted);
- 
-
-//  Serial1.println("hoi");
-//  Serial1.println("\n\n");
-  t = millis();
-  
-  Serial.print("inside loop");
-   
-   writePass = false;
-  }
-  if (millis() - t >2000){
-    
-    digitalWrite(trx_pin,LOW);
-  }
-
-
-
-
-
-
-
-
-/*communication*/
+///*communication*/
+//  if(Serial1.available()and millis() - serialDelay >1000)
+//  {
+//    rec_time = millis();
+//    reciveFlag = true;
+//    //String recData = serialCall();
+//    String recData = Serial1.readString();
+//    Serial.println(recData); 
+//    String decryptedMessage = decrypt(recData);
+//    Serial.println(decryptedMessage); 
+//    DynamicJsonDocument doc(300);
+//    DeserializationError error = deserializeJson(doc, decryptedMessage);
+//    Serial.print("receive buffer time :");    
+//    Serial.println(millis()-rec_time);
+//    Serial.println(decryptedMessage);
+//
+//   if(recData != "")
+//      serialDelay = millis();
+//      
+//    if (decryptedMessage == machineID or doc["MAC_ID"] == machineID)// has to fine tune
+//      serialFlag = true;
+//
+//    if(serialFlag == true ){
+//      if(decryptedMessage == machineID){
+//        Serial.println("Machine 1 Direct Access");
+//        writePass = true;
+//      }
+//      else if(doc["MAC_ID"] == machineID )
+//       {
+//          Serial.println("Machine 1 is macthing");
+//          if( doc["COMMAND"]== "PULL" )
+//          {
+//             Serial.println("Machine 1 is Accessed");
+//              writePass = true;
+//
+//          }          
+//          else
+//            Serial.println("Machine 1 is not Accessed");        
+//        }
+//      else
+//        {
+//          Serial.println("Machine 1 is not macthing");
+//          communicationDelay = millis();
+//        }
+//        serialFlag =false;      
+//      }
+//      recData ="";
+//  }
+////  writePass = true;
+//  if (writePass == true  )
+//  {
+//   String value1;
+//    
+//   tx_start_time = millis();  
+//   DynamicJsonDocument doc(200);
+//   doc["MAC_ID"] = machineID;
+//   doc["COLOUR_1"] = color1Cnt;
+//   doc["COLOUR_2"] = color2Cnt;
+//   doc["REJECT_COLOUR 1"] = FullCopCount;
+//   doc["REJECT_COLOUR 2"] = krichiCnt;
+//   doc["COLOUR_3"] = color3Cnt;
+//   String message ;
+//   
+//  serializeJsonPretty(doc, message);
+//  sprintf(cleartext, message.c_str());
+//  byte enc_iv[16] = { 0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30,0x30 };// iv_block gets written to, reqires always fresh copy.
+//  String encrypted = encrypt(cleartext, enc_iv);
+//  Serial.print("Encrypted Result: ");
+//  
+//  Serial.println(encrypted);
+//   
+//    digitalWrite(trx_pin,HIGH); 
+// 
+//    Serial1.println(encrypted);
+// 
+//
+////  Serial1.println("hoi");
+////  Serial1.println("\n\n");
+//  t = millis();
+//  
+//  Serial.print("inside loop");
+//   
+//   writePass = false;
+//  }
+//  if (millis() - t >2000){
+//    
+//    digitalWrite(trx_pin,LOW);
+//  }
+//
+//
+//
+//
+//
+//
+//
+//
+///*communication*/
 
  
 
