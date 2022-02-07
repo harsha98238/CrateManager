@@ -927,7 +927,8 @@ if (PreviousBinSize == 5)
   Flag10  = true;
 
   }
-
+  lcd.setCursor(14,2);
+  lcd.print(BinSize);
 
 if (PreviousBobbinMix == 0)
 {
@@ -1939,7 +1940,7 @@ if (copStorage1Count >= numCopStorage1 and copstorage1Shutterflag1 == false)
 
 if (digitalRead(crate1) == true and tray1check == false)
   {
-    Tray1EmptyFlag = true;
+//    Tray1EmptyFlag = true;
     crate1alert = millis();
     tray1check = true;
     tray1checkflag = true;
@@ -2541,7 +2542,7 @@ if (copStorage2Count >= numCopStorage2 and copstorage2Shutterflag1 == false)
 
 if (digitalRead(crate2) == true and tray2check == false)
   {
-    Tray2EmptyFlag = true;
+//    Tray2EmptyFlag = true;
     crate2alert = millis();
     tray2check = true;
     tray2checkflag = true;
@@ -3051,7 +3052,7 @@ if (CopStorage3Count >= numCopStorage3 and CopStorage3Shutterflag1 == false)
 
 if (digitalRead(crate3) == true and Tray3check == false)
   {
-    Tray3EmptyFlag = true;
+//    Tray3EmptyFlag = true;
     crate3alert = millis();
     Tray3check = true;
     Tray3checkflag = true;
