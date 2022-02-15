@@ -1083,7 +1083,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
 }
 
 /*****************************************************CrateReplacement************************************************************/
-  if( InitCrateReplacementFlag == true and millis() - InitCrateEjectionTimer2 > 1700 and InitCrateProcessFlag == false)
+  if( InitCrateReplacementFlag == true and millis() - InitCrateEjectionTimer2 > 2000 and InitCrateProcessFlag == false)/*1700*/
 {
   if( digitalRead(crate1) == false)
   {
@@ -1100,7 +1100,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitBinUpFlag1 = true;
 }
 
-  if(millis() - InitTimer1BinUp1 > 1400  and InitBinUpFlag1 == true)//1000
+  if(millis() - InitTimer1BinUp1 > 1400  and InitBinUpFlag1 == true)//1000//1400
 {
    digitalWrite(binLock1,HIGH);
    digitalWrite(binLock2,HIGH);
