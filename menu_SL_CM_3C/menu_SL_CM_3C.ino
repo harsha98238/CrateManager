@@ -504,35 +504,35 @@ bool Initializationflag = true;
 
 
 //new color count
-int Color1ReadValue1  = 0;
-int Color1ReadValue2  = 0;
-int Color1ReadValue3  = 0;
-int Color2ReadValue1  = 0;
-int Color2ReadValue2  = 0;
-int Color2ReadValue3  = 0;
-int Color3ReadValue1  = 0;
-int Color3ReadValue2  = 0;
-int Color3ReadValue3  = 0;
-int Krichi1ReadValue1  = 0;
-int Krichi1ReadValue2  = 0;
-int Krichi1ReadValue3  = 0;
-int Krichi2ReadValue1  = 0;
-int Krichi2ReadValue2  = 0;
-int Krichi2ReadValue3  = 0;
-int Krichi3ReadValue1  = 0;
-int Krichi3ReadValue2  = 0;
-int Krichi3ReadValue3  = 0;
-int FullCopReadValue1  = 0;
-int FullCopReadValue2  = 0;
-int FullCopReadValue3  = 0;
+unsigned long Color1ReadValue1  = 0;
+unsigned long Color1ReadValue2  = 0;
+unsigned long Color1ReadValue3  = 0;
+unsigned long Color2ReadValue1  = 0;
+unsigned long Color2ReadValue2  = 0;
+unsigned long Color2ReadValue3  = 0;
+unsigned long Color3ReadValue1  = 0;
+unsigned long Color3ReadValue2  = 0;
+unsigned long Color3ReadValue3  = 0;
+unsigned long Krichi1ReadValue1  = 0;
+unsigned long Krichi1ReadValue2  = 0;
+unsigned long Krichi1ReadValue3  = 0;
+unsigned long Krichi2ReadValue1  = 0;
+unsigned long Krichi2ReadValue2  = 0;
+unsigned long Krichi2ReadValue3  = 0;
+unsigned long Krichi3ReadValue1  = 0;
+unsigned long Krichi3ReadValue2  = 0;
+unsigned long Krichi3ReadValue3  = 0;
+unsigned long FullCopReadValue1  = 0;
+unsigned long FullCopReadValue2  = 0;
+unsigned long FullCopReadValue3  = 0;
 
-int RecoverdColor1Count  = 0;
-int RecoverdColor2Count  = 0;
-int RecoverdColor3Count  = 0;
-int RecoverdKrichi1Count  = 0;
-int RecoverdKrichi2Count  = 0;
-int RecoverdKrichi3Count  = 0;
-int RecoverdFullCopCount = 0;
+unsigned long RecoverdColor1Count  = 0;
+unsigned long RecoverdColor2Count  = 0;
+unsigned long RecoverdColor3Count  = 0;
+unsigned long RecoverdKrichi1Count  = 0;
+unsigned long RecoverdKrichi2Count  = 0;
+unsigned long RecoverdKrichi3Count  = 0;
+unsigned long RecoverdFullCopCount = 0;
 
 
 
@@ -620,7 +620,7 @@ bool fc_toggle = false;//full carp detecton
 /*lcd reset*/
 unsigned long CurrentMillisLCD;
 unsigned long PreviousMillisLCD=0;
-const  int IntervalLCD = 1UL*5UL*60UL*1000UL;
+unsigned long IntervalLCD = 1UL*5UL*60UL*1000UL;
 
 
 
@@ -1207,68 +1207,68 @@ if ((currentMillis - previousMillis)  >=  interval)
  {
   previousMillis += interval;
 
-  int Color1UpdatedValue1  = (color1Cnt/(255*255));
-  int b1  = Color1UpdatedValue1*255*255;
+  unsigned long Color1UpdatedValue1  = (color1Cnt/(255*255));
+  unsigned long b1  = Color1UpdatedValue1*255*255;
 
-  int c1  = color1Cnt-b1;
-  int d1 = c1/255;
+  unsigned long c1  = color1Cnt-b1;
+  unsigned long d1 = c1/255;
 
-  int Color1UpdatedValue2 = d1 * 255;
-  int Color1UpdatedValue3 = c1 - Color1UpdatedValue2;
+  unsigned long Color1UpdatedValue2 = d1 * 255;
+  unsigned long Color1UpdatedValue3 = c1 - Color1UpdatedValue2;
 
   EEPROM.update(0,Color1UpdatedValue1);
   EEPROM.update(1,Color1UpdatedValue2);
   EEPROM.update(2,Color1UpdatedValue3);
 
 
-  int Color2UpdatedValue1  = (color2Cnt/(255*255));
-  int b2  = Color2UpdatedValue1*255*255;
+  unsigned long Color2UpdatedValue1  = (color2Cnt/(255*255));
+  unsigned long b2  = Color2UpdatedValue1*255*255;
 
-  int c2  = color2Cnt-b2;
-  int d2 = c2/255;
+  unsigned long c2  = color2Cnt-b2;
+  unsigned long d2 = c2/255;
 
-  int Color2UpdatedValue2 = d2 * 255;
-  int Color2UpdatedValue3 = c2 - Color2UpdatedValue2;
+  unsigned long Color2UpdatedValue2 = d2 * 255;
+  unsigned long Color2UpdatedValue3 = c2 - Color2UpdatedValue2;
 
   EEPROM.update(3,Color2UpdatedValue1);
   EEPROM.update(4,Color2UpdatedValue2);
   EEPROM.update(5,Color2UpdatedValue3);
 
-  int Color3UpdatedValue1  = (color3Cnt/(255*255));
-  int b3  = Color3UpdatedValue1*255*255;
+  unsigned long Color3UpdatedValue1  = (color3Cnt/(255*255));
+  unsigned long b3  = Color3UpdatedValue1*255*255;
 
-  int c3  = color3Cnt-b3;
-  int d3 = c3/255;
+  unsigned long c3  = color3Cnt-b3;
+  unsigned long d3 = c3/255;
 
-  int Color3UpdatedValue2 = d3 * 255;
-  int Color3UpdatedValue3 = c3 - Color3UpdatedValue2;
+  unsigned long Color3UpdatedValue2 = d3 * 255;
+  unsigned long Color3UpdatedValue3 = c3 - Color3UpdatedValue2;
 
   EEPROM.update(6,Color3UpdatedValue1);
   EEPROM.update(7,Color3UpdatedValue2);
   EEPROM.update(8,Color3UpdatedValue3);
 
-  int Krichi1UpdatedValue1  = (Krichi1Cnt/(255*255));
-  int b4  = Krichi1UpdatedValue1*255*255;
+  unsigned long Krichi1UpdatedValue1  = (Krichi1Cnt/(255*255));
+  unsigned long b4  = Krichi1UpdatedValue1*255*255;
 
-  int c4  = Krichi1Cnt-b4;
-  int d4 = c4/255;
+  unsigned long c4  = Krichi1Cnt-b4;
+  unsigned long d4 = c4/255;
 
-  int Krichi1UpdatedValue2 = d4 * 255;
-  int Krichi1UpdatedValue3 = c4 - Krichi1UpdatedValue2;
+  unsigned long Krichi1UpdatedValue2 = d4 * 255;
+  unsigned long Krichi1UpdatedValue3 = c4 - Krichi1UpdatedValue2;
 
   EEPROM.update(9,Krichi1UpdatedValue1);
   EEPROM.update(10,Krichi1UpdatedValue2);
   EEPROM.update(11,Krichi1UpdatedValue3);
 
 
-  int Krichi2UpdatedValue1  = (Krichi2Cnt/(255*255));
-  int b5  = Krichi2UpdatedValue1*255*255;
+  unsigned long Krichi2UpdatedValue1  = (Krichi2Cnt/(255*255));
+  unsigned long b5  = Krichi2UpdatedValue1*255*255;
 
-  int c5  = Krichi2Cnt-b5;
-  int d5 = c5/255;
+  unsigned long c5  = Krichi2Cnt-b5;
+  unsigned long d5 = c5/255;
 
-  int Krichi2UpdatedValue2 = d5 * 255;
-  int Krichi2UpdatedValue3 = c5 - Krichi2UpdatedValue2;
+  unsigned long Krichi2UpdatedValue2 = d5 * 255;
+  unsigned long Krichi2UpdatedValue3 = c5 - Krichi2UpdatedValue2;
 
   EEPROM.update(12,Krichi2UpdatedValue1);
   EEPROM.update(13,Krichi2UpdatedValue2);
@@ -1276,27 +1276,27 @@ if ((currentMillis - previousMillis)  >=  interval)
 
 
 
-  int Krichi3UpdatedValue1  = (Krichi3Cnt/(255*255));
-  int b6  = Krichi3UpdatedValue1*255*255;
+  unsigned long Krichi3UpdatedValue1  = (Krichi3Cnt/(255*255));
+  unsigned long b6  = Krichi3UpdatedValue1*255*255;
 
-  int c6  = Krichi3Cnt-b6;
-  int d6 = c6/255;
+  unsigned long c6  = Krichi3Cnt-b6;
+  unsigned long d6 = c6/255;
 
-  int Krichi3UpdatedValue2 = d6 * 255;
-  int Krichi3UpdatedValue3 = c6 - Krichi3UpdatedValue2;
+  unsigned long Krichi3UpdatedValue2 = d6 * 255;
+  unsigned long Krichi3UpdatedValue3 = c6 - Krichi3UpdatedValue2;
 
   EEPROM.update(15,Krichi3UpdatedValue1);
   EEPROM.update(16,Krichi3UpdatedValue2);
   EEPROM.update(17,Krichi3UpdatedValue3);
 
-  int FullCopUpdatedValue1  = (FullCopCount/(255*255));
-  int b7  = FullCopUpdatedValue1*255*255;
+  unsigned long FullCopUpdatedValue1  = (FullCopCount/(255*255));
+  unsigned long b7  = FullCopUpdatedValue1*255*255;
 
-  int c7  = FullCopCount-b7;
-  int d7 = c7/255;
+  unsigned long c7  = FullCopCount-b7;
+  unsigned long d7 = c7/255;
 
-  int FullCopUpdatedValue2 = d7 * 255;
-  int FullCopUpdatedValue3 = c7 - FullCopUpdatedValue2;
+  unsigned long FullCopUpdatedValue2 = d7 * 255;
+  unsigned long FullCopUpdatedValue3 = c7 - FullCopUpdatedValue2;
 
   EEPROM.update(21,FullCopUpdatedValue1);
   EEPROM.update(22,FullCopUpdatedValue2);
