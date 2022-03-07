@@ -4430,15 +4430,6 @@ if ((customKey=='#') and (MotorFlag == false))
   digitalWrite(vcMotor,LOW);
   MotorFlag = true;
 }
-//if ((customKey=='*') and (MotorFlag == true))
-//{
-//  digitalWrite(vcMotor,HIGH);
-//  MotorFlag = false;
-//  Serial.println("inside motor on loop");
-//  
-//}
-
-
 
 
 }
