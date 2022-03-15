@@ -1790,33 +1790,33 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
 //      Object1flag1 = false;
 //      Serial.println("Color2 empty Check");
 //    }
-////To find Yarn at Object1 sensor and use the information for shutter3 and shutter4     
-//if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
-//    {
-//      Shutter2Onflag1 = false;
-//      
-//      krichi1 =  true;
-//      Serial.println("Color1 krichi");
-//      
-//      if (krichi1==true)
-//      {
-//      Krichi1Cnt++;
-//      Serial.print("krichi 1=");
-//      Serial.println(Krichi1Cnt);
-//      krichiCntFlag=true;
-//      krichi1==false;
-//      }   
-//      
-//      Object1DetectTmr = millis();
-//      yarn1flag = false;
-//      yarn1detected = false;
-//      color1flag = false;
-//      color1identified = false;
-//      s2on = false;
-//      Object1Detected = false;
-//      Object1flag1 = false;
-//      Serial.println("Color2 yarn Check");
-//    }
+//To find Yarn at Object1 sensor and use the information for shutter3 and shutter4     
+if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
+    {
+      Shutter2Onflag1 = false;
+      
+      krichi1 =  true;
+      Serial.println("Color1 krichi");
+      
+      if (krichi1==true)
+      {
+      Krichi1Cnt++;
+      Serial.print("krichi 1=");
+      Serial.println(Krichi1Cnt);
+      krichiCntFlag=true;
+      krichi1==false;
+      }   
+      
+      Object1DetectTmr = millis();
+      yarn1flag = false;
+      yarn1detected = false;
+      color1flag = false;
+      color1identified = false;
+      s2on = false;
+      Object1Detected = false;
+      Object1flag1 = false;
+      Serial.println("Color2 yarn Check");
+    }
 //Color 1 COP with Yarn (color 1 kirchi)
     if   (Object1flag1 == true and digitalRead(obj1) == true /*and color1identified == true*/ and yarn1flag == true)
     {
