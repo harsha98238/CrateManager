@@ -105,8 +105,8 @@ bool Shutter2Onflag1 = false;
 bool Shutter2Onflag2 = false;
 bool C1CountFlag2 = false;
 bool C1CountFlag1 = false;
-short s2OnDelay = 2; //was2
-short s2OffDelay=6;//was 6
+short s2OnDelay =1; //was2 for 80  ((1 for 6- ratio))
+short s2OffDelay=2;//was 6 for 80 ((2 for 60 ratio)) 
 unsigned long color1Cnt;
 unsigned long color1Cntflag = 0;
 
@@ -1848,7 +1848,6 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
 
 // ****************************Color 1 Ejection********************************//
 if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false /*and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false */and Crate1StruckError == false  )//was*50
-  
   {
   digitalWrite(s2,HIGH);
   // Serial.println("C1CountFlag1 = true");
