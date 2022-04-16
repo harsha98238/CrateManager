@@ -6,11 +6,11 @@
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-
 /*serialCommunication*/
 #include<ArduinoJson.h>
-unsigned long timeVar;
+unsigned long timeVar = 0;
 /*serialCommunication*/
+
 
 //LiquidCrystal_I2C lcd(0x27, 20, 4);
 #include <Keypad.h>
@@ -657,11 +657,10 @@ bool LcdRefreshFlag = false;
 void setup() {
   
   Serial.begin(115200);//bits per second
-  /*serialCommunication*/
+  
+   /*serialCommunication*/
   Serial1.begin(115200);
   /*serialCommunication*/
-  
-  
 //  // initialize the LCD
 //  lcd.init(); 
 //  // Turn on the blacklight.
@@ -887,7 +886,12 @@ if (PreviousSensorOption == 1)
 
 digitalWrite(vcMotor,HIGH);
 
+
+
+
+
 }
+
 
 
 void loop(){ 
@@ -897,7 +901,7 @@ void loop(){
 //    //lcd.clear();
 //    BacklightFlag = false; 
 //    //BacklightTimer = 0;
-//    Serial.println("BacklightTimer = ON");
+//    //Serial1.println("BacklightTimer = ON");
 //  }
 
 
@@ -951,7 +955,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitCopStorageTimer2 = millis();
   InitCopStorageFlag2 = true;
 
-  Serial.println("cop storage  high at setup");
+  //Serial1.println("cop storage  high at setup");
 }
   if( millis() - InitCopStorageTimer2 > InitCopStorageOffDelay*50 and InitCopStorageFlag2 ==  true)
 {
@@ -963,7 +967,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitCrateEjectionTimer1 = millis();  
   InitCrateEjectionFlag1 = true;
 
-  Serial.println("cop storage  low at setup");
+  //Serial1.println("cop storage  low at setup");
 }
 
 
@@ -983,7 +987,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
   InitCrateEjectionTimer2 = millis();
   InitCrateEjectionFlag2 = true;
 
-  Serial.println("crate eject high at setup");
+  //Serial1.println("crate eject high at setup");
 
 }
 
@@ -1054,7 +1058,7 @@ if (Initializationflag = true and InitCopStorageFlag == false )
 /*bin size*/
 if( (Flag140 == true)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == false) and (Flag10 == false) ) 
 {
-Serial.println("140 Bin size");
+//Serial1.println("140 Bin size");
 c1Cntreset = 35;
 numCopStorage1 = 4; 
 numCopStorage2 = 4;
@@ -1065,7 +1069,7 @@ BinSize = 140;
 
 if( (Flag140 == false)  and (Flag160 == true)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == false) and (Flag10 == false) ) 
 {
-Serial.println("160 Bin size");
+//Serial1.println("160 Bin size");
 c1Cntreset = 40;
 numCopStorage1 = 4; 
 numCopStorage2 = 4;
@@ -1076,7 +1080,7 @@ BinSize = 160;
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == true)  and (Flag200 == false)and (Flag120 == false) and (Flag10 == false)  ) 
 {
-Serial.println("180 Bin size");
+//Serial1.println("180 Bin size");
 c1Cntreset = 45;
 numCopStorage1 = 4; 
 numCopStorage2 = 4;
@@ -1087,7 +1091,7 @@ BinSize = 180;
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == true) and (Flag120 == false) and (Flag10 == false) ) 
 {
-Serial.println("200 Bin size");
+//Serial1.println("200 Bin size");
 c1Cntreset = 40;
 numCopStorage1 = 5; 
 numCopStorage2 = 5;
@@ -1098,7 +1102,7 @@ BinSize = 200;
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == true) and (Flag10 == false) ) 
 {
-Serial.println("120 Bin size");
+//Serial1.println("120 Bin size");
 c1Cntreset = 30;
 numCopStorage1 = 4; 
 numCopStorage2 = 4;
@@ -1109,7 +1113,7 @@ BinSize = 120;
 
 if( (Flag140 == false)  and (Flag160 == false)  and (Flag180 == false)  and (Flag200 == false) and (Flag120 == false) and (Flag10 == true) ) 
 {
-Serial.println("10 Bin size");
+//Serial1.println("10 Bin size");
 c1Cntreset = 5;
 numCopStorage1 = 2; 
 numCopStorage2 = 2;
@@ -1306,7 +1310,7 @@ if ( (millis() - beltonDetection > (timeblock)) or (millis() - beltoffDetection 
   { 
     BeltError = true;
    
-    Serial.println("Vertical belt error occured");
+    //Serial1.println("Vertical belt error occured");
     errorB = true;
   }
 
@@ -1316,14 +1320,14 @@ if ( (millis() - beltonDetection > (timeblock)) or (millis() - beltoffDetection 
 if (BeltError == true and BeltErrorflag == false)
   {
   //this is both horizontal and vertical
-  Serial.println("vc low");
+  //Serial1.println("vc low");
     digitalWrite(vcMotor,LOW);
     BeltErrorflag = true;
   }
 if(BeltErrorflag == true and BeltError == false)
 {
   //this is both horizontal and vertical
-  Serial.println("vc high");
+  //Serial1.println("vc high");
     //digitalWrite(vcMotor,HIGH);
     BeltErrorflag = false;
 }
@@ -1348,7 +1352,7 @@ if (digitalRead(fullCopDetection) == false )
 if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   { 
     FullCopError  = true;
-    Serial.println("Full bobbin error occured");
+    //Serial1.println("Full bobbin error occured");
     errorFC = true;
     errorB = true;
   }
@@ -1365,7 +1369,7 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
 //  { 
 //    fullcopBeltSeperationTimerEnd = millis();
 //    fullcopinterval = fullcopBeltSeperationTimerEnd - fullcopBeltSeperationTimerStart;
-//    //Serial.println(fullcopinterval);
+//    ////Serial1.println(fullcopinterval);
 //    if (fullcopinterval > 300)//250
 //      {
 //        
@@ -1386,7 +1390,7 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
 //  if ((millis() - fc_time > 300) and (millis() -fc_time < 500 ) and fcflag == true)//nozzle timing
 //  {
 //    fcflag = false;//check..
-//    Serial.println("S1 high");
+//    //Serial1.println("S1 high");
 //    digitalWrite(s1,HIGH);
 //    FullCopCountFlag = true; 
 //  }  
@@ -1399,8 +1403,8 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
 //    
 //    digitalWrite(s1,LOW);
 //    fc_time = 0;
-//    Serial.println(FullCopCount);
-//    Serial.println(fc_interval);
+//    //Serial1.println(FullCopCount);
+//    //Serial1.println(fc_interval);
 //    }
 //  }
 ///*Fc new end*/
@@ -1409,21 +1413,21 @@ if ((millis() - fberrtimer > (fberrtimerondelay * 50) and fberrflag1 == true) )
   if (digitalRead(fullCopDetection) == true and togglefc == false)
   {
     fullcopBeltSeperationTimerStart= millis();
-    //Serial.println("full cop sens on");
+    ////Serial1.println("full cop sens on");
     togglefc = true;
   }
   
   if (digitalRead(fullCopDetection) == false and togglefc == true )
   { 
     fullcopBeltSeperationTimerEnd = millis();
-    //Serial.println("full cop sens off");
+    ////Serial1.println("full cop sens off");
     fullcopinterval = fullcopBeltSeperationTimerEnd - fullcopBeltSeperationTimerStart;
     if (fullcopinterval > 200)//300before200
       {
-        Serial.println("start of Full cop"+String(fullcopBeltSeperationTimerStart));
-        Serial.println("End of Full cop"+ String(fullcopBeltSeperationTimerEnd));
-        Serial.println("belt cut time exceeded threshold: " + String(fullcopBeltSeperationTimerEnd - fullcopBeltSeperationTimerStart));
-        Serial.println("setting timefc");
+        //Serial1.println("start of Full cop"+String(fullcopBeltSeperationTimerStart));
+        //Serial1.println("End of Full cop"+ String(fullcopBeltSeperationTimerEnd));
+        //Serial1.println("belt cut time exceeded threshold: " + String(fullcopBeltSeperationTimerEnd - fullcopBeltSeperationTimerStart));
+        //Serial1.println("setting timefc");
         timefc = millis();
       }
     togglefc = false;
@@ -1433,7 +1437,7 @@ if ((millis() - timefc > s1OnDelay*50) and (millis() - timefc < (s1OnDelay+s1Off
 
   { 
 
-  Serial.println("S1high");
+  //Serial1.println("S1high");
   digitalWrite(s1,HIGH);
   FullCopCountFlag = true; 
   }
@@ -1485,7 +1489,7 @@ if (millis() - errorofftmr > 1000 and erroroccuredoff == true)
   }
 
 //object 1 error
-if (digitalRead(obj1) == false and objerrflag == false)
+if (digitalRead(obj1) == true and objerrflag == false)
   {
     objerrtimer = millis();
     objerrflag1 = true;
@@ -1493,7 +1497,7 @@ if (digitalRead(obj1) == false and objerrflag == false)
     
   }
 
-if (digitalRead(obj1) == true )
+if (digitalRead(obj1) == false )
   {
     objerrflag = false;
     objerrflag1 = false;
@@ -1502,7 +1506,7 @@ if (digitalRead(obj1) == true )
 if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true) )
   { 
     Object1ErrorOccuredFlag = true;
-    Serial.println("Object 1 sensor error occured");
+    //Serial1.println("Object 1 sensor error occured");
     error = true;
    
   }
@@ -1528,7 +1532,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
     { 
       Color1ErrorOccuredFlag = true;
-      Serial.println("color 1 sensor error occured");
+      //Serial1.println("color 1 sensor error occured");
       error = true;
       
     }
@@ -1552,7 +1556,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   if ((millis() - yarnerrtimer > (yarnerrtimerondelay * 50) and yarnerrflag1 == true) )
   { 
     YarnErrorOccuredFlag = true;
-    Serial.println("Yarn sensor error occured");
+    //Serial1.println("Yarn sensor error occured");
     error = true;
    
   }
@@ -1563,7 +1567,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
     {
     timeryarn1 = millis();
     yarn1flag = true;
-    Serial.println("yarn1 identified");
+    //Serial1.println("yarn1 identified");
     yarn2simulatorflag = true;
     }
 
@@ -1602,17 +1606,17 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
  {
   color1flag = true;
   color1identified = true;
-  Serial.println("colour1 identified");
+  //Serial1.println("colour1 identified");
   s2on = true;
   Object2simulatorflag = false;
 }   
 /****************************Object 1 identification********************************/
-// if(digitalRead(obj1) == false and Object1flag1 == false  )
+// if(digitalRead(obj1) == true and Object1flag1 == false  )
 //    {
 //    Object1Detected = true;//only used inside loop
 //    Object1flag1 = true;
 //    Shutter2OnReady = false;
-//    Serial.println("Object1 identified");
+//    //Serial1.println("Object1 identified");
 //    color1flag = false;
 //    color1identified = false;
 //    if (ColorSensorOption == true)
@@ -1652,12 +1656,12 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
 
 
 /*single object*/
-  if(digitalRead(obj1) == false  and Object1flag1 == false)
+  if(digitalRead(obj1) == true  and Object1flag1 == false)
   {
     Object1Detected = true;//only used inside loop
     Object1flag1 = true;
     Shutter2OnReady = false;
-    Serial.println("Object1 identified");
+    //Serial1.println("Object1 identified");
    // yarn1flag = false;
     color1flag = false;
     color1identified = false;
@@ -1667,7 +1671,7 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
   }
   }
 //TO TRIGGER SHUTTER2 for color1COP
-  if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == false)
+  if (Object1flag1 == true and digitalRead(obj1) == false and color1identified == true and yarn1flag == false)
       {
       Shutter2Onflag1 = true;
       Object1DetectTmr = millis();
@@ -1678,11 +1682,11 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
       s2on = false;
       Object1Detected = false;
       Object1flag1 = false;
-      Serial.println("trigger s2 for c1 cop");
+      //Serial1.println("trigger s2 for c1 cop");
       }
   
   //Passing Shutter2 - cop must be 2nd or 3rd color    
-     if (Object1flag1 == true and digitalRead(obj1) == true and color1identified == false and yarn1flag == false) 
+     if (Object1flag1 == true and digitalRead(obj1) == false and color1identified == false and yarn1flag == false) 
 
      {
       Object1DetectTmr = millis();
@@ -1693,21 +1697,21 @@ if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true)
       s2on = false;
       Object1Detected = false;
       Object1flag1 = false;
-      Serial.println("Color2 empty Check");
+      //Serial1.println("Color2 empty Check");
     }
  //To find Yarn at Object1 sensor and use the information for shutter3 and shutter4     
-if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
+if(Object1flag1 == true and digitalRead(obj1) == false and yarn1flag == true)
     {
       Shutter2Onflag1 = false;
       
       krichi1 =  true;
-      Serial.println("Color1 krichi");
+      //Serial1.println("Color1 krichi");
       
       if (krichi1==true)
       {
       Krichi1Cnt++;
       Serial.print("krichi 1=");
-      Serial.println(Krichi1Cnt);
+      //Serial1.println(Krichi1Cnt);
       krichiCntFlag=true;
       krichi1==false;
       }   
@@ -1720,10 +1724,10 @@ if(Object1flag1 == true and digitalRead(obj1) == true and yarn1flag == true)
       s2on = false;
       Object1Detected = false;
       Object1flag1 = false;
-      Serial.println("Color2 yarn Check");
+      //Serial1.println("Color2 yarn Check");
     }
 //Color 1 COP with Yarn (color 1 kirchi)
-    if   (Object1flag1 == true and digitalRead(obj1) == true and color1identified == true and yarn1flag == true)
+    if   (Object1flag1 == true and digitalRead(obj1) == false and color1identified == true and yarn1flag == true)
     {
       Shutter2Onflag1 = false;
       Object1DetectTmr = millis();
@@ -1756,7 +1760,7 @@ if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) 
   
   {
   digitalWrite(s2,HIGH);
-  // Serial.println("C1CountFlag1 = true");
+  // //Serial1.println("C1CountFlag1 = true");
   C1CountFlag1 = true;
   }
 else{
@@ -1771,9 +1775,9 @@ if (C1CountFlag1 == true and C1CountFlag2 == false)
   C1CountFlag2 = true;
   color1Cnt++;
   color1Cntflag++;
-  Serial.println("inside color 1 loop");
+  //Serial1.println("inside color 1 loop");
   Serial.print("color 1 count=");
-  Serial.println(color1Cnt);
+  //Serial1.println(color1Cnt);
 if(CountDisplayFlag == true)
 {  
   lcd.setCursor(4,0);
@@ -1800,7 +1804,7 @@ if((color1Cnt>0) and ((color1Cnt %  c1Cntreset) ==  0 ) and flag1CopStorage1 == 
   timer1CopStorage1 = millis(); 
   flag1CopStorage1 = true;
   copstorage1highflag = true;
-  Serial.println("cop storage ready to high ");
+  //Serial1.println("cop storage ready to high ");
   
 }
 
@@ -1810,7 +1814,7 @@ if (millis() - timer1CopStorage1 > copStorage1Ondelay*50  and copstorage1highfla
   
   timer2CopStorage1 = millis();
   copstorage1Shutterflag1 = true;
-  Serial.println("cop storage  high ");
+  //Serial1.println("cop storage  high ");
   copstorage1highflag = false;
   copstorage1lowflag = true;
 }
@@ -1836,7 +1840,7 @@ if (copstorage1Shutterflag1 == true and copstorage1Shutterflag2 == false)
   copstorage1Shutterflag2 = true;
   copStorage1Count++ ;
   Serial.print("copStorage1Count=");
-  Serial.println(copStorage1Count);
+  //Serial1.println(copStorage1Count);
 }
 
 
@@ -1863,7 +1867,7 @@ if (digitalRead(crate1) == true and tray1check == false)
     tray1check = true;
     tray1checkflag = true;
    
-    Serial.println("TRAY1  EMPTY");
+    //Serial1.println("TRAY1  EMPTY");
   }
 
   if (digitalRead(crate1) == false )
@@ -1877,7 +1881,7 @@ if (digitalRead(crate1) == true and tray1check == false)
 if (millis() - crate1alert > crate1alertondelay and tray1checkflag == true)//50
 {
   crate1alertcheck = true;
-  Serial.println("tray alert");
+  //Serial1.println("tray alert");
 }
 if (digitalRead(crate1) == true and crate1alertcheck == true)
 {
@@ -1886,7 +1890,7 @@ if (digitalRead(crate1) == true and crate1alertcheck == true)
   Tray1Error = true;
   Tray1LightError = true;
   digitalWrite(binLock1,HIGH);
-  Serial.println("binlock high");
+  //Serial1.println("binlock high");
   
 }
 
@@ -1904,7 +1908,7 @@ if ((((millis())-(CratePresenceTimer)) > 5000) and Crate1Error2 == true)
   binup1inerrorok1 = true;
   crate1alertcheck = false;
   crate1error = false;
-  Serial.println("binup high");
+  //Serial1.println("binup high");
   
  
 }
@@ -1956,7 +1960,7 @@ if( copStorage1Count >= numCopStorage1 and crate1error == false /*and digitalRea
   {
   Crate1EjectCount++;
   digitalWrite(crateEjector1,HIGH);
-  Serial.println("crate eject high");
+  //Serial1.println("crate eject high");
   timer2CrateEjection1 = millis();
   flag3CrateEjection1 = true;
   flag2CrateEjection1 = false;
@@ -2055,14 +2059,14 @@ if (millis() - errors3offtmr > 200 and errors3occuredoff == true)
   }
 
 //Object2 Sensor Error
-if (digitalRead(obj2) == false and obj2errflag == false)
+if (digitalRead(obj2) == true and obj2errflag == false)
   {
     obj2errtimer = millis();
     obj2errflag2 = true;
     obj2errflag = true;  
   }
 
-if (digitalRead(obj2) == true)
+if (digitalRead(obj2) == false)
   {
     obj2errflag = false;
     obj2errflag2 = false;
@@ -2072,7 +2076,7 @@ if (digitalRead(obj2) == true)
 if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
   { 
     Object2ErrorOccuredFlag = true;
-    Serial.println("Object2 error occured");
+    //Serial1.println("Object2 error occured");
     errors3 = true;
     
   }
@@ -2119,25 +2123,25 @@ if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == tr
   if ((millis() - yarn2errtimer > (yarn2errtimerondelay * 50) and yarn2errflag1 == true) )
   { 
     Yarn2ErrorOccuredFlag = true;
-    Serial.println("Yarn2 sensor error occured");
+    //Serial1.println("Yarn2 sensor error occured");
     error = true;
    
   }    
 /*s3error ends*/
 // ****************************Yarn 2 identification********************************//
 
-//if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == false */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
+//if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == true */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
 //{
 //    timeryarn2 = millis();
 //    yarn2flag = true;
-//    Serial.println("yarn2 came");
+//    //Serial1.println("yarn2 came");
 //}
 
 if(digitalRead(yarn2) == false and yarn2flag == false)
 {
     timeryarn2 = millis();
     yarn2flag = true;
-    Serial.println("yarn2 came");
+    //Serial1.println("yarn2 came");
 }
 
 ///*test yarn2 sim*/
@@ -2145,7 +2149,7 @@ if(digitalRead(yarn2) == false and yarn2flag == false)
 //{
 //    timeryarn2 = millis();
 //    yarn2flag = true;
-//    Serial.println("yarn2 came");
+//    //Serial1.println("yarn2 came");
 //}
 
 /***************************Color 2 identification********************************/
@@ -2153,7 +2157,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
  {
   Color2flag = true;
   color2identified = true;
-  Serial.println("colour2 identified direct");
+  //Serial1.println("colour2 identified direct");
   s3on = true;
 }
 
@@ -2163,7 +2167,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
  if(digitalRead(color2) == false and Color2flag == false and ColorSensorOption == true )
     {
     Color2flag = true;
-    Serial.println("Color2 identified leuze");
+    //Serial1.println("Color2 identified leuze");
     Color2simulatorflag = true;
     }
 
@@ -2195,10 +2199,10 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
       Color2simulatorPreviousPulse = millis();
       Color2simulatorflag = false;
       }
-if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected == true  /*and digitalRead(obj2) == false*/ ) 
+if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected == true  /*and digitalRead(obj2) == true*/ ) 
 {
     color2identified = true;
-    Serial.println("Color2 came");
+    //Serial1.println("Color2 came");
 }
 
     
@@ -2211,7 +2215,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
 //    Object2Detected = true;
 //    Object2flag1 = true;
 //    Shutter3OnReady = false;
-//    Serial.println("Object2 identified");
+//    //Serial1.println("Object2 identified");
 //    //yarn2flag = false;
 //    
 //    if (ColorSensorOption == false)
@@ -2221,12 +2225,12 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
 //    }
 //}
 
-  if(digitalRead(obj2) == false  and Object2flag1 == false)
+  if(digitalRead(obj2) == true  and Object2flag1 == false)
   {
     Object2Detected = true;//only used inside loo
     Object2flag1 = true;
     Shutter3OnReady = false;
-    Serial.println("Object2 identified");
+    //Serial1.println("Object2 identified");
     //yarn2flag = false;
     
     if (ColorSensorOption == false)
@@ -2237,7 +2241,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
     
   }
 //TO TRIGGER SHUTTER3 for color2COP
-  if (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == false /*and BobbinMixupflag == false*/)
+  if (Object2Detected == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == false /*and BobbinMixupflag == false*/)
       {
       Shutter3Onflag1 = true;
       Object2DetectTmr = millis();
@@ -2248,10 +2252,10 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
       s3on = false;
       Object2Detected = false;
       Object2flag1 = false;
-      Serial.println("trigger s3 for c2 cop");
+      //Serial1.println("trigger s3 for c2 cop");
       }
 ////bobbin mix SHUTTER3 for color2COP
-//  if (Object2Detected == true and digitalRead(obj2) == true and yarn2flag == false /*and BobbinMixupflag == true*/)
+//  if (Object2Detected == true and digitalRead(obj2) == false and yarn2flag == false /*and BobbinMixupflag == true*/)
 //      {
 //      Shutter3Onflag1 = true;
 //      Object2DetectTmr = millis();
@@ -2263,11 +2267,11 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
 //      s3on = false;
 //      Object2Detected = false;
 //      Object2flag1 = false;
-//      Serial.println("trigger s3 for c2 cop");
+//      //Serial1.println("trigger s3 for c2 cop");
 //      }
   
   //Passing Shutter3 - cop must be 3rd color    
-     if (Object2flag1 == true and digitalRead(obj2) == true and color2identified == false and yarn2flag == false) 
+     if (Object2flag1 == true and digitalRead(obj2) == false and color2identified == false and yarn2flag == false) 
 
      {
       Object2DetectTmr = millis();
@@ -2280,10 +2284,10 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
       s3on = false;
       Object2Detected = false;
       Object2flag1 = false;
-      Serial.println("Color3 empty Check");
+      //Serial1.println("Color3 empty Check");
     }
  //To find Yarn at Object2 sensor and use the information for shutter4     
-if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
+if(Object2Detected == true and digitalRead(obj2) == false and yarn2flag == true)
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2291,7 +2295,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       yarn2detected = false;
 
 //      krichi2 =  true;
-//      Serial.println("c2 krichi");
+//      //Serial1.println("c2 krichi");
 
 
 
@@ -2301,10 +2305,10 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       s3on = false;
       Object2Detected = false;
       Object2flag1 = false;
-      Serial.println("Color3 yarn Check");
+      //Serial1.println("Color3 yarn Check");
     }
 //Color 2 COP with Yarn (color 2 kirchi)
-    if   (Object2Detected == true and digitalRead(obj2) == true and color2identified == true and yarn2flag == true)//Object2flag1 == true 
+    if   (Object2Detected == true and digitalRead(obj2) == false and color2identified == true and yarn2flag == true)//Object2flag1 == true 
     {
       Shutter3Onflag1 = false;
       Object2DetectTmr = millis();
@@ -2318,7 +2322,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
       Object2Detected = false;
       Object2flag1 = false;
       krichi2 =  true;
-      Serial.println("c2 krichi");
+      //Serial1.println("c2 krichi");
 
       
 }
@@ -2326,7 +2330,7 @@ if(Object2Detected == true and digitalRead(obj2) == true and yarn2flag == true)
 //{
 //Krichi2Cnt++;
 //Serial.print("krichi 2=");
-//Serial.println(Krichi2Cnt);
+////Serial1.println(Krichi2Cnt);
 //krichiCntFlag=true;
 //krichi2==false;
 //}   
@@ -2347,7 +2351,7 @@ if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2De
   
   {
   digitalWrite(s3,HIGH);
-  //Serial.println("C2CountFlag1 = true");
+  ////Serial1.println("C2CountFlag1 = true");
   C2CountFlag1 = true;
   }
 else{
@@ -2359,10 +2363,10 @@ if (C2CountFlag1 == true and C2CountFlag2 == false)
 {
   C2CountFlag2 = true;
   color2Cnt++;
-  Serial.println("inside color 2 loop");
+  //Serial1.println("inside color 2 loop");
   color2Cntflag++;
   Serial.print("color 2 count=");
-  Serial.println(color2Cnt);
+  //Serial1.println(color2Cnt);
   if(CountDisplayFlag == true)
 {
   lcd.setCursor(14,0);
@@ -2390,7 +2394,7 @@ if((color2Cnt>0) and ((color2Cnt %  c1Cntreset) ==  0 ) and flag1CopStorage2 == 
 //  flag2CopStorage2 = true;
   flag1CopStorage2 = true;
   copstorage2highflag = true;
-  Serial.println("cop storage 2 ready to high ");
+  //Serial1.println("cop storage 2 ready to high ");
   
 }
 
@@ -2400,7 +2404,7 @@ if (millis() - timer1CopStorage2 > copStorage2Ondelay*50  and copstorage2highfla
   
   timer2CopStorage2 = millis();
   copstorage2Shutterflag1 = true;
-  Serial.println("cop storage  high ");
+  //Serial1.println("cop storage  high ");
   copstorage2highflag = false;
   copstorage2lowflag = true;
 }
@@ -2424,7 +2428,7 @@ if (copstorage2Shutterflag1 == true and copstorage2Shutterflag2 == false)
   copstorage2Shutterflag2 = true;
   copStorage2Count++ ;
   Serial.print("copStorage2Count=");
-  Serial.println(copStorage2Count);
+  //Serial1.println(copStorage2Count);
 }
 
 if (copstorage2Shutterflag1 == false)
@@ -2446,7 +2450,7 @@ if (digitalRead(crate2) == true and tray2check == false)
     tray2check = true;
     tray2checkflag = true;
     
-    Serial.println("no tray2");
+    //Serial1.println("no tray2");
   }
 
   if (digitalRead(crate2) == false )
@@ -2460,7 +2464,7 @@ if (digitalRead(crate2) == true and tray2check == false)
 if (millis() - crate2alert > crate2alertondelay and tray2checkflag == true)
 {
   crate2alertcheck = true;
-  Serial.println("tray2 alert");
+  //Serial1.println("tray2 alert");
 }
 
 
@@ -2473,7 +2477,7 @@ if (digitalRead(crate2) == true and crate2alertcheck == true)
   Tray2LightError = true;
   crate2error = true;
   digitalWrite(binLock2,HIGH);
-  Serial.println("binlock 2 high");
+  //Serial1.println("binlock 2 high");
 }
 
 
@@ -2493,7 +2497,7 @@ if ((((millis())-(Crate2PresenceTimer)) > 5000) and Crate2Error2 == true)
   Crate2Error2 = false;
   crate2alertcheck = false;
   crate2error = false;
-  Serial.println("binup2 high");
+  //Serial1.println("binup2 high");
   
  
 }
@@ -2537,7 +2541,7 @@ if( copStorage2Count >= numCopStorage2 and crate2error == false /*and digitalRea
   if  (millis() - timer1CrateEjection2 > 2000 and flag2CrateEjection2 == true)
   {
   digitalWrite(crateEjector2,HIGH);
-  Serial.println("crate eject 2 high");
+  //Serial1.println("crate eject 2 high");
   timer2CrateEjection2 = millis();
   flag3CrateEjection2 = true;
   flag2CrateEjection2 = false;
@@ -2635,14 +2639,14 @@ if (millis() - errors4offtmr > 200 and errors4occuredoff == true)
   }
 
 //Object3 Sensor Error
-if (digitalRead(obj3) == false and obj3errflag == false)
+if (digitalRead(obj3) == true and obj3errflag == false)
   {
     obj3errtimer = millis();
     obj3errflag2 = true;
     obj3errflag = true;  
   }
 
-if (digitalRead(obj3) == true)
+if (digitalRead(obj3) == false)
   {
     obj3errflag = false;
     obj3errflag2 = false;
@@ -2652,7 +2656,7 @@ if (digitalRead(obj3) == true)
 if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == true) )
   { 
     Object3ErrorOccuredFlag = true;
-    Serial.println("Object3 error occured");
+    //Serial1.println("Object3 error occured");
     errors4 = true;
     
   }
@@ -2698,7 +2702,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
   if ((millis() - yarn3errtimer > (yarn3errtimerondelay * 50) and yarn3errflag1 == true) )
   { 
     Yarn3ErrorOccuredFlag = true;
-    Serial.println("Yarn3 sensor error occured");
+    //Serial1.println("Yarn3 sensor error occured");
     error = true;
    
   }      
@@ -2711,7 +2715,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
     {
     timeryarn3 = millis();
     yarn3flag = true;
-    Serial.println("yarn3 came");
+    //Serial1.println("yarn3 came");
     }
 
 // ****************************Color 3 identification********************************//
@@ -2720,19 +2724,19 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
  {
   color3flag = true;
   color3identified = true;
-  Serial.println("colour3 identified");
+  //Serial1.println("colour3 identified");
   s4on = true;
 }
 
 
 // ****************************Object 3 identification********************************//
 
-  if(digitalRead(obj3) == false  and Object3flag1 == false)
+  if(digitalRead(obj3) == true  and Object3flag1 == false)
   {
     Object3Detected = true;//only used inside loop
     Object3flag1 = true;
     Shutter4OnReady = false;
-    Serial.println("Object3 identified");
+    //Serial1.println("Object3 identified");
     yarn3flag = false;
     color3flag = false;
     color3identified = false;
@@ -2740,7 +2744,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
 //TO TRIGGER SHUTTER4 for color3COP
 
   
-  if (Object3flag1 == true and digitalRead(obj3) == true and color3identified == true and yarn3flag == false and BobbinMixupflag == false)
+  if (Object3flag1 == true and digitalRead(obj3) == false and color3identified == true and yarn3flag == false and BobbinMixupflag == false)
 {
       Shutter4Onflag1 = true;
       Object3DetectTmr = millis();
@@ -2751,9 +2755,9 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      Serial.println("color3 eject");
+      //Serial1.println("color3 eject");
       }
-  if (Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == false and BobbinMixupflag == true)
+  if (Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == false and BobbinMixupflag == true)
       
       {
       Shutter4Onflag1 = true;
@@ -2765,11 +2769,11 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      Serial.println("bobbin mixup true");
+      //Serial1.println("bobbin mixup true");
       }
   
   //Passing Shutter4 -    
-     if (Object3flag1 == true and digitalRead(obj3) == true and color3identified == false and yarn3flag == false) 
+     if (Object3flag1 == true and digitalRead(obj3) == false and color3identified == false and yarn3flag == false) 
 
      {
       Shutter4Onflag1 = false;
@@ -2781,15 +2785,15 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      Serial.println("Color4 empty Check");
+      //Serial1.println("Color4 empty Check");
     }
  //To find Yarn at Object3 sensor and use the information      
-//if(Object3flag1 == true and digitalRead(obj3) == true and color3identified == false and yarn3flag == true)
-if(Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == true)
+//if(Object3flag1 == true and digitalRead(obj3) == false and color3identified == false and yarn3flag == true)
+if(Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == true)
     {
       Shutter4Onflag1 = false;
 //       krichi3 =  true;
-//      Serial.println("color3 yarn Rested");
+//      //Serial1.println("color3 yarn Rested");
      
       Object3DetectTmr = millis();
       yarn3flag = false;
@@ -2800,10 +2804,10 @@ if(Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == true)
       Object3Detected = false;
       Object3flag1 = false;
       krichi3 =  true;
-      Serial.println("Color3 yarn Check");
+      //Serial1.println("Color3 yarn Check");
     }
 //Color 3 COP with Yarn (color 3 kirchi)
-    if   (Object3flag1 == true and digitalRead(obj3) == true and color3identified == true and yarn3flag == true  )
+    if   (Object3flag1 == true and digitalRead(obj3) == false and color3identified == true and yarn3flag == true  )
     {
       Shutter4Onflag1 = false;   
       Object3DetectTmr = millis();
@@ -2820,7 +2824,7 @@ if(Object3flag1 == true and digitalRead(obj3) == true and yarn3flag == true)
 //{
 //Krichi3Cnt++;
 //Serial.print("krichi 3=");
-//Serial.println(Krichi3Cnt);
+////Serial1.println(Krichi3Cnt);
 //krichiCntFlag=true;
 //krichi3==false;
 //}
@@ -2854,10 +2858,10 @@ if (C3CountFlag1 == true and C3CountFlag2 == false)
 {
   C3CountFlag2 = true;
   color3Cnt++;
-  Serial.println("inside color 3 loop");
+  //Serial1.println("inside color 3 loop");
   color3Cntflag++;
   Serial.print("color 3 count=");
-  Serial.println(color3Cnt);
+  //Serial1.println(color3Cnt);
   if(CountDisplayFlag == true)
 {
   lcd.setCursor(4,2);
@@ -2884,7 +2888,7 @@ if((color3Cnt>0) and ((color3Cnt %  c1Cntreset) ==  0 ) and flag1CopStorage3 == 
   timer1CopStorage3 = millis(); 
   flag1CopStorage3 = true;
   CopStorage3highflag = true;
-  Serial.println("cop storage 3 ready to high ");
+  //Serial1.println("cop storage 3 ready to high ");
   
 }
 
@@ -2894,7 +2898,7 @@ if (millis() - timer1CopStorage3 > CopStorage3Ondelay*50  and CopStorage3highfla
   
   timer2CopStorage3 = millis();
   CopStorage3Shutterflag1 = true;
-  Serial.println("cop storage  high ");
+  //Serial1.println("cop storage  high ");
   CopStorage3highflag = false;
   CopStorage3lowflag = true;
 }
@@ -2918,7 +2922,7 @@ if (CopStorage3Shutterflag1 == true and CopStorage3Shutterflag2 == false)
   CopStorage3Shutterflag2 = true;
   CopStorage3Count++ ;
   Serial.print("CopStorage3Count=");
-  Serial.println(CopStorage3Count);
+  //Serial1.println(CopStorage3Count);
 }
 if (CopStorage3Shutterflag1 == false)
 {
@@ -2938,7 +2942,7 @@ if (digitalRead(crate3) == true and Tray3check == false)
     Tray3check = true;
     Tray3checkflag = true;
     
-    Serial.println("no Tray3");
+    //Serial1.println("no Tray3");
   }
 
   if (digitalRead(crate3) == false )
@@ -2952,7 +2956,7 @@ if (digitalRead(crate3) == true and Tray3check == false)
 if (millis() - crate3alert > crate3alertondelay and Tray3checkflag == true)
 {
   crate3alertcheck = true;
-  Serial.println("Tray3 alert");
+  //Serial1.println("Tray3 alert");
 }
 if (digitalRead(crate3) == true and crate3alertcheck == true)
 {
@@ -2961,7 +2965,7 @@ if (digitalRead(crate3) == true and crate3alertcheck == true)
   Tray3LightError = true;
   crate3error = true;
   digitalWrite(binLock3,HIGH);
-  Serial.println("binlock 3 high");
+  //Serial1.println("binlock 3 high");
 }
 
 if (crate3error == true and digitalRead(crate3) == false) 
@@ -2980,7 +2984,7 @@ if ((((millis())-(Crate3PresenceTimer)) > 5000) and Crate3Error2 == true)
   binUp3inerrorok1 = true;
   crate3alertcheck = false;
   crate3error = false;
-  Serial.println("binUp3 high");
+  //Serial1.println("binUp3 high");
 }
 
 if (binUp3inerrorok1 == true and millis() - binUp3inerrortime > 4000)
@@ -3023,7 +3027,7 @@ if( CopStorage3Count >= numCopStorage3 and crate3error == false /*and digitalRea
   if  (millis() - timer1CrateEjection3 > 2000 and flag2CrateEjection3 == true)
   {
   digitalWrite(crateEjector3,HIGH);
-  Serial.println("crate eject 3 high");
+  //Serial1.println("crate eject 3 high");
   timer2CrateEjection3 = millis();
   flag3CrateEjection3 = true;
   flag2CrateEjection3 = false;
@@ -3122,7 +3126,7 @@ if (ResetSwitch == true and ((error == true) or (BeltError == true) or (errors3 
     obj2errflag2 = false;
     lcd.setCursor(0,3);
     lcd.print("                    ");
-    Serial.println("Error reset at loop");
+    //Serial1.println("Error reset at loop");
     //this is both horizontal and vertical
     digitalWrite(vcMotor,HIGH);
   
@@ -3150,7 +3154,7 @@ customKey = customKeypad.getKey();
 
 if (((millis() - MenuTimer) >= 500) and  KeyPressFlag == true )
 {
-Serial.println("function executed"+customKey);
+//Serial1.println("function executed"+customKey);
 Function(functionParameter);
 KeyPressFlag = false;
 functionParameter = '\0';
@@ -3158,8 +3162,8 @@ functionParameter = '\0';
 
 if (customKey != '\0' ) 
 {
-    Serial.println("keypressdflag true");  
-    Serial.println(customKey);
+    //Serial1.println("keypressdflag true");  
+    //Serial1.println(customKey);
     KeyPressFlag = true;
     MenuTimer = millis();
     functionParameter = customKey;
@@ -3278,14 +3282,15 @@ if (millis()-timeVar >1000){
    doc["REJECT_COLOUR 2"] = krichiCnt;
    String message ;
 
-   
-
 
   serializeJsonPretty(doc, message);
   
   Serial1.println(message);
+  //erial.println(message);
 }
   /*serialCommunication*/
+
+
 
 }
 
@@ -3743,13 +3748,13 @@ case 26:
 void Function(char customKey)
 {
  Serial.print("Custom inside function = ");
- Serial.println(customKey);
+ //Serial1.println(customKey);
  
 if (customKey=='D')
 {
     ResetSwitch = true;
     ErrorCycle = false;
-    Serial.println("Error Reset");
+    //Serial1.println("Error Reset");
   }
 //if((ResetSwitch == true) or (ErrorCycle == false))
 //{
@@ -3760,7 +3765,7 @@ if (customKey=='D')
 
 if (customKey=='B' /*and (InsideMenuFlag == true)*/)
 {
-  Serial.println("serial reinintialised");
+  //Serial1.println("serial reinintialised");
 //  LiquidCrystal_I2C lcd(0x27, 20, 4);
 //  lcd.init(); //initialization added
 //  lcd.backlight();
@@ -3794,7 +3799,7 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   lcd.setCursor(14,2);
   lcd.print(BinSize);
   
-  Serial.println("Done resetting display");
+  //Serial1.println("Done resetting display");
   
 
   
@@ -3807,7 +3812,7 @@ if (customKey=='B' /*and (InsideMenuFlag == true)*/)
   InsideClearFlag = false;
   LcdRefreshFlag = false;
 //  BacklightTimer = millis();
-//  Serial.println("BacklightTimer flag");
+//  //Serial1.println("BacklightTimer flag");
 //  digitalWrite(Backlight,LOW);
   
   }
@@ -4101,7 +4106,7 @@ if( (InsideOption1Flag == true) and (customKey=='6'))
 
 if ((customKey=='#') and (MotorFlag == false))
 {
-  Serial.println("inside motor off loop");
+  //Serial1.println("inside motor off loop");
   digitalWrite(vcMotor,LOW);
   MotorFlag = true;
 }
@@ -4109,7 +4114,7 @@ if ((customKey=='#') and (MotorFlag == false))
 //{
 //  digitalWrite(vcMotor,HIGH);
 //  MotorFlag = false;
-//  Serial.println("inside motor on loop");
+//  //Serial1.println("inside motor on loop");
 //  
 //}
 
