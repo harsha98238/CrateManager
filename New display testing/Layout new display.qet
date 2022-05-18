@@ -1,0 +1,677 @@
+<project folioSheetQuantity="0" version="0.70" title="">
+    <properties>
+        <property show="1" name="savedtime">14:58</property>
+        <property show="1" name="savedfilepath">/home/indotex/Desktop/Layout new display.qet</property>
+        <property show="1" name="saveddate">2022-05-12</property>
+        <property show="1" name="savedfilename">Layout new display</property>
+    </properties>
+    <newdiagrams>
+        <border colsize="60" displayrows="true" cols="17" displaycols="true" rows="8" rowsize="80"/>
+        <inset folio="%id/%total" date="null" locmach="" indexrev="" displayAt="bottom" author="" title="" version="" plant="" filename="" auto_page_num=""/>
+        <conductors horizontal-alignment="AlignBottom" dash-size="2" displaytext="1" horizrotatetext="0" function="" tension-protocol="" color2="#000000" vertical-alignment="AlignRight" condsize="1" onetextperfolio="0" vertirotatetext="270" bicolor="false" num="_" numsize="7" type="multi" formula=""/>
+        <report label="%f-%l%c"/>
+        <xrefs>
+            <xref displayhas="cross" snapto="label" master_label="%f-%l%c" powerprefix="" switchprefix="" showpowerctc="false" offset="0" slave_label="(%f-%l%c)" type="commutator" delayprefix=""/>
+            <xref displayhas="cross" snapto="label" master_label="%f-%l%c" powerprefix="" switchprefix="" showpowerctc="false" offset="40" slave_label="(%f-%l%c)" type="coil" delayprefix=""/>
+            <xref displayhas="cross" snapto="label" master_label="%f-%l%c" powerprefix="" switchprefix="" showpowerctc="false" offset="0" slave_label="(%f-%l%c)" type="protection" delayprefix=""/>
+        </xrefs>
+        <conductors_autonums current_autonum="" freeze_new_conductors="false"/>
+        <folio_autonums/>
+        <element_autonums current_autonum="" freeze_new_elements="false"/>
+    </newdiagrams>
+    <diagram rows="5" filename="" date="null" plant="" order="1" freezeNewElement="false" title="" displaycols="true" displayAt="bottom" colsize="60" displayrows="true" rowsize="80" height="420" locmach="" folio="%id/%total" indexrev="" author="" freezeNewConductor="false" auto_page_num="Create an auto folio numbering" cols="6" version="0.70">
+        <defaultconductor horizontal-alignment="AlignBottom" dash-size="2" displaytext="1" horizrotatetext="0" function="" tension-protocol="" color2="#000000" vertical-alignment="AlignRight" condsize="1" onetextperfolio="0" vertirotatetext="270" bicolor="false" num="_" numsize="7" type="multi" formula=""/>
+        <elements>
+            <element uuid="{5c22222b-a5f3-48de-9149-5c7cddf786b7}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="150">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="0" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="1" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{cce6afd4-0441-4fed-95ed-f604d9723c7b}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="100">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="2" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="3" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{f501dbd1-0e5b-4da7-a1a2-b3f6bb261545}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="130">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="4" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="5" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{bf6d0933-36ff-4006-a1de-38230b50bf1d}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="180">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="6" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="7" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{5c61b72f-5001-4d31-8c9b-a29a80f80c57}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="120">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="8" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="9" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{e1e94a2f-e6cf-4b10-9387-5393c46e7248}" prefix="" z="10" y="320" orientation="0" freezeLabel="false" type="embed://import/16pinjst.elmt" x="160">
+                <terminals>
+                    <terminal nameHidden="0" y="2" orientation="0" id="10" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="11" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="12" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="13" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="14" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="15" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="16" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="17" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="18" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="19" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="20" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="21" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="22" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="23" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="24" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="25" name="_" number="_" x="70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="26" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="27" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="28" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="29" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="30" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="31" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="32" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="33" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="34" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="35" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="36" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="37" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="38" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="39" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="40" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="41" name="_" number="_" x="70"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts/>
+                <texts_groups/>
+            </element>
+            <element uuid="{e371c6ca-a124-4207-bfef-d6a49456a202}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="220">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="42" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="43" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{3c99e6d8-a3d7-490d-9be4-8ef0a93a5f9e}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="160">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="44" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="45" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{f49f33fb-bddb-47b9-9e30-88fbc6b79307}" prefix="" z="10" y="180" orientation="0" freezeLabel="false" type="embed://import/16pinjst.elmt" x="160">
+                <terminals>
+                    <terminal nameHidden="0" y="2" orientation="0" id="46" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="47" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="48" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="49" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="50" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="51" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="52" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="53" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="54" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="55" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="56" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="57" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="58" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="59" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="60" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="61" name="_" number="_" x="70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="62" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="63" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="64" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="65" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="66" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="67" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="68" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="69" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="70" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="71" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="72" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="73" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="74" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="75" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="76" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="77" name="_" number="_" x="70"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts/>
+                <texts_groups/>
+            </element>
+            <element uuid="{7d7e5369-9b4b-4675-be94-9b8f6d1ef13e}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="110">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="78" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="79" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{763a4e47-d276-41b5-9bca-83fdd063b2a7}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="170">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="80" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="81" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{5981a263-d321-44bd-8132-bea8a0f384cf}" prefix="R" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/10_electric/10_allpole/395_electronics&amp;semiconductors/01_resistors/resistance.elmt" x="140">
+                <terminals>
+                    <terminal nameHidden="0" y="-17" orientation="0" id="82" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="17" orientation="2" id="83" name="_" number="_" x="0"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts>
+                    <dynamic_elmt_text uuid="{8f7b3c0d-7002-4489-b922-0a224136ba7f}" font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="-11.5" text_from="ElementInfo" Halignment="AlignLeft" frame="false" text_width="-1" rotation="0" Valignment="AlignTop" x="6">
+                        <text></text>
+                        <info_name>label</info_name>
+                    </dynamic_elmt_text>
+                </dynamic_texts>
+                <texts_groups/>
+            </element>
+            <element uuid="{0278a135-2c98-40a3-bf44-be4a55a6ccae}" prefix="" z="10" y="230" orientation="0" freezeLabel="false" type="embed://import/103capacitor.elmt" x="200">
+                <terminals>
+                    <terminal nameHidden="0" y="-12.2778" orientation="3" id="84" name="_" number="_" x="-7.9244"/>
+                    <terminal nameHidden="0" y="-12.2778" orientation="1" id="85" name="_" number="_" x="8.7841"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts/>
+                <texts_groups/>
+            </element>
+            <element uuid="{eb9fa5da-9a5d-4c97-aded-62a052596bdb}" prefix="" z="10" y="120" orientation="0" freezeLabel="false" type="embed://import/16pinjst.elmt" x="160">
+                <terminals>
+                    <terminal nameHidden="0" y="2" orientation="0" id="86" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="87" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="88" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="89" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="90" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="91" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="92" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="93" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="94" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="95" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="96" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="97" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="98" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="99" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="100" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="2" orientation="0" id="101" name="_" number="_" x="70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="102" name="_" number="_" x="-80"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="103" name="_" number="_" x="-70"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="104" name="_" number="_" x="-60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="105" name="_" number="_" x="-50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="106" name="_" number="_" x="-40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="107" name="_" number="_" x="-30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="108" name="_" number="_" x="-20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="109" name="_" number="_" x="-10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="110" name="_" number="_" x="0"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="111" name="_" number="_" x="10"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="112" name="_" number="_" x="20"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="113" name="_" number="_" x="30"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="114" name="_" number="_" x="40"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="115" name="_" number="_" x="50"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="116" name="_" number="_" x="60"/>
+                    <terminal nameHidden="0" y="-1" orientation="2" id="117" name="_" number="_" x="70"/>
+                </terminals>
+                <inputs/>
+                <elementInformations>
+                    <elementInformation show="1" name="comment"></elementInformation>
+                    <elementInformation show="1" name="location"></elementInformation>
+                    <elementInformation show="1" name="label"></elementInformation>
+                    <elementInformation show="1" name="formula"></elementInformation>
+                </elementInformations>
+                <dynamic_texts/>
+                <texts_groups/>
+            </element>
+        </elements>
+        <inputs>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="30" rotation="0" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;>LAYOUT DIAGRAM&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="90"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="240" rotation="270" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>55mm&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="30"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="310" rotation="0" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>Female berg strip&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="240"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="110" rotation="0" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>Female berg strip&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="240"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="170" rotation="0" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>JST MALE CONNECTOR&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="240"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="249.621" rotation="270" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>70mm&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="269.621"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="170" rotation="270" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>10mm&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="130"/>
+            <input font="Sans Serif,9,-1,5,0,0,0,0,0,0,normal" y="72.734" rotation="0" text="&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;>&#xa;&lt;html>&lt;head>&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; />&lt;style type=&quot;text/css&quot;>&#xa;p, li { white-space: pre-wrap; }&#xa;&lt;/style>&lt;/head>&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:0; font-style:normal;&quot;>&#xa;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;>&lt;span style=&quot; font-size:6pt;&quot;>50mm&lt;/span>&lt;/p>&lt;/body>&lt;/html>" x="138.737"/>
+        </inputs>
+        <images>
+            <image z="0" y="350" size="1" is_movable="1" rotation="0" x="70">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ep536qmnHvySOwtlYGgGDbAPVTiWRZ4hBZgC7Oij4Wsc+oPy8Q89SUDow2HvvPVWOpmurKprapnU1dUzffaULdu3nbroJElq284tzWObmeStLZOmT5u08Lgj77j9R+efe84JJ5wI5l/03xZ7+fyuXbs+u/DYv/zC2dnq1Pr1Gy6++KvdXd3/9IP/rSC+c901S7625LDp059+/Imp0yc3NI0hTX/93/56+rTWa669+isXfrkiW7Fq5cog9EMlrJh1990/OeqoeWd+4dSNm9dPaZ3GgK6u7vnz55+56KRJLU0rX35WlIKlP1r647vvSyXSw8P5qjH1jIi0ksLv7upc+qOltVVVzz+74qh5nzlywdEipED6L738O6+Yv+Hb1ykl9rV3rV27NplMOo7zjW98Qym1cuXKYrH4/vvvT548OZ1OJxKJs88+e86cOd/+9rfPP//8hQsXFgqFCy644LLLLuvr6zv22GMvuOACo7A3Nzfbtn3JJZcMDw/fdtttd955ZzabHTt27AMPPHDiiScCEELkcrnW1tZbbrll8eLFEydOXLlyJYB77rln2rRpixcv3r17d0NDQzabvfLKK7/73e+OGTPmlVdeGRoa+lRK7hhI6fLRURIQlkki1CMoApgEU6acTZpgD0PAEMJkTBAJBg/wATABHsAKYQnNQ8mkcJOSEst/8WQpL797660vvPpyd9derrGjrW3e3MMkwr0du2dNnhy3+dYNmya3ToGVevPdjYfPORJghbwIKa5jmS3tez534vG2S++375h7xOGKsGnzrokTWnft2G5rNWf6VECsW79m0uQJUoju7q4JzeO8geFt767/zc8ffXjZT7907nnzF8wHt4qh9+prT552+lG+9ra9v2tcy0QI9La3n3b8Qtdmezs7p848/LkXXz/q6OOTmbSng/d2rG+YNMETIFBv++4J9XUNdTUavH+wNGfuAq1oy/aNtXWpdevfPP64BUyRBbuQKzHGuru7jznmGMZYPp8HkM1m29vbJ0+eHARBe3t7c3Pz8PDw5s2bFy5caGbYuBU2bNhw2mmnmUwhxlhPT09NTQ2A9evXT5o0KZvNGh99FBTq6ekBIIRYs2bNSy+99OCDDy5atOj4449fsWLFGWecQUQbN25sbW3ds2dPRUVFTU0N53zfvn1R5tlBpvJBPIYNlY8hQ/nDCHMadREaUPTB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</image>
+        </images>
+        <shapes>
+            <shape closed="0" z="0" x1="120" y2="170" type="Line" x2="120" y1="130" is_movable="1">
+                <pen widthF="1" color="#000000" style="DashLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="70" y2="70" type="Line" x2="240" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="DashLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="240" y2="60" type="Line" x2="230" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="120" y2="140" type="Line" x2="110" y1="130" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="70" ry="0" rx="0" y2="340" type="Rectangle" x2="240" y1="100" is_movable="1">
+                <pen widthF="2" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="70" y2="60" type="Line" x2="80" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="70" y2="80" type="Line" x2="80" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="270" y2="330" type="Line" x2="280" y1="340" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="270" y2="110" type="Line" x2="280" y1="100" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="270" y2="330" type="Line" x2="260" y1="340" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="240" y2="80" type="Line" x2="230" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="320" type="Line" x2="50" y1="120" is_movable="1">
+                <pen widthF="1" color="#000000" style="DashLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="130" type="Line" x2="60" y1="120" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="120" y2="140" type="Line" x2="130" y1="130" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="270" y2="110" type="Line" x2="260" y1="100" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="120" y2="160" type="Line" x2="130" y1="170" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="240" y2="100" type="Line" x2="270" y1="100" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="270" y2="340" type="Line" x2="270" y1="100" is_movable="1">
+                <pen widthF="1" color="#000000" style="DashLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="120" y2="160" type="Line" x2="110" y1="170" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="30" ry="0" rx="0" y2="400" type="Rectangle" x2="340" y1="30" is_movable="1">
+                <pen widthF="3" color="#ef2929" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="320" type="Line" x2="70" y1="320" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="310" type="Line" x2="60" y1="320" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="240" y2="100" type="Line" x2="240" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="130" type="Line" x2="40" y1="120" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="70" y2="100" type="Line" x2="70" y1="70" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="120" type="Line" x2="70" y1="120" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="50" y2="310" type="Line" x2="40" y1="320" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+            <shape closed="0" z="0" x1="240" y2="340" type="Line" x2="270" y1="340" is_movable="1">
+                <pen widthF="1" color="#000000" style="SolidLine"/>
+                <brush color="#000000" style="NoBrush"/>
+            </shape>
+        </shapes>
+    </diagram>
+    <collection>
+        <category name="import">
+            <names>
+                <name lang="da">Importerede elementer</name>
+                <name lang="cs">Zavedené prvky</name>
+                <name lang="pl">Elementy importowane</name>
+                <name lang="tr">İthal öğeler</name>
+                <name lang="ru">Импортированные элементы</name>
+                <name lang="ca">Elements importats</name>
+                <name lang="en">Imported elements</name>
+                <name lang="sl">Uvoženi elementi</name>
+                <name lang="es">Elementos importados</name>
+                <name lang="hr">Uvezeni elementi</name>
+                <name lang="de">Importierte elemente</name>
+                <name lang="it">Elementi importati</name>
+                <name lang="pt">elementos importados</name>
+                <name lang="el">Εισηγμένα στοιχεία</name>
+                <name lang="fr">Éléments importés</name>
+                <name lang="nl">Elementen geïmporteerd</name>
+                <name lang="ro">Elemente importate</name>
+            </names>
+            <element name="16pinjst.elmt">
+                <definition hotspot_y="15" orientation="dyyy" width="170" type="element" version="0.70" height="30" link_type="simple" hotspot_x="90">
+                    <uuid uuid="{ae04d4f1-8ac0-4702-8a2e-ee3cda962f11}"/>
+                    <names>
+                        <name lang="en">16 pin JST male</name>
+                    </names>
+                    <elementInformations/>
+                    <informations/>
+                    <description>
+                        <rect y="-10" ry="0" width="160" rx="0" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" height="20" x="-85"/>
+                        <terminal y="-2" orientation="n" x="60"/>
+                        <terminal y="3" orientation="s" x="70"/>
+                        <terminal y="-2" orientation="n" x="0"/>
+                        <terminal y="-2" orientation="n" x="-30"/>
+                        <terminal y="-2" orientation="n" x="-10"/>
+                        <terminal y="-2" orientation="n" x="-60"/>
+                        <terminal y="-2" orientation="n" x="-50"/>
+                        <terminal y="3" orientation="s" x="40"/>
+                        <terminal y="3" orientation="s" x="0"/>
+                        <terminal y="3" orientation="s" x="10"/>
+                        <terminal y="3" orientation="s" x="20"/>
+                        <terminal y="3" orientation="s" x="30"/>
+                        <terminal y="-2" orientation="n" x="30"/>
+                        <terminal y="-2" orientation="n" x="50"/>
+                        <terminal y="3" orientation="s" x="50"/>
+                        <terminal y="3" orientation="s" x="-50"/>
+                        <terminal y="3" orientation="s" x="-40"/>
+                        <terminal y="3" orientation="s" x="-30"/>
+                        <terminal y="3" orientation="s" x="-20"/>
+                        <terminal y="3" orientation="s" x="-10"/>
+                        <terminal y="3" orientation="s" x="-60"/>
+                        <terminal y="3" orientation="s" x="60"/>
+                        <terminal y="-2" orientation="n" x="-20"/>
+                        <terminal y="-2" orientation="n" x="-70"/>
+                        <terminal y="-2" orientation="n" x="-80"/>
+                        <terminal y="-2" orientation="n" x="10"/>
+                        <terminal y="3" orientation="s" x="-70"/>
+                        <terminal y="-2" orientation="n" x="20"/>
+                        <terminal y="-2" orientation="n" x="70"/>
+                        <terminal y="-2" orientation="n" x="40"/>
+                        <terminal y="-2" orientation="n" x="-40"/>
+                        <terminal y="3" orientation="s" x="-80"/>
+                    </description>
+                </definition>
+            </element>
+            <category name="10_electric">
+                <names>
+                    <name lang="da">Elektrisk</name>
+                    <name lang="cs">Elektrotechnika</name>
+                    <name lang="pl">Elektrotechnika</name>
+                    <name lang="ru">Электротехника</name>
+                    <name lang="en">Electric</name>
+                    <name lang="es">Eléctrica</name>
+                    <name lang="de">Elektrik</name>
+                    <name lang="it">Elettrica</name>
+                    <name lang="el">Ηλεκτρικά</name>
+                    <name lang="nl">Elektrotechniek</name>
+                    <name lang="fr">Electrique</name>
+                </names>
+                <category name="10_allpole">
+                    <names>
+                        <name lang="da">Flere ledere</name>
+                        <name lang="cs">Vícežilový</name>
+                        <name lang="pl">Schematy wieloliniowe</name>
+                        <name lang="ru">Многополюсные</name>
+                        <name lang="en">All-pole</name>
+                        <name lang="es">Multifilar</name>
+                        <name lang="de">Allpolig</name>
+                        <name lang="it">Multifilare</name>
+                        <name lang="el">Πολυγραμμικό</name>
+                        <name lang="fr">Multifilaire</name>
+                        <name lang="nl">Veel polig</name>
+                    </names>
+                    <category name="395_electronics&amp;semiconductors">
+                        <names>
+                            <name lang="cs">Elektronika a polovodiče</name>
+                            <name lang="pl">Elektronika i półprzewodniki</name>
+                            <name lang="ru">Электроника и полупроводники</name>
+                            <name lang="en">Electronics and semiconductors</name>
+                            <name lang="es">Electrónica y semiconductores</name>
+                            <name lang="de">Elektronik und Halbleiter</name>
+                            <name lang="it">Elettronica e semiconduttori</name>
+                            <name lang="el">Ηλεκτρονικά και ημιαγωγοί</name>
+                            <name lang="fr">Electronique et semi-conducteurs</name>
+                            <name lang="nl">Electronica en halfgeleiders</name>
+                        </names>
+                        <category name="01_resistors">
+                            <names>
+                                <name lang="cs">Odporník</name>
+                                <name lang="pl">Rezystory</name>
+                                <name lang="ar">مُقاومة</name>
+                                <name lang="ru">Резисторы</name>
+                                <name lang="en">Resistors</name>
+                                <name lang="es">Resistencias</name>
+                                <name lang="de">Widerstände</name>
+                                <name lang="it">Resistori</name>
+                                <name lang="pt">Resistência</name>
+                                <name lang="el">Αντιστάσεις</name>
+                                <name lang="fr">Résistances</name>
+                                <name lang="nl">Weerstand</name>
+                            </names>
+                            <element name="resistance.elmt">
+                                <definition hotspot_y="29" orientation="dyyy" width="20" type="element" version="0.5" hotspot_x="10" link_type="simple" height="60">
+                                    <uuid uuid="{af30335a-4d6f-4d8c-a3a5-60c5e1d43dc7}"/>
+                                    <names>
+                                        <name lang="el">Αντίσταση</name>
+                                        <name lang="fr">Résistance</name>
+                                        <name lang="de">Widerstand</name>
+                                        <name lang="cs">Odporník</name>
+                                        <name lang="ru">Резистор</name>
+                                        <name lang="es">Resistencia</name>
+                                        <name lang="ar">مُقاومة</name>
+                                        <name lang="it">Resistore</name>
+                                        <name lang="pl">Rezystor</name>
+                                        <name lang="en">Resistor</name>
+                                        <name lang="pt">Resistência</name>
+                                        <name lang="nl">Weerstand</name>
+                                    </names>
+                                    <informations>EN 60617: 04-01-01</informations>
+                                    <description>
+                                        <line x1="0" length2="1.5" y2="-20" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="0" y1="-10" antialias="false"/>
+                                        <line x1="0" length2="1.5" y2="20" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="0" y1="10" antialias="false"/>
+                                        <line x1="4" length2="1.5" y2="-10" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="4" y1="10" antialias="false"/>
+                                        <line x1="-4" length2="1.5" y2="10" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="4" y1="10" antialias="false"/>
+                                        <line x1="4" length2="1.5" y2="-10" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="-4" y1="-10" antialias="false"/>
+                                        <line x1="-4" length2="1.5" y2="10" end1="none" length1="1.5" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" x2="-4" y1="-10" antialias="false"/>
+                                        <input y="0" tagg="label" rotate="true" size="9" text="_" x="6"/>
+                                        <terminal y="21" orientation="s" x="0"/>
+                                        <terminal y="-21" orientation="n" x="0"/>
+                                    </description>
+                                </definition>
+                            </element>
+                        </category>
+                    </category>
+                </category>
+            </category>
+            <element name="103capacitor.elmt">
+                <definition hotspot_y="19" orientation="dyyy" width="40" type="element" version="0.70" height="30" hotspot_x="19" link_type="simple">
+                    <uuid uuid="{97ac6f7a-91e7-4611-8c56-1bb3315f4c04}"/>
+                    <names>
+                        <name lang="en">103 capacitor</name>
+                    </names>
+                    <elementInformations/>
+                    <informations/>
+                    <description>
+                        <ellipse y="-6.53241" width="13.1779" style="line-style:normal;line-weight:normal;filling:none;color:black" antialias="false" height="13.1324" x="-6.15906"/>
+                        <line x1="-4.51183" length2="1.5" y2="-12.2778" end1="none" length1="1.5" x2="-11.9244" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="-4.89086" antialias="false"/>
+                        <line x1="5.37158" length2="1.5" y2="-12.2778" end1="none" length1="1.5" x2="12.7841" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="-4.89086" antialias="false"/>
+                        <terminal y="-12.2778" orientation="w" x="-11.9244"/>
+                        <terminal y="-12.2778" orientation="e" x="12.7841"/>
+                    </description>
+                </definition>
+            </element>
+        </category>
+    </collection>
+</project>
