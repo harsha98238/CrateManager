@@ -21,11 +21,11 @@ void displayCount()
 
   String L4Count ="";
   displayMenu(L1Count,L2Count,L3Count,L4Count);
-  color2Cnt +=1;
-  color3Cnt +=1;
-  FullCopCount +=1;
-  krichiCnt +=1;
-  color1Cnt +=1;
+  color2Cnt ;
+  color3Cnt ;
+  FullCopCount ;
+  krichiCnt ;
+  color1Cnt ;
 }
 void displayMenu(String line0,String line1,String line2,String line3){
 

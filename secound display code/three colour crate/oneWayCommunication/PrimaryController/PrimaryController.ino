@@ -892,17 +892,17 @@ unsigned long EntTime = 0;
 unsigned long MenuTime = 0;
 
 void loop(){ 
-if (millis()-EntTime >5000)
-{
-  EntTime =millis();
-  digitalWrite(vcMotor,not digitalRead(vcMotor));
-}
-if ((InsideClearFlag == true or InsideMenuFlag == true or LcdRefreshFlag ==true) and millis()-MenuTime >500)
-{
-    MenuTime = millis();
-    displayMenu(LineBuffer1,LineBuffer2,LineBuffer3,LineBuffer4);
-
-}
+//if (millis()-EntTime >5000)
+//{
+//  EntTime =millis();
+//  digitalWrite(vcMotor,not digitalRead(vcMotor));
+//}
+//if ((InsideClearFlag == true or InsideMenuFlag == true or LcdRefreshFlag ==true) and millis()-MenuTime >500)
+//{
+//    MenuTime = millis();
+//    displayMenu(LineBuffer1,LineBuffer2,LineBuffer3,LineBuffer4);
+//
+//}
 
 
 

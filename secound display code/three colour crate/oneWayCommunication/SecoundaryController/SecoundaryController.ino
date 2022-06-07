@@ -4,12 +4,16 @@
 
 
 
-const int rs = 12, en = 11, d0 = 9, d1 = 8, d2 = 7, d3 = 6, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en,d0, d1, d2, d3, d4, d5, d6, d7);//d0, d1, d2, d3,
+//const int rs = 12, en = 11, d0 = 9, d1 = 8, d2 = 7, d3 = 6, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+//LiquidCrystal lcd(rs, en,d0, d1, d2, d3, d4, d5, d6, d7);//d0, d1, d2, d3,
 
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 //watchog  
 Watchdog watchdog;
+
 //watchdog
 
 ///Serial Communication///

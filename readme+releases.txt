@@ -39,9 +39,10 @@ SL/0921/7578    Sortlink with CM
                                 (Rajapalayam) (1C CM)
 
 
-SL/0521/7580   Sortlink Lite - 3C	 aravind itex              v1.0             Other Repo
+SL/0521/7580   Sortlink Lite - 3C	 aravind itex              v1.0             Other Repo  (https://github.com/harsha98238/SL-Normal)
 SL/0521/7581   Sortlink Lite - 3C	 
 SL/0521/7582   Sortlink Lite - 3C	 
 SL/0521/7583   Sortlink Lite - 3C	 
 SL/0521/7584   Sortlink Lite - 3C	 
 SL/0521/7585   Sortlink Lite - 3C	 
+
