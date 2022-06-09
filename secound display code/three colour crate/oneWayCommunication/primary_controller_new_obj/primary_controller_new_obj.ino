@@ -74,6 +74,9 @@ const int copStorage3      = 20; //orientation box 1 //18  //20
 const int crateEjector3    = 21; //bin change 1  //19
 const int binLock3         = 22;
 const int binUp3           = 23; //bin down 1
+
+
+const int PushButton = 30;
 //ccb
 bool loaderState = false;
 unsigned long timerccb = 0;
@@ -686,6 +689,7 @@ void setup() {
   pinMode(crate1, INPUT);
   pinMode(crate2, INPUT);
   pinMode(crate3, INPUT);
+  pinMode(PushButton, INPUT);
 
   pinMode(ccb, OUTPUT);
   pinMode(vcMotor, OUTPUT);
@@ -1508,7 +1512,7 @@ void loop() {
   if ((millis() - objerrtimer > (objerrtimerondelay * 50) and objerrflag1 == true) )
   {
     Object1ErrorOccuredFlag = true;
-    //Serial1.println("Object 1 sensor error occured");
+    Serial.println("Object 1 sensor error occured");
     error = true;
 
   }
@@ -1534,7 +1538,7 @@ void loop() {
   if ((millis() - colorerrtimer > (colorerrtimerondelay * 50) and colorerrflag1 == true) )
   {
     Color1ErrorOccuredFlag = true;
-    //Serial1.println("color 1 sensor error occured");
+    Serial.println("color 1 sensor error occured");
     error = true;
 
   }
@@ -1558,7 +1562,7 @@ void loop() {
   if ((millis() - yarnerrtimer > (yarnerrtimerondelay * 50) and yarnerrflag1 == true) )
   {
     YarnErrorOccuredFlag = true;
-    //Serial1.println("Yarn sensor error occured");
+    Serial.println("Yarn sensor error occured");
     error = true;
 
   }
@@ -2078,7 +2082,7 @@ void loop() {
   if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == true) )
   {
     Object2ErrorOccuredFlag = true;
-    //Serial1.println("Object2 error occured");
+    Serial.println("Object2 error occured");
     errors3 = true;
 
   }
@@ -2105,46 +2109,47 @@ void loop() {
   if ((millis() - color2errtimer > (color2errtimerondelay * 50) and color2errflag2 == true) )
   {
     Color2ErrorOccuredFlag = true;
+    Serial.println("Colour2 error occured");
     errors3 = true;
   }
 
-  //yarn2 error
-  if (digitalRead(yarn2) == false and yarn2errflag == false)
-  {
-    yarn2errtimer = millis();
-    yarn2errflag = true;
-    yarn2errflag1 = true;
-  }
-
-  if (digitalRead(yarn2) == true )
-  {
-    yarn2errflag = false;
-    yarn2errflag1 = false;
-  }
-
-  if ((millis() - yarn2errtimer > (yarn2errtimerondelay * 50) and yarn2errflag1 == true) )
-  {
-    Yarn2ErrorOccuredFlag = true;
-    //Serial1.println("Yarn2 sensor error occured");
-    error = true;
-
-  }
+//  //yarn2 error
+//  if (digitalRead(yarn2) == false and yarn2errflag == false)
+//  {
+//    yarn2errtimer = millis();
+//    yarn2errflag = true;
+//    yarn2errflag1 = true;
+//  }
+//
+//  if (digitalRead(yarn2) == true )
+//  {
+//    yarn2errflag = false;
+//    yarn2errflag1 = false;
+//  }
+//
+//  if ((millis() - yarn2errtimer > (yarn2errtimerondelay * 50) and yarn2errflag1 == true) )
+//  {
+//    Yarn2ErrorOccuredFlag = true;
+//    //Serial1.println("Yarn2 sensor error occured");
+//    error = true;
+//
+//  }
   /*s3error ends*/
   // ****************************Yarn 2 identification********************************//
 
-  //if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == false */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
-  //{
-  //    timeryarn2 = millis();
-  //    yarn2flag = true;
-  //    //Serial1.println("yarn2 came");
-  //}
-
-  if (digitalRead(yarn2) == false and yarn2flag == false)
+  if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == false */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
   {
-    timeryarn2 = millis();
-    yarn2flag = true;
-    //Serial1.println("yarn2 came");
+      timeryarn2 = millis();
+      yarn2flag = true;
+      //Serial1.println("yarn2 came");
   }
+
+//  if (digitalRead(yarn2) == false and yarn2flag == false)
+//  {
+//    timeryarn2 = millis();
+//    yarn2flag = true;
+//    //Serial1.println("yarn2 came");
+//  }
 
   ///*test yarn2 sim*/
   //if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2PresentOutput >= 1/*and Object2Detected == true*/ )
@@ -3088,7 +3093,7 @@ void loop() {
   /*shutter4 end*/
 
   /*error reset*/
-  if (ResetSwitch == true and ((error == true) or (BeltError == true) or (errors3 = true) or (errors4 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true) or (Tray3LightError == true)))
+  if ((PushButton == true or ResetSwitch == true) and ((error == true) or (BeltError == true) or (errors3 = true) or (errors4 = true) or (errorFC == true) or (Tray1LightError == true) or (Tray2LightError == true) or (Tray3LightError == true)))
   {
     ResetSwitch = false;
     BeltError = false;

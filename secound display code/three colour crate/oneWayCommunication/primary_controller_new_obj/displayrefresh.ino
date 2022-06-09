@@ -39,7 +39,7 @@ void displayMenu(String line0,String line1,String line2,String line3){
    String message ;
    serializeJsonPretty(doc, message);
    Serial1.println(message);
-   Serial.println(message);
+//   Serial.println(message);
    
 
   
