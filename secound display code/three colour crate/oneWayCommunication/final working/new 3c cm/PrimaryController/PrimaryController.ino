@@ -923,35 +923,6 @@ if (((RefreshTimer - PreviousRefreshTimer)  >=  RefreshInterval) and (LcdRefresh
  {
   PreviousRefreshTimer = RefreshTimer;
   
-//  lcd.begin(20, 4);
-//  delay(100);
-//  lcd.clear();
-//  lcd.setCursor(0,0);
-//  lcd.print("TB1=");
-//  lcd.setCursor(10,0);
-//  lcd.print("TB2=");
-//  lcd.setCursor(0,1);
-//  lcd.print("RB1=");
-//  lcd.setCursor(10,1);
-//  lcd.print("RB2=");
-//  lcd.setCursor(0,2);
-//  lcd.print("TB3=");
-//  lcd.setCursor(10,2);
-//  lcd.print("BS =");
-//  
-//  
-//  lcd.setCursor(4,0);
-//  lcd.print(color1Cnt);
-//  lcd.setCursor(14,0);
-//  lcd.print(color2Cnt);
-//  lcd.setCursor(4,1);
-//  lcd.print(FullCopCount);
-//  lcd.setCursor(14,1);
-//  lcd.print(krichiCnt);
-//  lcd.setCursor(4,2);
-//  lcd.print(color3Cnt);
-//  lcd.setCursor(14,2);
-//  lcd.print(BinSize);
     displayCount();
  }
 
@@ -1754,7 +1725,7 @@ if(Object1flag1 == true and digitalRead(obj1) == false and yarn1flag == true)
 }
 
 //Shutter2 ON flag
-    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  /*and  Tray3EmptyFlag == false*/  )
+    if (Shutter2Onflag1 == true and Shutter2Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false  )
         {
           Shutter2OnReady = true;
           Shutter2Onflag2 = true;
@@ -1767,7 +1738,7 @@ if(Object1flag1 == true and digitalRead(obj1) == false and yarn1flag == true)
      }
 
 // ****************************Color 1 Ejection********************************//
-if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/  )//was*50
+if( (millis()-Object1DetectTmr) > (s2OnDelay*1) and (millis()-Object1DetectTmr) < (s2OnDelay+s2OffDelay)*50 and Shutter2OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false  )//was*50
   
   {
   digitalWrite(s2,HIGH);
@@ -1873,7 +1844,7 @@ if (copStorage1Count >= numCopStorage1 and copstorage1Shutterflag1 == false)
 
 if (digitalRead(crate1) == true and tray1check == false)
   {
-    Tray1EmptyFlag = true;
+//    Tray1EmptyFlag = true;
     crate1alert = millis();
     tray1check = true;
     tray1checkflag = true;
@@ -2117,43 +2088,43 @@ if ((millis() - obj2errtimer > (obj2errtimerondelay * 50) and obj2errflag2 == tr
       errors3 = true;
     }
 
-//yarn2 error
-  if (digitalRead(yarn2) == false and yarn2errflag == false)
-  {
-    yarn2errtimer = millis();
-    yarn2errflag = true;
-    yarn2errflag1 = true;
-  }
-
-  if (digitalRead(yarn2) == true )
-    {
-      yarn2errflag = false;
-      yarn2errflag1 = false;
-    }
-    
-  if ((millis() - yarn2errtimer > (yarn2errtimerondelay * 50) and yarn2errflag1 == true) )
-  { 
-    Yarn2ErrorOccuredFlag = true;
-    //Serial1.println("Yarn2 sensor error occured");
-    error = true;
-   
-  }    
+////yarn2 error
+//  if (digitalRead(yarn2) == false and yarn2errflag == false)
+//  {
+//    yarn2errtimer = millis();
+//    yarn2errflag = true;
+//    yarn2errflag1 = true;
+//  }
+//
+//  if (digitalRead(yarn2) == true )
+//    {
+//      yarn2errflag = false;
+//      yarn2errflag1 = false;
+//    }
+//    
+//  if ((millis() - yarn2errtimer > (yarn2errtimerondelay * 50) and yarn2errflag1 == true) )
+//  { 
+//    Yarn2ErrorOccuredFlag = true;
+//    //Serial1.println("Yarn2 sensor error occured");
+//    error = true;
+//   
+//  }    
 /*s3error ends*/
 // ****************************Yarn 2 identification********************************//
 
-//if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == true */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
+if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2Detected == true /*and digitalRead(obj2) == true */) /*or (digitalRead(yarn2) == false and yarn2flag == false)*/)
+{
+    timeryarn2 = millis();
+    yarn2flag = true;
+    Serial.println("yarn2 came");
+}
+
+//if(digitalRead(yarn2) == false and yarn2flag == false)
 //{
 //    timeryarn2 = millis();
 //    yarn2flag = true;
 //    //Serial1.println("yarn2 came");
 //}
-
-if(digitalRead(yarn2) == false and yarn2flag == false)
-{
-    timeryarn2 = millis();
-    yarn2flag = true;
-    //Serial1.println("yarn2 came");
-}
 
 ///*test yarn2 sim*/
 //if((yarn2PresentOutput >= 1 and yarn2flag == false and Object2PresentOutput >= 1/*and Object2Detected == true*/ )
@@ -2178,7 +2149,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
  if(digitalRead(color2) == false and Color2flag == false and ColorSensorOption == true )
     {
     Color2flag = true;
-    //Serial1.println("Color2 identified leuze");
+    Serial.println("Color2 identified leuze");
     Color2simulatorflag = true;
     }
 
@@ -2213,7 +2184,7 @@ if(digitalRead(color2) == false and  Color2flag == false and ColorSensorOption =
 if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected == true  /*and digitalRead(obj2) == true*/ ) 
 {
     color2identified = true;
-    //Serial1.println("Color2 came");
+    Serial.println("Color2 came");
 }
 
     
@@ -2241,7 +2212,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
     Object2Detected = true;//only used inside loo
     Object2flag1 = true;
     Shutter3OnReady = false;
-    //Serial1.println("Object2 identified");
+    Serial.println("Object2 identified");
     //yarn2flag = false;
     
     if (ColorSensorOption == false)
@@ -2263,7 +2234,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
       s3on = false;
       Object2Detected = false;
       Object2flag1 = false;
-      //Serial1.println("trigger s3 for c2 cop");
+      Serial.println("trigger s3 for c2 cop");
       }
 ////bobbin mix SHUTTER3 for color2COP
 //  if (Object2Detected == true and digitalRead(obj2) == false and yarn2flag == false /*and BobbinMixupflag == true*/)
@@ -2295,7 +2266,7 @@ if(Color2PresentOutput >= 1 and color2identified == false and Object2Detected ==
       s3on = false;
       Object2Detected = false;
       Object2flag1 = false;
-      //Serial1.println("Color3 empty Check");
+      Serial.println("Color3 empty Check");
     }
  //To find Yarn at Object2 sensor and use the information for shutter4     
 if(Object2Detected == true and digitalRead(obj2) == false and yarn2flag == true)
@@ -2306,7 +2277,7 @@ if(Object2Detected == true and digitalRead(obj2) == false and yarn2flag == true)
       yarn2detected = false;
 
 //      krichi2 =  true;
-//      //Serial1.println("c2 krichi");
+      Serial.println("c2 krichi");
 
 
 
@@ -2346,7 +2317,7 @@ if(Object2Detected == true and digitalRead(obj2) == false and yarn2flag == true)
 //krichi2==false;
 //}   
 //Shutter3 ON flag
-    if (Shutter3Onflag1 == true and Shutter3Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  /*and  Tray3EmptyFlag == false*/  )
+    if (Shutter3Onflag1 == true and Shutter3Onflag2 == false and Tray1EmptyFlag == false and Tray2EmptyFlag == false  and  Tray3EmptyFlag == false)
         {
           Shutter3OnReady = true;
           Shutter3Onflag2 = true;
@@ -2358,7 +2329,7 @@ if(Object2Detected == true and digitalRead(obj2) == false and yarn2flag == true)
       Shutter3Onflag2 = false;
      }
 /***************************Color 2 Ejection********************************/
-if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false /*and  Tray3EmptyFlag == false*/ )//was*50
+if( (millis()-Object2DetectTmr) > (s3OnDelay*50)/* *1 */ and (millis()-Object2DetectTmr) < (s3OnDelay+s3OffDelay)*50 and Shutter3OnReady == true and Tray1EmptyFlag == false and Tray2EmptyFlag == false and  Tray3EmptyFlag == false)//was*50
   
   {
   digitalWrite(s3,HIGH);
@@ -2456,7 +2427,7 @@ if (copStorage2Count >= numCopStorage2 and copstorage2Shutterflag1 == false)
 
 if (digitalRead(crate2) == true and tray2check == false)
   {
-    Tray2EmptyFlag = true;
+//    Tray2EmptyFlag = true;
     crate2alert = millis();
     tray2check = true;
     tray2checkflag = true;
@@ -2726,7 +2697,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
     {
     timeryarn3 = millis();
     yarn3flag = true;
-    //Serial1.println("yarn3 came");
+    Serial.println("yarn3 came");
     }
 
 // ****************************Color 3 identification********************************//
@@ -2735,7 +2706,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
  {
   color3flag = true;
   color3identified = true;
-  //Serial1.println("colour3 identified");
+  Serial.println("colour3 identified");
   s4on = true;
 }
 
@@ -2747,7 +2718,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
     Object3Detected = true;//only used inside loop
     Object3flag1 = true;
     Shutter4OnReady = false;
-    //Serial1.println("Object3 identified");
+    Serial.println("Object3 identified");
     yarn3flag = false;
     color3flag = false;
     color3identified = false;
@@ -2766,7 +2737,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      //Serial1.println("color3 eject");
+      Serial.println("color3 eject");
       }
   if (Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == false and BobbinMixupflag == true)
       
@@ -2780,7 +2751,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      //Serial1.println("bobbin mixup true");
+      Serial.println("bobbin mixup true");
       }
   
   //Passing Shutter4 -    
@@ -2796,7 +2767,7 @@ if ((millis() - obj3errtimer > (obj3errtimerondelay * 50) and obj3errflag2 == tr
       s4on = false;
       Object3Detected = false;
       Object3flag1 = false;
-      //Serial1.println("Color4 empty Check");
+      Serial.println("Color4 empty Check");
     }
  //To find Yarn at Object3 sensor and use the information      
 //if(Object3flag1 == true and digitalRead(obj3) == false and color3identified == false and yarn3flag == true)
@@ -2815,7 +2786,7 @@ if(Object3flag1 == true and digitalRead(obj3) == false and yarn3flag == true)
       Object3Detected = false;
       Object3flag1 = false;
       krichi3 =  true;
-      //Serial1.println("Color3 yarn Check");
+      Serial.println("Color3 yarn Check");
     }
 //Color 3 COP with Yarn (color 3 kirchi)
     if   (Object3flag1 == true and digitalRead(obj3) == false and color3identified == true and yarn3flag == true  )
@@ -2869,10 +2840,10 @@ if (C3CountFlag1 == true and C3CountFlag2 == false)
 {
   C3CountFlag2 = true;
   color3Cnt++;
-  //Serial1.println("inside color 3 loop");
+  Serial.println("inside color 3 loop");
   color3Cntflag++;
-  //Serial.print("color 3 count=");
-  //Serial1.println(color3Cnt);
+  Serial.print("color 3 count=");
+  Serial.println(color3Cnt);
 //  if(CountDisplayFlag == true)
 //{
 //  lcd.setCursor(4,2);
@@ -2948,7 +2919,7 @@ if (CopStorage3Count >= numCopStorage3 and CopStorage3Shutterflag1 == false)
 
 if (digitalRead(crate3) == true and Tray3check == false)
   {
-    Tray3EmptyFlag = true;
+//    Tray3EmptyFlag = true;
     crate3alert = millis();
     Tray3check = true;
     Tray3checkflag = true;
@@ -3994,7 +3965,8 @@ if ((InsideMenuFlag == false) and (customKey=='A'))
   sprintf(bufferVal,"%-20s","2. SINGLE COLOUR");
   LineBuffer2 = bufferVal;
   LineBuffer3 = EmptyBuffer;
-  displayMenu(LineBuffer1,LineBuffer2,EmptyBuffer,EmptyBuffer);
+  LineBuffer4 = EmptyBuffer;
+  displayMenu(LineBuffer1,LineBuffer2,LineBuffer3,LineBuffer4);
   InsideOption3Flag = true; 
   return ;
 }
@@ -4184,7 +4156,7 @@ if( (InsideOption1Flag == true) and (customKey=='6'))
   sprintf(bufferVal,"%-20s","PRESS B TO EXIT");
   LineBuffer2 = bufferVal;
   LineBuffer3 = EmptyBuffer;
-  LineBuffer4 = bufferVal;
+  LineBuffer4 = EmptyBuffer;
   displayMenu(LineBuffer1,LineBuffer2,LineBuffer3,LineBuffer4);
   InsideMenuFlag = false;
   InsideOption2Flag = false;
