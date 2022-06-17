@@ -17,6 +17,9 @@ String Coloumn3[] = {{"BS ="},{""},{""},{""}};
 
 
 String Data1[] = {{"10 "}, {"120"}, {"140"}, {"160"}, {"180"}, {"200"}};
+String Data2[] = {{"ON "}, {"OFF"}};
+String Data3[] = {{"SINGLE COLOUR MODE"}, {"MULTI COLOUR MODE "}};
+
 
 
 const int leftButtonPin = 6;   
@@ -25,14 +28,13 @@ const int upButtonPin = 8;
 const int downButtonPin = 9;   
 const int enterButtonPin = 10; 
 
-int setting1Counter = 0;
-int setting2Counter = 0;
-int setting3Counter = 0;
-int setting4Counter = 0;
+
 
 int directionPush = 0;
 int directionUpDown1Push = 0; 
-int downPressCount = 0;
+int directionUpDown2Push = 0; 
+int directionUpDown3Push = 0; 
+
 
 boolean buttonStateLeft = HIGH;            // Button states for the "Left" command
 boolean lastButtonStateLeft = HIGH;                
@@ -55,6 +57,9 @@ unsigned long debounceDelay = 50;         // Delay time in milliseconds; the amo
 
 bool serialPrintFlag = HIGH;
 bool serialPrint1Flag = LOW;
+bool serialPrint2Flag = LOW;
+bool serialPrint3Flag = LOW;
+
 
 void setup()
 {
@@ -100,6 +105,20 @@ void loop()
    serialPrint1Flag = LOW;
   }
 
+  if(serialPrint2Flag == HIGH)
+  {
+   lcd.setCursor(0, 2);
+   lcd.print(Data2[directionUpDown2Push]);
+   serialPrint2Flag = LOW;
+  }
+  if(serialPrint3Flag == HIGH)
+  {
+   lcd.setCursor(0, 2);
+   lcd.print(Data3[directionUpDown3Push]);
+   serialPrint3Flag = LOW;
+  }  
+  
+  
   currentButtonStateLeft = digitalRead(leftButtonPin);          
   currentButtonStateRight = digitalRead(rightButtonPin); 
   currentButtonStateUp = digitalRead(upButtonPin);          
@@ -124,6 +143,8 @@ void loop()
       directionPush--;                                   // Both the up and down press counts will be reset to zero when the left button is pushed.
       serialPrintFlag = HIGH;
       directionUpDown1Push = 0;
+      directionUpDown2Push = 0;
+      directionUpDown3Push = 0;
       }
           
         if (directionPush < 0)                           // If the user tries to scroll below the first menu option,
@@ -142,6 +163,8 @@ void loop()
       directionPush++;// Both the up and down press counts will be reset to zero when the right button is pushed.   
       serialPrintFlag = HIGH;
       directionUpDown1Push = 0;
+      directionUpDown2Push = 0;
+      directionUpDown3Push = 0;
       }
   
         if (directionPush > 3)                           // If the user tries to scroll above the last menu option,
@@ -182,6 +205,91 @@ void loop()
         directionUpDown1Push = 0;
         }
     }
+  
+    // Up BUTTON PRESS Bobbin mix
+    if (currentButtonStateUp != buttonStateUp && directionPush == 2)       // Up button scrolls the menu options to the Up.  
+    { 
+    buttonStateUp = currentButtonStateUp;  
+                 
+      if (buttonStateUp == HIGH)                        // Once the button is released, the push is registered and the code below runs.
+      {                                                 
+      directionUpDown2Push--;                                   // Both the up and down press counts will be reset to zero when the Up button is pushed.
+      serialPrint2Flag = HIGH;
+      }
+          
+        if (directionUpDown2Push < 0)                           // If the user tries to scroll below the first menu option,
+        {                                                // the program will loop back to the last menu option.
+        directionUpDown2Push = 1;
+        }
+    }
+
+   // Down BUTTON PRESS Bobbin mix
+    if (currentButtonStateDown != buttonStateDown && directionPush == 2)     // Down button scrolls the menu options to the Down.    
+    { 
+    buttonStateDown = currentButtonStateDown;  
+                 
+      if (buttonStateDown == LOW)                         
+      {                                                 
+      directionUpDown2Push++;// Both the up and down press counts will be reset to zero when the Down button is pushed.   
+      serialPrint2Flag = HIGH;
+      }
+  
+        if (directionUpDown2Push > 1)                           // If the user tries to scroll above the last menu option,
+        {                                                // the program will loop back to the first menu option.
+        directionUpDown2Push = 0;
+        }
+    }
+
+
+
+    // Up BUTTON PRESS Sensor option
+    if (currentButtonStateUp != buttonStateUp && directionPush == 3)       // Up button scrolls the menu options to the Up.  
+    { 
+    buttonStateUp = currentButtonStateUp;  
+                 
+      if (buttonStateUp == HIGH)                        // Once the button is released, the push is registered and the code below runs.
+      {                                                 
+      directionUpDown3Push--;                                   // Both the up and down press counts will be reset to zero when the Up button is pushed.
+      serialPrint3Flag = HIGH;
+      }
+          
+        if (directionUpDown3Push < 0)                           // If the user tries to scroll below the first menu option,
+        {                                                // the program will loop back to the last menu option.
+        directionUpDown3Push = 1;
+        }
+    }
+
+   // Down BUTTON PRESS Sensor option
+    if (currentButtonStateDown != buttonStateDown && directionPush == 3)     // Down button scrolls the menu options to the Down.    
+    { 
+    buttonStateDown = currentButtonStateDown;  
+                 
+      if (buttonStateDown == LOW)                         
+      {                                                 
+      directionUpDown3Push++;// Both the up and down press counts will be reset to zero when the Down button is pushed.   
+      serialPrint3Flag = HIGH;
+      }
+  
+        if (directionUpDown3Push > 1)                           // If the user tries to scroll above the last menu option,
+        {                                                // the program will loop back to the first menu option.
+        directionUpDown3Push = 0;
+        }
+    }
+
+
+
+
+
+
+      
+  
+  
+  
+  
+  
+  
+  
+  
   }
 
   // After a button is pushed and the count recorded, all the states reset back to LOW for the data to be processed correctly.
